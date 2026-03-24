@@ -1,0 +1,195 @@
+
+<html>
+<head>
+<style>
+.outlier-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+.outlier-table th {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+.outlier-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+.outlier-table tr:nth-child(even) {background-color: #f3f4f6;}
+.outlier-table tr:hover {background-color: #e0e7ff;}
+</style>
+</head>
+<body>
+<div style="overflow-x:auto;">
+<table border="1" class="dataframe outlier-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Feature</th>
+      <th>Outlier Count</th>
+      <th>Percentage</th>
+      <th>Severity</th>
+      <th>Valid Range (IQR)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HeartDiseaseorAttack</td>
+      <td>23893</td>
+      <td>9.42%</td>
+      <td>⚠️ Medium</td>
+      <td>[0.00, 0.00]</td>
+    </tr>
+    <tr>
+      <td>HighBP</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[-1.50, 2.50]</td>
+    </tr>
+    <tr>
+      <td>HighChol</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[-1.50, 2.50]</td>
+    </tr>
+    <tr>
+      <td>CholCheck</td>
+      <td>9470</td>
+      <td>3.73%</td>
+      <td>✅ Low</td>
+      <td>[1.00, 1.00]</td>
+    </tr>
+    <tr>
+      <td>BMI</td>
+      <td>9847</td>
+      <td>3.88%</td>
+      <td>✅ Low</td>
+      <td>[13.50, 41.50]</td>
+    </tr>
+    <tr>
+      <td>Smoker</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[-1.50, 2.50]</td>
+    </tr>
+    <tr>
+      <td>Stroke</td>
+      <td>10292</td>
+      <td>4.06%</td>
+      <td>✅ Low</td>
+      <td>[0.00, 0.00]</td>
+    </tr>
+    <tr>
+      <td>Diabetes</td>
+      <td>39977</td>
+      <td>15.76%</td>
+      <td>❌ High</td>
+      <td>[0.00, 0.00]</td>
+    </tr>
+    <tr>
+      <td>PhysActivity</td>
+      <td>61760</td>
+      <td>24.35%</td>
+      <td>❌ High</td>
+      <td>[1.00, 1.00]</td>
+    </tr>
+    <tr>
+      <td>Fruits</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[-1.50, 2.50]</td>
+    </tr>
+    <tr>
+      <td>Veggies</td>
+      <td>47839</td>
+      <td>18.86%</td>
+      <td>❌ High</td>
+      <td>[1.00, 1.00]</td>
+    </tr>
+    <tr>
+      <td>HvyAlcoholConsump</td>
+      <td>14256</td>
+      <td>5.62%</td>
+      <td>⚠️ Medium</td>
+      <td>[0.00, 0.00]</td>
+    </tr>
+    <tr>
+      <td>AnyHealthcare</td>
+      <td>12417</td>
+      <td>4.89%</td>
+      <td>✅ Low</td>
+      <td>[1.00, 1.00]</td>
+    </tr>
+    <tr>
+      <td>NoDocbcCost</td>
+      <td>21354</td>
+      <td>8.42%</td>
+      <td>⚠️ Medium</td>
+      <td>[0.00, 0.00]</td>
+    </tr>
+    <tr>
+      <td>GenHlth</td>
+      <td>12081</td>
+      <td>4.76%</td>
+      <td>✅ Low</td>
+      <td>[0.50, 4.50]</td>
+    </tr>
+    <tr>
+      <td>MentHlth</td>
+      <td>36208</td>
+      <td>14.27%</td>
+      <td>⚠️ Medium</td>
+      <td>[-3.00, 5.00]</td>
+    </tr>
+    <tr>
+      <td>PhysHlth</td>
+      <td>40949</td>
+      <td>16.14%</td>
+      <td>❌ High</td>
+      <td>[-4.50, 7.50]</td>
+    </tr>
+    <tr>
+      <td>DiffWalk</td>
+      <td>42675</td>
+      <td>16.82%</td>
+      <td>❌ High</td>
+      <td>[0.00, 0.00]</td>
+    </tr>
+    <tr>
+      <td>Sex</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[-1.50, 2.50]</td>
+    </tr>
+    <tr>
+      <td>Age</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[0.00, 16.00]</td>
+    </tr>
+    <tr>
+      <td>Education</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[1.00, 9.00]</td>
+    </tr>
+    <tr>
+      <td>Income</td>
+      <td>0</td>
+      <td>0.0%</td>
+      <td>✅ Low</td>
+      <td>[0.50, 12.50]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</body>
+</html>
