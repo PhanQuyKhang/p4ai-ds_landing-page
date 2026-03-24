@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group APlus - P4AI-DS Portfolio</title>
+    <!-- Nhúng Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-10 top-0">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-blue-700">APlus Group</div>
+                <div class="space-x-4">
+                    <a href="#home" class="hover:text-blue-500 font-semibold">Home</a>
+                    <a href="#team" class="hover:text-blue-500 font-semibold">Our Team</a>
+                    <a href="#assignments" class="hover:text-blue-500 font-semibold">Assignments</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Giới thiệu chung) -->
+    <section id="home" class="pt-28 pb-16 bg-blue-50">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Programming for Artificial Intelligence <br/> and Data Science Assignments
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">Course Code: <strong>CO3135</strong> | Semester 252 – Academic Year 2025–2026</p>
+            
+            <div class="bg-white p-6 rounded-lg shadow-sm inline-block text-left">
+                <p><strong>Group:</strong> APlus</p>
+                <p><strong>University:</strong> Ho Chi Minh City University of Technology (HCMUT)</p>
+                <p><strong>Department:</strong> Computer Science</p>
+                <p><strong>Instructor:</strong> Dr. Le Thanh Sach</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Members Section -->
+    <section id="team" class="py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Team members</h2>
+            <!-- Thay đổi số lượng card tùy thuộc nhóm có 2, 3 hay 4 người -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                
+                <!-- Member 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-24 h-24 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-blue-700">A</div>
+                    <h3 class="text-xl font-bold">Phạm Hồ Minh Khoa</h3>
+                    <p class="text-gray-500 text-sm mb-2">Student ID: 2352585</p>
+                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-semibold">Data Scientist</span>
+                </div>
+
+                <!-- Member 2 (Web Dev - Bạn) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-green-700">B</div>
+                    <h3 class="text-xl font-bold">Phan Quý Khang</h3>
+                    <p class="text-gray-500 text-sm mb-2">Student ID: 2352495</p>
+                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-semibold">Web Developer</span>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-24 h-24 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-purple-700">C</div>
+                    <h3 class="text-xl font-bold">Thái Quang Dự</h3>
+                    <p class="text-gray-500 text-sm mb-2">Student ID: 2252136</p>
+                    <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-semibold">AI Engineer</span>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-green-700">B</div>
+                    <h3 class="text-xl font-bold">Trần Duy Đức Huy</h3>
+                    <p class="text-gray-500 text-sm mb-2">Student ID: 2252263</p>
+                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-semibold">Web Developer</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Assignments Section (Bài tập lớn) -->
+    <section id="assignments" class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Course Assignments</h2>
+            
+            <div class="space-y-6">
+                
+                <!-- Assignment 1 (Đã có link) -->
+                <div class="bg-white p-8 rounded-xl shadow border-l-4 border-blue-600 flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-2xl font-bold text-gray-800">Assignment 1: Exploratory Data Analysis (EDA)</h3>
+                        <p class="text-gray-600 mt-2">Analysis on 3 modalities: Tabular, Text, and Image data.</p>
+                        <div class="flex gap-2 mt-3 text-sm">
+                            <span class="bg-gray-100 px-3 py-1 rounded border border-gray-200">Pandas</span>
+                            <span class="bg-gray-100 px-3 py-1 rounded border border-gray-200">Matplotlib</span>
+                            <span class="bg-gray-100 px-3 py-1 rounded border border-gray-200">NLTK/OpenCV</span>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Nút này sẽ dẫn đến trang chi tiết của Ass 1 -->
+                        <a href="/assignment_1/index.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            View Report &rarr;
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center">
+        <p>&copy; 2026 Group APlus - P4AI-DS (CO3135).</p>
+        <p class="mt-2 text-sm">Built with HTML & Tailwind CSS. Hosted on GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
