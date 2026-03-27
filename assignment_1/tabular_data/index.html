@@ -241,7 +241,7 @@
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
                     <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Feature vs Target Analysis
                 </h3>
-                <div id="" class="w-full max-w-2xl mx-auto h-96"></div>
+                <div id="bivariate-charts-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </div>
 
             <!-- Outlier Detection (IQR method) -->
@@ -936,6 +936,139 @@
                     }
                 }
             }
+        });
+        // ==========================================
+        // 1. DATA PHÂN TÍCH FEATURES VS TARGET
+        // ==========================================
+        const bivariateData = {
+            "target": "HeartDiseaseorAttack",
+            "features": {
+                "HighBP": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [138886, 90901]}, {"label": "Heart Disease", "data": [5965, 17928]}]},
+                "HighChol": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [138949, 90838]}, {"label": "Heart Disease", "data": [7140, 16753]}]},
+                "CholCheck": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [9199, 220588]}, {"label": "Heart Disease", "data": [271, 23622]}]},
+                "Smoker": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [132165, 97622]}, {"label": "Heart Disease", "data": [9092, 14801]}]},
+                "Stroke": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [223432, 6355]}, {"label": "Heart Disease", "data": [19956, 3937]}]},
+                "PhysActivity": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [53167, 176620]}, {"label": "Heart Disease", "data": [8593, 15300]}]},
+                "Fruits": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [83337, 146450]}, {"label": "Heart Disease", "data": [9445, 14448]}]},
+                "Veggies": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [42198, 187589]}, {"label": "Heart Disease", "data": [5641, 18252]}]},
+                "HvyAlcoholConsump": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [216379, 13408]}, {"label": "Heart Disease", "data": [23045, 848]}]},
+                "AnyHealthcare": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [11547, 218240]}, {"label": "Heart Disease", "data": [870, 23023]}]},
+                "NoDocbcCost": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [211082, 18705]}, {"label": "Heart Disease", "data": [21244, 2649]}]},
+                "DiffWalk": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [197027, 32760]}, {"label": "Heart Disease", "data": [13978, 9915]}]},
+                "Sex": {"labels": [0, 1], "datasets": [{"label": "No Heart Disease", "data": [131769, 98018]}, {"label": "Heart Disease", "data": [10205, 13688]}]},
+                "Diabetes": {"labels": [0, 1, 2], "datasets": [{"label": "No Heart Disease", "data": [198352, 3967, 27468]}, {"label": "Heart Disease", "data": [15351, 664, 7878]}]},
+                "GenHlth": {"labels": [1, 2, 3, 4, 5], "datasets": [{"label": "No Heart Disease", "data": [44283, 84956, 67732, 24842, 7974]}, {"label": "Heart Disease", "data": [1016, 4128, 7914, 6728, 4107]}]},
+                "Education": {"labels": [1, 2, 3, 4, 5, 6], "datasets": [{"label": "No Heart Disease", "data": [145, 3265, 7860, 55283, 62992, 100242]}, {"label": "Heart Disease", "data": [29, 778, 1618, 7467, 6918, 7083]}]},
+                "Income": {"labels": [1, 2, 3, 4, 5, 6, 7, 8], "datasets": [{"label": "No Heart Disease", "data": [8258, 9586, 13475, 17307, 22722, 32824, 39815, 85800]}, {"label": "Heart Disease", "data": [1553, 2197, 2519, 2828, 3161, 3646, 3404, 4585]}]},
+                "Age": {"labels": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "datasets": [{"label": "No Heart Disease", "data": [5671, 7544, 10997, 13630, 15806, 19107, 24889, 28579, 29886, 28001, 19586, 12887, 13204]}, {"label": "Heart Disease", "data": [29, 54, 126, 193, 351, 712, 1425, 2253, 3358, 4193, 3947, 3093, 4159]}]}
+            }
+        };
+
+        // 2. BỘ TỪ ĐIỂN NHÃN (LABEL MAPPING)
+        const bivariateLabelMap = {
+            "Sex": ["Female (0)", "Male (1)"],
+            "Diabetes": ["No", "Borderline", "Diabetes"],
+            "GenHlth": ["Excellent", "V.Good", "Good", "Fair", "Poor"],
+            "Age": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+            "Education": [1, 2, 3, 4, 5, 6],
+            "Income": [1, 2, 3, 4, 5, 6, 7, 8]
+        };
+
+        // 3. LOGIC VẼ BIỂU ĐỒ (DỌC TOÀN BỘ)
+        const bivariateContainer = document.getElementById('bivariate-charts-container');
+
+        Object.entries(bivariateData.features).forEach(([feature, featureData], index) => {
+            
+            // Tạo Card HTML chuẩn Tailwind
+            const chartDiv = document.createElement('div');
+            chartDiv.className = "bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow";
+            chartDiv.innerHTML = `
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-indigo-500 rounded-full inline-block"></span> ${feature} vs Heart Disease
+                </h3>
+                <div style="height: 400px; width: 100%;">
+                    <canvas id="bivariateChart-${index}"></canvas>
+                </div>
+            `;
+            bivariateContainer.appendChild(chartDiv);
+
+            // Xử lý nhãn trục X thông minh
+            let xLabels;
+            if (bivariateLabelMap[feature]) {
+                xLabels = bivariateLabelMap[feature];
+            } else {
+                xLabels = ["No (0)", "Yes (1)"];
+            }
+
+            const ctx = document.getElementById(`bivariateChart-${index}`).getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar', // CỘT DỌC
+                data: {
+                    labels: xLabels,
+                    datasets: [
+                        {
+                            label: 'No Heart Disease',
+                            data: featureData.datasets[0].data,
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)', // Màu xanh lam đồng bộ target
+                            borderColor: '#3b82f6',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Heart Disease',
+                            data: featureData.datasets[1].data,
+                            backgroundColor: 'rgba(139, 92, 246, 0.7)', // Màu tím đồng bộ target
+                            borderColor: '#8b5cf6',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            position: 'top', 
+                            labels: { 
+                                boxWidth: 12, 
+                                font: { size: 12, family: 'Poppins' },
+                                padding: 15
+                            } 
+                        },
+                        tooltip: { 
+                            mode: 'index', 
+                            intersect: false,
+                            callbacks: {
+                                label: (context) => ` ${context.dataset.label}: ${context.parsed.y.toLocaleString()}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            stacked: true, // Cột chồng
+                            grid: { display: false },
+                            ticks: {
+                                // Tự động xoay 45 độ nếu nhãn quá dài để tránh đè chữ
+                                maxRotation: 45,
+                                minRotation: 45,
+                                font: { size: 11 }
+                            }
+                        },
+                        y: { 
+                            stacked: true, // Cột chồng
+                            beginAtZero: true,
+                            title: { display: true, text: 'Sample Count', color: '#64748b' },
+                            grid: { color: '#f1f5f9' },
+                            ticks: { 
+                                callback: value => value.toLocaleString(),
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
         });
     </script>
 </body>
