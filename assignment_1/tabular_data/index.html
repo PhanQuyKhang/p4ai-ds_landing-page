@@ -155,7 +155,7 @@
                         </tr>
                         <tr class="hover:bg-slate-50 transition">
                             <td class="px-6 py-4 font-bold text-slate-800">Sex</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-md text-xs">Continuous</span></td>
+                            <td class="px-6 py-4"><span class="bg-gray-100 text-gray-700 font-semibold px-3 py-1 rounded-md text-xs">Binary</span></td>
                             <td class="px-6 py-4 text-slate-600">Biological sex (0 = female, 1 = male)</td>
                         </tr>
                         <tr class="hover:bg-slate-50 transition">
@@ -198,11 +198,13 @@
             <h2 class="text-2xl font-bold text-slate-800 mb-6">2. Visualizations</h2>
 
             <!-- Target variable distribution -->
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-6">
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
-                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Target Variable Distribution
+                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Heart Disease Target Distribution
                 </h3>
-                <div id="target-dist" class="w-full max-w-2xl mx-auto h-96"></div>
+                <div class="w-full mx-auto" style="height: 350px;"> 
+                    <canvas id="targetDistChart"></canvas>
+                </div>
             </div>
 
             <!-- Univariate Analysis -->
@@ -210,7 +212,7 @@
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
                     <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Univariate analysis
                 </h3>   
-                <p class="text-sm text-gray-500 mb-8">Distributions of continuous and binary features across the dataset.</p>
+                <p class="text-sm text-gray-500 mb-8">Distributions of continuous and categorial features across the dataset.</p>
 
                 <!-- Vùng chứa Continuous (Histograms) -->
                 <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">1. Continuous Features (Histograms)</h4>
@@ -229,7 +231,7 @@
             <!-- Correlation heatmap -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
-                    <span class="w-2 h-6 bg-green-500 rounded-full inline-block"></span> Correlation Heatmap
+                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Correlation Heatmap
                 </h3>
                 <div id="correlationHeatmap" style="width:100%; height:650px; margin: 20px 0;"></div>
             </div>
@@ -475,7 +477,10 @@
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
                     <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Feature Importance
                 </h3>
-                <div id="" class="w-full max-w-2xl mx-auto h-96"></div>
+                <!-- Gắn thêm ID và thẻ canvas vào đây -->
+                <div class="w-full mx-auto" style="height: 500px;"> 
+                    <canvas id="featureImportanceChart"></canvas>
+                </div>
             </div>
         </section>
 
@@ -526,77 +531,150 @@
 
     <script>
         // Target variable distribution
-        var data = [{
-            x: ["No Heart Disease", "Heart Disease"],
-            y: [229787, 23893],
-            type: "bar",
-            marker: { color: ["#3b82f6", "#8b5cf6"] }, // Xanh lam và Tím khớp với theme
-            text: ["229,787", "23,893"],
-            textposition: "auto",
-        }];
-        var layout = {
-            title: "Heart Disease Target Distribution",
-            margin: { t: 40, b: 40, l: 40, r: 20 },
-            yaxis: { title: "Count" },
-            font: { family: 'Poppins, sans-serif' }, // Đồng bộ font
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)'
-        };
-        Plotly.newPlot("target-dist", data, layout, { displayModeBar: false, responsive: true });
+        const ctxTarget = document.getElementById('targetDistChart').getContext('2d');
 
+        new Chart(ctxTarget, {
+            type: 'bar',
+            data: {
+                labels: ["No Heart Disease", "Heart Disease"],
+                datasets: [{
+                    label: 'Count',
+                    data: [229787, 23893],
+                    // Giữ nguyên 2 màu Xanh lam và Tím của bạn, thêm chút opacity cho đẹp
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)', // #3b82f6
+                        'rgba(139, 92, 246, 0.7)'  // #8b5cf6
+                    ],
+                    borderColor: [
+                        '#3b82f6',
+                        '#8b5cf6'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 6, // Bo góc cột 
+                    barPercentage: 0.5 // Thu nhỏ bề ngang cột lại vì chỉ có 2 cột, để to quá sẽ thô
+                }]
+            },
+            // PLUGIN: Vẽ text (229,787) lên trên đầu cột giống Plotly
+            plugins: [{
+                id: 'topLabels',
+                afterDatasetsDraw(chart) {
+                    const { ctx } = chart;
+                    chart.data.datasets.forEach((dataset, i) => {
+                        const meta = chart.getDatasetMeta(i);
+                        meta.data.forEach((bar, index) => {
+                            const data = dataset.data[index];
+                            ctx.fillStyle = '#475569'; // Màu chữ text-slate-600
+                            ctx.font = 'bold 14px Poppins, sans-serif'; // Đồng bộ font
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+                            // Vẽ số, format có dấu phẩy (toLocaleString) cách đỉnh cột 5px
+                            ctx.fillText(data.toLocaleString(), bar.x, bar.y - 5);
+                        });
+                    });
+                }
+            }],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ' Count: ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Count', color: '#64748b' },
+                        grid: { color: '#f1f5f9' },
+                        // Thêm dấu phẩy vào trục Y (VD: 200,000 thay vì 200000)
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString(); 
+                            }
+                        },
+                        grace: '10%' // Tăng thêm 10% khoảng trống phía trên cùng trục Y để chữ không bị cắt
+                    },
+                    x: {
+                        grid: { display: false }, // Ẩn lưới trục X cho gọn
+                        ticks: { 
+                            color: '#1e293b', 
+                            font: { size: 14, weight: 'bold' } 
+                        }
+                    }
+                }
+            }
+        });
         // univariate analysis
-// ==========================================
-        // 1. DATA TỪ FILE JSON (Giữ nguyên)
+        // ==========================================
+        // 1. DATA TỪ FILE JSON CẬP NHẬT MỚI NHẤT
         // ==========================================
         const univariateData = {
-          "continuous": {
-            "BMI": {"bin_edges": [12.0, 16.3, 20.6, 24.9, 29.2, 33.5, 37.8, 42.1, 46.4, 50.7, 55.0, 59.3, 63.6, 67.9, 72.2, 76.5, 80.8, 85.1, 89.4, 93.7, 98.0], "counts": [548, 12874, 58658, 93749, 46270, 21536, 11864, 4112, 1894, 818, 489, 175, 71, 101, 118, 124, 133, 92, 34, 20]},
-            "Diabetes": {"bin_edges": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0], "counts": [213703, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4631, 0, 0, 0, 0, 0, 0, 0, 0, 35346]},
-            "GenHlth": {"bin_edges": [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8, 5.0], "counts": [45299, 0, 0, 0, 0, 89084, 0, 0, 0, 0, 75646, 0, 0, 0, 0, 31570, 0, 0, 0, 12081]},
-            "MentHlth": {"bin_edges": [0.0, 1.5, 3.0, 4.5, 6.0, 7.5, 9.0, 10.5, 12.0, 13.5, 15.0, 16.5, 18.0, 19.5, 21.0, 22.5, 24.0, 25.5, 27.0, 28.5, 30.0], "counts": [184218, 13054, 11170, 9030, 4088, 639, 6464, 41, 439, 1167, 5593, 54, 113, 3364, 290, 38, 1221, 45, 406, 12246]},
-            "PhysHlth": {"bin_edges": [0.0, 1.5, 3.0, 4.5, 6.0, 7.5, 9.0, 10.5, 12.0, 13.5, 15.0, 16.5, 18.0, 19.5, 21.0, 22.5, 24.0, 25.5, 27.0, 28.5, 30.0], "counts": [171440, 14764, 13037, 7622, 5868, 809, 5774, 60, 646, 2587, 5028, 96, 174, 3273, 733, 56, 1408, 69, 621, 19615]},
-            "Age": {"bin_edges": [1.0, 1.6, 2.2, 2.8, 3.4, 4.0, 4.6, 5.2, 5.8, 6.4, 7.0, 7.6, 8.2, 8.8, 9.4, 10.0, 10.6, 11.2, 11.8, 12.4, 13.0], "counts": [5700, 7598, 0, 11123, 0, 13823, 16157, 0, 19819, 0, 26314, 30832, 0, 33244, 0, 32194, 23533, 0, 15980, 17363]},
-            "Education": {"bin_edges": [1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0], "counts": [174, 0, 0, 0, 4043, 0, 0, 0, 9478, 0, 0, 0, 62750, 0, 0, 0, 69910, 0, 0, 107325]},
-            "Income": {"bin_edges": [1.0, 1.35, 1.7, 2.05, 2.4, 2.75, 3.1, 3.45, 3.8, 4.15, 4.5, 4.85, 5.2, 5.55, 5.9, 6.25, 6.6, 6.95, 7.3, 7.65, 8.0], "counts": [9811, 0, 11783, 0, 0, 15994, 0, 0, 20135, 0, 0, 25883, 0, 0, 36470, 0, 0, 43219, 0, 90385]}
-          },
-          "binary": {
-            "HighBP": {"labels": [0.0, 1.0], "counts": [144851, 108829]},
-            "HighChol": {"labels": [0.0, 1.0], "counts": [146089, 107591]},
-            "CholCheck": {"labels": [0.0, 1.0], "counts": [9470, 244210]},
-            "Smoker": {"labels": [0.0, 1.0], "counts": [141257, 112423]},
-            "Stroke": {"labels": [0.0, 1.0], "counts": [243388, 10292]},
-            "PhysActivity": {"labels": [0.0, 1.0], "counts": [61760, 191920]},
-            "Fruits": {"labels": [0.0, 1.0], "counts": [92782, 160898]},
-            "Veggies": {"labels": [0.0, 1.0], "counts": [47839, 205841]},
-            "HvyAlcoholConsump": {"labels": [0.0, 1.0], "counts": [239424, 14256]},
-            "AnyHealthcare": {"labels": [0.0, 1.0], "counts": [12417, 241263]},
-            "NoDocbcCost": {"labels": [0.0, 1.0], "counts": [232326, 21354]},
-            "DiffWalk": {"labels": [0.0, 1.0], "counts": [211005, 42675]},
-            "Sex": {"labels": [0.0, 1.0], "counts": [141974, 111706]}
-          }
+            "continuous": {
+                "BMI": {
+                "labels": ["12–13", "13–14", "14–15", "15–16", "16–17", "17–18", "18–19", "19–20", "20–21", "21–22", "22–23", "23–24", "24–25", "25–26", "26–27", "27–28", "28–29", "29–30", "30–31", "31–32", "32–33", "33–34", "34–35", "35–36", "36–37", "37–38", "38–39", "39–40", "40–41", "41–42", "42–43", "43–44", "44–45", "45–46", "46–47", "47–48", "48–49", "49–50", "50–51", "51–52", "52–53", "53–54", "54–55", "55–56", "56–57", "57–58", "58–59", "59–60", "60–61", "61–62", "62–63", "63–64", "64–65", "65–66", "66–67", "67–68", "68–69", "69–70", "70–71", "71–72", "72–73", "73–74", "74–75", "75–76", "76–77", "77–78", "78–79", "79–80", "80–81", "81–82", "82–83", "83–84", "84–85", "85–86", "86–87", "87–88", "88–89", "89–90", "90–91", "91–92", "92–93", "93–94", "94–95", "95–96", "96–97", "97–98"],
+                "counts": [6, 21, 41, 132, 348, 776, 1803, 3968, 6327, 9855, 13643, 15610, 19550, 17146, 20562, 24606, 16545, 14890, 14573, 12275, 10474, 8948, 7181, 5575, 4633, 4147, 3397, 2911, 2258, 1659, 1639, 1500, 1043, 819, 750, 622, 484, 416, 372, 253, 215, 237, 113, 169, 109, 86, 71, 54, 63, 35, 43, 34, 24, 19, 13, 15, 14, 9, 15, 49, 14, 47, 16, 52, 3, 55, 1, 66, 2, 49, 37, 2, 44, 1, 1, 61, 2, 28, 1, 1, 32, 0, 0, 12, 1, 7]},
+                "MentHlth": {
+                "labels": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+                "counts": [175680, 8538, 13054, 7381, 3789, 9030, 988, 3100, 639, 91, 6373, 41, 398, 41, 1167, 5505, 88, 54, 97, 16, 3364, 227, 63, 38, 33, 1188, 45, 79, 327, 158, 12088]},
+                "PhysHlth": {
+                "labels": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+                "counts": [160052, 11388, 14764, 8495, 4542, 7622, 1330, 4538, 809, 179, 5595, 60, 578, 68, 2587, 4916, 112, 96, 152, 22, 3273, 663, 70, 56, 72, 1336, 69, 99, 522, 215, 19400]}            
+            },
+            "categorical": {
+                "Diabetes": {"labels": ["No (0)", "Borderline (1)", "Diabetes (2)"], "counts": [213703, 4631, 35346]},
+                "GenHlth": {"labels": ["Excellent (1)", "Very good (2)", "Good (3)", "Fair (4)", "Poor (5)"], "counts": [45299, 89084, 75646, 31570, 12081]},
+                "Age": {"labels": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "counts": [5700, 7598, 11123, 13823, 16157, 19819, 26314, 30832, 33244, 32194, 23533, 15980, 17363]},
+                "Education": {"labels": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0], "counts": [174, 4043, 9478, 62750, 69910, 107325]},
+                "Income": {"labels": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0], "counts": [9811, 11783, 15994, 20135, 25883, 36470, 43219, 90385]},
+                "HighBP": {"labels": [0.0, 1.0], "counts": [144851, 108829]},
+                "HighChol": {"labels": [0.0, 1.0], "counts": [146089, 107591]},
+                "CholCheck": {"labels": [0.0, 1.0], "counts": [9470, 244210]},
+                "Smoker": {"labels": [0.0, 1.0], "counts": [141257, 112423]},
+                "Stroke": {"labels": [0.0, 1.0], "counts": [243388, 10292]},
+                "PhysActivity": {"labels": [0.0, 1.0], "counts": [61760, 191920]},
+                "Fruits": {"labels": [0.0, 1.0], "counts": [92782, 160898]},
+                "Veggies": {"labels": [0.0, 1.0], "counts": [47839, 205841]},
+                "HvyAlcoholConsump": {"labels": [0.0, 1.0], "counts": [239424, 14256]},
+                "AnyHealthcare": {"labels": [0.0, 1.0], "counts": [12417, 241263]},
+                "NoDocbcCost": {"labels": [0.0, 1.0], "counts": [232326, 21354]},
+                "DiffWalk": {"labels": [0.0, 1.0], "counts": [211005, 42675]},
+                "Sex": {"labels": ["Female (0)", "Male (1)"], "counts": [141974, 111706]}
+            }
         };
 
-// ==========================================
-        // 2. VẼ BIỂU ĐỒ CONTINUOUS (Theo chuẩn của Thầy - Full Width)
+
+        // ==========================================
+        // BẢNG MÀU CHUẨN TAILWIND 
+        // ==========================================
+        const colorPalette = [
+            { border: '#3b82f6', bg: 'rgba(59, 130, 246, 0.6)' }, { border: '#10b981', bg: 'rgba(16, 185, 129, 0.6)' },
+            { border: '#f59e0b', bg: 'rgba(245, 158, 11, 0.6)' }, { border: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.6)' },
+            { border: '#ec4899', bg: 'rgba(236, 72, 153, 0.6)' }, { border: '#06b6d4', bg: 'rgba(6, 182, 212, 0.6)' },
+            { border: '#f43f5e', bg: 'rgba(244, 63, 94, 0.6)' }, { border: '#84cc16', bg: 'rgba(132, 204, 22, 0.6)' },
+            { border: '#6366f1', bg: 'rgba(99, 102, 241, 0.6)' }, { border: '#14b8a6', bg: 'rgba(20, 184, 166, 0.6)' }
+        ];
+
+        // ==========================================
+        // 1. VẼ NHÓM CONTINUOUS (Cột dọc)
         // ==========================================
         const numContainer = document.getElementById('continuous-charts-container');
-        
-        Object.entries(univariateData.continuous).forEach(([feature, data], index) => {
-            
-            // Xử lý labels: Chuyển bin_edges [12.0, 16.3] thành text "12.0-16.3"
-            let rangeLabels = [];
-            for (let i = 0; i < data.counts.length; i++) {
-                let start = data.bin_edges[i].toFixed(1);
-                let end = data.bin_edges[i+1].toFixed(1);
-                rangeLabels.push(`${start} - ${end}`);
-            }
 
-            // Tạo khung HTML Full Width
+        Object.entries(univariateData.continuous).forEach(([feature, data], index) => {
+            const color = colorPalette[index % colorPalette.length];
+            
             const chartDiv = document.createElement('div');
-            chartDiv.className = "bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm w-full"; // Thêm w-full và tăng padding
+            chartDiv.className = "bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-6";
             chartDiv.innerHTML = `
-                <h3 style="color: #667eea; font-weight: bold; margin-bottom: 15px; font-size: 1.25rem;">${feature} Distribution</h3>
-                <div style="height: 350px; width: 100%;"> <!-- Tăng chiều cao lên 350px để khung to nhìn cân đối hơn -->
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 rounded-full inline-block" style="background-color: ${color.border}"></span> 
+                    ${feature} Distribution
+                </h3>
+                <div style="height: 350px; width: 100%;">
                     <canvas id="numChart-${index}"></canvas>
                 </div>
             `;
@@ -606,80 +684,101 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: rangeLabels,
+                    labels: data.labels, 
                     datasets: [{
                         label: 'Frequency',
                         data: data.counts,
-                        backgroundColor: '#667eea80',
-                        borderColor: '#667eea',
-                        borderWidth: 1
+                        backgroundColor: color.bg,       
+                        borderColor: color.border,       
+                        borderWidth: 1,
+                        borderRadius: feature === "BMI" ? 0 : 4,
+                        categoryPercentage: feature === "BMI" ? 1.0 : 0.8,
+                        barPercentage: feature === "BMI" ? 1.0 : 0.9,
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Count' }
+                            beginAtZero: true, grid: { color: '#f1f5f9' },
+                            title: { display: true, text: 'Count', color: '#64748b' },
+                            ticks: { callback: value => value.toLocaleString() } 
                         },
                         x: {
-                            title: { display: true, text: feature },
-                            ticks: { maxRotation: 45, minRotation: 45 }
+                            grid: { display: false },
+                            ticks: { maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 }
                         }
                     }
                 }
             });
         });
+        const labelMappings = {
+            "Sex": ["Female (0)", "Male (1)"],
+            "Diabetes": ["No (0)", "Borderline (1)", "Diabetes (2)"],
+            "GenHlth": ["Excellent (1)", "Very Good (2)", "Good (3)", "Fair (4)", "Poor (5)"],
+        };
 
         // ==========================================
-        // 3. VẼ BIỂU ĐỒ CATEGORICAL/BINARY (Theo chuẩn của Thầy - Full Width)
+        // 2. VẼ NHÓM CATEGORICAL (Cột ngang)
         // ==========================================
         const catContainer = document.getElementById('binary-charts-container');
+        const offset = Object.keys(univariateData.continuous).length;
 
-        Object.entries(univariateData.binary).forEach(([feature, data], index) => {
+        Object.entries(univariateData.categorical).forEach(([feature, data], index) => {
+            const color = colorPalette[(offset + index) % colorPalette.length];
             
-            // Tạo khung HTML Full Width
             const chartDiv = document.createElement('div');
-            chartDiv.className = "bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm w-full";
+            chartDiv.className = "bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-6";
             chartDiv.innerHTML = `
-                <h3 style="color: #667eea; font-weight: bold; margin-bottom: 15px; font-size: 1.25rem;">${feature} Distribution</h3>
-                <div style="height: 250px; width: 100%;"> <!-- Binary chỉ có 2 thanh ngang nên 250px là đủ đẹp -->
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 rounded-full inline-block" style="background-color: ${color.border}"></span> 
+                    ${feature} Distribution
+                </h3>
+                <div style="height: 300px; width: 100%;">
                     <canvas id="catChart-${index}"></canvas>
                 </div>
             `;
             catContainer.appendChild(chartDiv);
             
+            let displayLabels;
+
+            if (labelMappings[feature]) {
+                displayLabels = labelMappings[feature];
+            } 
+            else if (data.labels.length === 2) {
+                displayLabels = ["No (0)", "Yes (1)"];
+            } 
+            else {
+                displayLabels = data.labels;
+            }
+
             const ctx = document.getElementById(`catChart-${index}`).getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ["No (0)", "Yes (1)"],
+                    labels: displayLabels,
                     datasets: [{
                         label: 'Count',
                         data: data.counts,
-                        backgroundColor: '#667eea80',
-                        borderColor: '#667eea',
-                        borderWidth: 1
+                        backgroundColor: color.bg,     
+                        borderColor: color.border,
+                        borderWidth: 1,
+                        borderRadius: 4
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y', // Quay ngang
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    indexAxis: 'y', // Xoay ngang toàn bộ
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
                     scales: {
                         x: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Count' }
+                            beginAtZero: true, grid: { color: '#f1f5f9' },
+                            title: { display: true, text: 'Count', color: '#64748b' },
+                            ticks: { callback: value => value.toLocaleString() } 
                         },
                         y: {
-                            title: { display: true, text: feature }
+                            grid: { display: false }
                         }
                     }
                 }
@@ -769,7 +868,75 @@
         }
     });
 
-    
+    // 1. Data JSON của bạn (bạn có thể đang load từ file, ở đây mình gán cứng để ví dụ)
+        const featureImportanceData = {
+        "labels": ["BMI", "Age", "Income", "PhysHlth", "Education", "GenHlth", "MentHlth", "Fruits", "PhysActivity", "Diabetes", "Stroke", "Veggies", "HighBP", "DiffWalk", "HighChol", "Sex", "Smoker", "NoDocbcCost", "HvyAlcoholConsump", "AnyHealthcare", "CholCheck"],
+        "data": [
+            {"feature": "BMI", "importance": 0.195},
+            {"feature": "Age", "importance": 0.11},
+            {"feature": "Income", "importance": 0.103},
+            {"feature": "PhysHlth", "importance": 0.086},
+            {"feature": "Education", "importance": 0.073},
+            {"feature": "GenHlth", "importance": 0.068},
+            {"feature": "MentHlth", "importance": 0.065},
+            {"feature": "Fruits", "importance": 0.033},
+            {"feature": "PhysActivity", "importance": 0.029},
+            {"feature": "Diabetes", "importance": 0.028},
+            {"feature": "Stroke", "importance": 0.028},
+            {"feature": "Veggies", "importance": 0.027},
+            {"feature": "HighBP", "importance": 0.027},
+            {"feature": "DiffWalk", "importance": 0.025},
+            {"feature": "HighChol", "importance": 0.024},
+            {"feature": "Sex", "importance": 0.023},
+            {"feature": "Smoker", "importance": 0.021},
+            {"feature": "NoDocbcCost", "importance": 0.015},
+            {"feature": "HvyAlcoholConsump", "importance": 0.009},
+            {"feature": "AnyHealthcare", "importance": 0.008},
+            {"feature": "CholCheck", "importance": 0.004}
+        ]
+        };
+
+        // 2. Trích xuất mảng các con số importance
+        const importanceValues = featureImportanceData.data.map(item => item.importance);
+
+        // 3. Vẽ biểu đồ lên Canvas
+        const ctxFeature = document.getElementById('featureImportanceChart').getContext('2d');
+        new Chart(ctxFeature, {
+            type: 'bar', // Biểu đồ cột
+            data: {
+                labels: featureImportanceData.labels, 
+                datasets: [{
+                    label: 'Importance',
+                    data: importanceValues,
+                    // Đổi màu xanh cho tone-sur-tone với cái icon màu blue-500 của bạn (#3b82f6)
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)', 
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                indexAxis: 'y', 
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Importance', color: '#64748b' },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y: {
+                        ticks: { 
+                            autoSkip: false, // Ép hiển thị toàn bộ 21 tên biến, không bị ẩn bớt
+                            color: '#475569'
+                        },
+                        grid: { display: false } // Ẩn lưới trục y cho biểu đồ sạch hơn
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
