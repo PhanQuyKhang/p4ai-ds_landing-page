@@ -550,8 +550,7 @@
                         '#8b5cf6'
                     ],
                     borderWidth: 1,
-                    borderRadius: 6, // Bo góc cột 
-                    barPercentage: 0.5 // Thu nhỏ bề ngang cột lại vì chỉ có 2 cột, để to quá sẽ thô
+                    barPercentage: 0.8 // Thu nhỏ bề ngang cột lại vì chỉ có 2 cột, để to quá sẽ thô
                 }]
             },
             // PLUGIN: Vẽ text (229,787) lên trên đầu cột giống Plotly
@@ -691,7 +690,6 @@
                         backgroundColor: color.bg,       
                         borderColor: color.border,       
                         borderWidth: 1,
-                        borderRadius: feature === "BMI" ? 0 : 4,
                         categoryPercentage: feature === "BMI" ? 1.0 : 0.8,
                         barPercentage: feature === "BMI" ? 1.0 : 0.9,
                     }]
@@ -764,7 +762,6 @@
                         backgroundColor: color.bg,     
                         borderColor: color.border,
                         borderWidth: 1,
-                        borderRadius: 4
                     }]
                 },
                 options: {
@@ -1013,7 +1010,6 @@
                             backgroundColor: 'rgba(59, 130, 246, 0.7)', // Màu xanh lam đồng bộ target
                             borderColor: '#3b82f6',
                             borderWidth: 1,
-                            borderRadius: 4
                         },
                         {
                             label: 'Heart Disease',
@@ -1021,7 +1017,6 @@
                             backgroundColor: 'rgba(139, 92, 246, 0.7)', // Màu tím đồng bộ target
                             borderColor: '#8b5cf6',
                             borderWidth: 1,
-                            borderRadius: 4
                         }
                     ]
                 },
