@@ -133,7 +133,6 @@ new Chart(ctxStopWords, {
             y: {
                 beginAtZero: true,
                 title: { display: true, text: 'Frequency' },
-                grid: { color: '#f1f5f9' },
                 ticks: {
                     // Chuyển định dạng số có dấu phẩy sang trục Y
                     callback: function(value) { return value.toLocaleString(); },
@@ -185,7 +184,7 @@ new Chart(ctxWordCount, {
                 ticks: { maxRotation: 45, minRotation: 45, font: {family: 'Inter', size: 11} }
             },
             y: { 
-                beginAtZero: true, grid: { color: '#f1f5f9' },
+                beginAtZero: true,
                 title: { display: true, text: 'Document Count'},
                 ticks: { callback: value => value.toLocaleString(), font: {family: 'Inter'} },
                 autoSkip: false
@@ -233,7 +232,7 @@ new Chart(ctxCharCount, {
                 ticks: { maxRotation: 45, minRotation: 45, font: {family: 'Inter', size: 11} }
             },
             y: { 
-                beginAtZero: true, grid: { color: '#f1f5f9' },
+                beginAtZero: true, 
                 title: { display: true, text: 'Document Count' },
                 ticks: { callback: value => value.toLocaleString(), font: {family: 'Inter'} },
                 autoSkip: false
@@ -286,7 +285,7 @@ new Chart(ctxVocab, {
                 ticks: { font: {family: 'Inter', size: 14, weight: 'bold'}}
             },
             y: { 
-                beginAtZero: true, grid: { color: '#f1f5f9' },
+                beginAtZero: true,
                 title: { display: true, text: 'Unique Word Count' },
                 ticks: { callback: value => value.toLocaleString() },
                 grace: '5%', // Thêm khoảng trống đỉnh cột,
@@ -363,7 +362,7 @@ Object.entries(topWordsByAuthor).forEach(([author, dataInfo]) => {
                         },
                         padding: { top: 10 }
                     },
-                    beginAtZero: true, grid: { color: '#e2e8f0' },
+                    beginAtZero: true, 
                     ticks: { callback: v => v.toLocaleString(), font: { size: 12 } }
                 },
                 y: { 
@@ -440,7 +439,7 @@ Object.entries(tfidfData).forEach(([author, dataInfo]) => {
             },
             scales: {
                 x: { 
-                    beginAtZero: true, grid: { color: '#e2e8f0' },
+                    beginAtZero: true,
                     title: { display: true, text: 'TF-IDF Score' },
                     ticks: { font: { size: 10 } }
                 },
@@ -519,7 +518,7 @@ Object.entries(bigramData).forEach(([author, dataInfo]) => {
             },
             scales: {
                 x: { 
-                    beginAtZero: true, grid: { color: '#e2e8f0' },
+                    beginAtZero: true,
                     title: { display: true, text: 'TF-IDF Score' },
                     ticks: { callback: v => v.toLocaleString(), font: { size: 10 } }
                 },
@@ -723,7 +722,6 @@ new Chart(ctxOverallFreq, {
             y: {
                 beginAtZero: true,
                 title: { display: true, text: 'Frequency' },
-                grid: { color: '#f1f5f9' },
                 ticks: {
                     // Định dạng số có dấu phẩy trên trục Y
                     callback: function(value) { return value.toLocaleString(); },
