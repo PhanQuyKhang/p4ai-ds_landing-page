@@ -111,12 +111,19 @@ new Chart(ctxStopWords, {
             }
         },
         scales: {
-            // TRỤC X: Bây giờ đóng vai trò hiển thị NHÃN (TỪ NGỮ)
             x: {
-                grid: { display: false },
+                title: {
+                    display: true,
+                    text: 'Stop words', // Nhãn cho trục X
+                    font: {
+                        family: 'Inter',
+                        size: 12,
+                        weight: '400'
+                    },
+                    padding: { top: 10 }
+                },
                 ticks: {
                     font: { family: 'Inter, sans-serif', size: 11 },
-                    color: '#334155',
                     maxRotation: 45, // Xoay chữ 45 độ để không bị đè nhau
                     minRotation: 45,
                     autoSkip: false // Ép hiển thị toàn bộ 20 từ
@@ -125,7 +132,7 @@ new Chart(ctxStopWords, {
             // TRỤC Y: Bây giờ đóng vai trò hiển thị SỐ (TẦN SUẤT)
             y: {
                 beginAtZero: true,
-                title: { display: true, text: 'Frequency', color: '#64748b' },
+                title: { display: true, text: 'Frequency' },
                 grid: { color: '#f1f5f9' },
                 ticks: {
                     // Chuyển định dạng số có dấu phẩy sang trục Y
@@ -166,12 +173,20 @@ new Chart(ctxWordCount, {
         plugins: { legend: { display: false } },
         scales: {
             x: { 
-                grid: { display: false },
+                title: {
+                    display: true,
+                    text: 'Word Count Ranges', // Nhãn cho trục X
+                    font: {
+                        family: 'Inter',
+                        size: 12,
+                    },
+                    padding: { top: 10 }
+                },
                 ticks: { maxRotation: 45, minRotation: 45, font: {family: 'Inter', size: 11} }
             },
             y: { 
                 beginAtZero: true, grid: { color: '#f1f5f9' },
-                title: { display: true, text: 'Document Count', color: '#64748b' },
+                title: { display: true, text: 'Document Count'},
                 ticks: { callback: value => value.toLocaleString(), font: {family: 'Inter'} },
                 autoSkip: false
             }
@@ -206,12 +221,20 @@ new Chart(ctxCharCount, {
         plugins: { legend: { display: false } },
         scales: {
             x: { 
-                grid: { display: false },
+                title: {
+                    display: true,
+                    text: 'Character Count Ranges', // Nhãn cho trục X
+                    font: {
+                        family: 'Inter',
+                        size: 12,
+                    },
+                    padding: { top: 10 }
+                },
                 ticks: { maxRotation: 45, minRotation: 45, font: {family: 'Inter', size: 11} }
             },
             y: { 
                 beginAtZero: true, grid: { color: '#f1f5f9' },
-                title: { display: true, text: 'Document Count', color: '#64748b' },
+                title: { display: true, text: 'Document Count' },
                 ticks: { callback: value => value.toLocaleString(), font: {family: 'Inter'} },
                 autoSkip: false
             }
@@ -251,12 +274,20 @@ new Chart(ctxVocab, {
         },
         scales: {
             x: { 
-                grid: { display: false },
-                ticks: { font: {family: 'Inter', size: 14, weight: 'bold'}, color: '#334155' }
+                title: {
+                    display: true,
+                    text: 'Authors', // Nhãn cho trục X
+                    font: {
+                        family: 'Inter',
+                        size: 12,
+                    },
+                    padding: { top: 10 }
+                },
+                ticks: { font: {family: 'Inter', size: 14, weight: 'bold'}}
             },
             y: { 
                 beginAtZero: true, grid: { color: '#f1f5f9' },
-                title: { display: true, text: 'Unique Word Count', color: '#64748b' },
+                title: { display: true, text: 'Unique Word Count' },
                 ticks: { callback: value => value.toLocaleString() },
                 grace: '5%', // Thêm khoảng trống đỉnh cột,
                 autoSkip: false
@@ -322,15 +353,22 @@ Object.entries(topWordsByAuthor).forEach(([author, dataInfo]) => {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                x: { 
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Frequency', // Nhãn cho trục X
+                        font: {
+                            family: 'Inter',
+                            size: 12,
+                        },
+                        padding: { top: 10 }
+                    },
                     beginAtZero: true, grid: { color: '#e2e8f0' },
                     ticks: { callback: v => v.toLocaleString(), font: { size: 12 } }
                 },
                 y: { 
-                    grid: { display: false },
                     ticks: { 
-                        font: { family: 'Inter', weight: '200', size: 12 }, 
-                        color: '#334155',
+                        font: { family: 'Inter', size: 12 }, 
                         autoSkip: false // QUAN TRỌNG: Ép Chart.js hiển thị đủ 100% nhãn, không được ẩn
                     }
                 }
@@ -403,12 +441,11 @@ Object.entries(tfidfData).forEach(([author, dataInfo]) => {
             scales: {
                 x: { 
                     beginAtZero: true, grid: { color: '#e2e8f0' },
-                    title: { display: true, text: 'TF-IDF Score', color: '#64748b' },
+                    title: { display: true, text: 'TF-IDF Score' },
                     ticks: { font: { size: 10 } }
                 },
                 y: { 
-                    grid: { display: false },
-                    ticks: { font: { family: 'Inter', weight: '200' }, color: '#334155' },
+                    ticks: { font: { family: 'Inter' } },
                     autoSkip: false
                 }
             }
@@ -483,12 +520,11 @@ Object.entries(bigramData).forEach(([author, dataInfo]) => {
             scales: {
                 x: { 
                     beginAtZero: true, grid: { color: '#e2e8f0' },
-                    title: { display: true, text: 'Frequency', color: '#64748b' },
+                    title: { display: true, text: 'TF-IDF Score' },
                     ticks: { callback: v => v.toLocaleString(), font: { size: 10 } }
                 },
                 y: { 
-                    grid: { display: false },
-                    ticks: { font: { family: 'Inter', weight: '200' }, color: '#334155' },
+                    ticks: { font: { family: 'Inter' } },
                     autoSkip: false
                 }
             }
@@ -667,11 +703,18 @@ new Chart(ctxOverallFreq, {
         },
         scales: {
             x: {
-                grid: { display: false },
+                title: {
+                    display: true,
+                    text: 'Words', // Nhãn cho trục X
+                    font: {
+                        family: 'Inter',
+                        size: 12,
+                    },
+                    padding: { top: 10 }
+                },
                 ticks: {
                     // Hiển thị nhãn chữ trên trục X
                     font: { family: 'Inter, sans-serif', size: 11 },
-                    color: '#334155',
                     maxRotation: 45, // Xoay chữ để không bị đè
                     minRotation: 45,
                     autoSkip: false // Hiện đầy đủ 20 nhãn
@@ -679,7 +722,7 @@ new Chart(ctxOverallFreq, {
             },
             y: {
                 beginAtZero: true,
-                title: { display: true, text: 'Frequency', color: '#64748b' },
+                title: { display: true, text: 'Frequency' },
                 grid: { color: '#f1f5f9' },
                 ticks: {
                     // Định dạng số có dấu phẩy trên trục Y
