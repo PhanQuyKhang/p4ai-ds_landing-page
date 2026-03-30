@@ -1,0 +1,16 @@
+[
+    {
+        "Author": "AI",
+        "Total Words": 88612,
+        "Unique Words": 15113,
+        "Total Texts": 3069,
+        "Richness Score (%)": 17.06
+    },
+    {
+        "Author": "Human",
+        "Total Words": 522069,
+        "Unique Words": 45242,
+        "Total Texts": 3000,
+        "Richness Score (%)": 8.67
+    }
+]

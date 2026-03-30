@@ -1,0 +1,52 @@
+{
+    "title": "Top 20 Stop Words in Dataset (Raw Data)",
+    "labels": [
+        "the",
+        "and",
+        "of",
+        "in",
+        "to",
+        "a",
+        "for",
+        "with",
+        "we",
+        "that",
+        "this",
+        "is",
+        "were",
+        "on",
+        "by",
+        "was",
+        "from",
+        "as",
+        "study",
+        "are"
+    ],
+    "datasets": [
+        {
+            "label": "Freq",
+            "data": [
+                43149,
+                35379,
+                29168,
+                20593,
+                18661,
+                17094,
+                9740,
+                9640,
+                7314,
+                6906,
+                6202,
+                5546,
+                5250,
+                5057,
+                4937,
+                4566,
+                4196,
+                4194,
+                3590,
+                3089
+            ]
+        }
+    ]
+}

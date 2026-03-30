@@ -3,9 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text data</title>
+    <title>Text Data EDA - AI vs Human</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
 </head>
-<body>
-    <h1>Text data</h1>
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-20 top-0">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-purple-700">APlus Group</div>
+                <div class="space-x-4 flex items-center">
+                    <a href="../index.html" class="text-gray-600 hover:text-purple-600 font-semibold flex items-center gap-1 transition">
+                        <span>&larr;</span> Back to Assignment 1
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 bg-purple-50">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">AI vs Human EDA</h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">AI vs Human text detection</p>
+            <div class="inline-flex items-center justify-center bg-white text-purple-700 font-bold px-5 py-2.5 rounded-lg shadow-sm border border-purple-100 uppercase tracking-wide text-sm">
+                Modality 2: Text Data
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-12 flex-grow">
+
+        <!-- 1. Analysis Methodology -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-3">
+                    1. Analysis Methodology
+                </h2>
+                <span class="text-slate-400 text-xs">▼</span>
+            </div>
+            <p class="text-[13px] text-slate-500 mb-6 italic border-t pt-2">
+                This report uses two types of text processing approaches depending on the analysis goal:
+            </p>
+
+            <div class="overflow-hidden rounded-xl border border-gray-100 shadow-sm">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-purple-600 text-white">
+                            <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider">Analysis Type</th>
+                            <th class="px-6 py-4 text-sm font-bold text-center">
+                                <span class="inline-flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full"></span> Raw Data
+                                </span>
+                            </th>
+                            <th class="px-6 py-4 text-sm font-bold text-center">
+                                <span class="inline-flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span> Stopwords Removed
+                                </span>
+                            </th>
+                            <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider">Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50 bg-[#fcfcfd]">
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">Basic Statistics</div>
+                                <div class="text-[11px] text-slate-400">(Word/Character counts)</div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Measure actual document size</td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">Stop Words Analysis</div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Analyze stopword frequency</td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">Word Frequency</div>
+                                <div class="text-[11px] text-slate-400">(Top overall words)</div>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Find meaningful keywords</td>
+                        </tr>
+                        <!-- Row 4 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">Category Keywords</div>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Category-specific terms</td>
+                        </tr>
+                        <!-- Row 5 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">Vocabulary Richness</div>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Content vocabulary diversity</td>
+                        </tr>
+                        <!-- Row 6 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">TF-IDF Terms</div>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Most distinctive terms</td>
+                        </tr>
+                        <!-- Row 7 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">N-grams (Bigrams)</div>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Meaningful phrase patterns</td>
+                        </tr>
+                        <!-- Row 8 -->
+                        <tr class="hover:bg-white transition">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800">Distributions</div>
+                                <div class="text-[11px] text-slate-400">(Word/Char histograms)</div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white rounded-md text-xs font-bold">✓</span>
+                            </td>
+                            <td class="px-6 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Show actual text lengths</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+<!-- 2. Dataset Overview -->
+        <section class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b pb-4 gap-2">
+                <h2 class="text-2xl font-bold text-slate-800">2. Dataset Overview</h2>
+                <p class="text-sm italic text-slate-500">Note: Statistics include all words (before stop words removal)</p>
+            </div>
+
+            <!-- 4 Tiles Overview Style -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Total Documents -->
+                <div class="bg-[#f8fafc] border border-purple-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-purple-600 mb-2">6,069</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Total Documents</div>
+                </div>
+
+                <!-- Categories -->
+                <div class="bg-[#f8fafc] border border-blue-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-blue-600 mb-2">2</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Categories</div>
+                </div>
+
+                <!-- Avg Words/Doc -->
+                <div class="bg-[#f8fafc] border border-green-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-green-600 mb-2">156.0</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Avg Words/Doc</div>
+                </div>
+
+                <!-- Avg Chars/Doc -->
+                <div class="bg-[#f8fafc] border border-rose-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-rose-600 mb-2">1,119.2</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Avg Chars/Doc</div>
+                </div>
+            </div>
+            
+            <!-- Category Distribution -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-purple-500 rounded-full inline-block"></span> Category Distribution
+                </h3>
+                
+                <!-- Biểu đồ -->
+                <div class="w-full mx-auto mb-8" style="height: 350px;">
+                    <canvas id="categoryDistChart"></canvas>
+                </div>
+
+                <!-- Bảng thống kê chi tiết -->
+                <div class="overflow-hidden rounded-xl border border-gray-100 shadow-sm">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+                                <th class="px-6 py-4">Author</th>
+                                <th class="px-6 py-4 text-center">Count</th>
+                                <th class="px-6 py-4 text-center">Percentage</th>
+                                <th class="px-6 py-4 text-center">Avg Words / Doc</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <!-- Row AI -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                                    <span class="font-bold text-slate-800">AI</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">3,069</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold text-xs">50.57%</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-semibold text-slate-700">43.96</td>
+                            </tr>
+                            <!-- Row Human -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                    <span class="font-bold text-slate-800">Human</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">3,000</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold text-xs">49.43%</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-semibold text-slate-700">270.72</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Stop Words Analysis -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-rose-400 rounded-full inline-block"></span> Stop Words Analysis
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🔴</span> Raw Data - Distribution of actual document sizes
+                    </p>
+                </div>
+                <div class="w-full mx-auto" style="height: 400px;"><canvas id="stopWordsChart"></canvas></div>
+            </div>
+
+            <!-- Word Count Distribution -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-indigo-400 rounded-full inline-block"></span> Word Count Distribution
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🔴</span> Raw Data - Distribution of actual document sizes
+                    </p>
+                </div>
+                <div class="w-full mx-auto" style="height: 350px;">
+                    <canvas id="wordCountChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Character Count Distribution -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-teal-400 rounded-full inline-block"></span> Character Count Distribution
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🔴</span> Raw Data - Distribution of actual document sizes
+                    </p>
+                </div>
+                <div class="w-full mx-auto" style="height: 350px;">
+                    <canvas id="charCountChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Vocabulary Richness -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-orange-400 rounded-full inline-block"></span> Vocabulary Richness by Author
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
+                    </p>
+                </div>
+
+                <!-- Biểu đồ -->
+                <div class="w-full mx-auto mb-8" style="height: 400px;">
+                    <canvas id="vocabRichnessChart"></canvas>
+                </div>
+
+                <!-- Bảng thống kê chi tiết -->
+                <div class="overflow-hidden rounded-xl border border-gray-100 shadow-sm">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+                                <th class="px-6 py-4">Author</th>
+                                <th class="px-6 py-4 text-center">Total Words</th>
+                                <th class="px-6 py-4 text-center">Unique Words</th>
+                                <th class="px-6 py-4 text-center">Total Texts</th>
+                                <th class="px-6 py-4 text-center">Richness Score</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <!-- Row AI -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                                    <span class="font-bold text-slate-800">AI</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">88,612</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">15,113</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">3,069</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold text-xs">17.06%</span>
+                                </td>
+                            </tr>
+                            <!-- Row Human -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                    <span class="font-bold text-slate-800">Human</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">522,069</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">45,242</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">3,000</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold text-xs">8.67%</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 6: Top Words by Author (Full Width) -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-2 border-b pb-4">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Top Words by Author
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
+                    </p>
+                </div>
+                <!-- Container cho 2 biểu đồ Top Words xếp dọc -->
+                <div id="top-words-by-author-container" class="space-y-12"></div>
+            </div>
+
+            <!-- Section 7: TF-IDF Top Terms (2 Columns) -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-4">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-indigo-500 rounded-full inline-block"></span> TF-IDF Weighted Terms by Author
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
+                    </p>
+                </div>
+                <!-- Container cho 2 biểu đồ TF-IDF chia 2 cột -->
+                <div id="tfidf-container" class="space-y-12"></div>
+            </div>
+
+            <!-- Bigram Analysis -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-fuchsia-500 rounded-full inline-block"></span> Bigram Analysis
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
+                    </p>
+                </div>
+                <div class="w-full mx-auto" style="height: 450px;"><div id="bigramChart"></div></div>
+            </div>
+
+            <!-- Category Similarity Matrix -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-slate-800 rounded-full inline-block"></span> Category Similarity Matrix
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
+                    </p>
+                </div>
+                <div id="categorySimilarityHeatmap" style="width:100%; height:500px;"></div>
+            </div>
+
+            <!-- Most Frequent Words Overall -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-purple-500 rounded-full inline-block"></span> Most Frequent Words Overall
+                    </h3>
+                    <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
+                        <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
+                    </p>
+                </div>
+                <div class="w-full mx-auto" style="height: 400px;"><canvas id="mostFrequentChart"></canvas></div>
+            </div>
+        </section>
+
+        <!-- 3. Text Statistics -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 border-b border-gray-100 pb-4 gap-2">
+                <h2 class="text-2xl font-bold text-slate-800">3. Text Statistics</h2>
+                <p class="text-sm italic text-slate-500">Note: All statistics based on raw text (before stop words removal)</p>
+            </div>
+            
+            <!-- Grid 4 cột giữ nguyên style "Ô trắng - Chữ màu" của bạn -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card: Min Words -->
+                <div class="bg-[#f8fafc] border border-purple-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-purple-600 mb-2">5</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Min Words</div>
+                </div>
+
+                <!-- Card: Max Words -->
+                <div class="bg-[#f8fafc] border border-blue-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-blue-600 mb-2">703</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Max Words</div>
+                </div>
+
+                <!-- Card: Median Words -->
+                <div class="bg-[#f8fafc] border border-green-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-green-600 mb-2">64</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Median Words</div>
+                </div>
+
+                <!-- Card: Std Dev -->
+                <div class="bg-[#f8fafc] border border-rose-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-rose-600 mb-2">129.2</div>
+                    <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Std Dev</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Sample Articles -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">4. Sample Articles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sample-articles-container">
+                <!-- Nội dung mẫu -->
+                <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition bg-slate-50 relative">
+                    <span class="absolute top-4 right-4 bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded">AI</span>
+                    <h4 class="font-bold text-slate-800 mb-2 truncate">Quantum Computing in 2024</h4>
+                    <p class="text-sm text-slate-600 line-clamp-4 mb-3">This study proposes a new quantum neural network architecture that developed energy-efficient learning...</p>
+                    <div class="text-xs text-slate-400 font-mono">Word count: 312</div>
+                </div>
+                <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition bg-slate-50 relative">
+                    <span class="absolute top-4 right-4 bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">Human</span>
+                    <h4 class="font-bold text-slate-800 mb-2 truncate">Public Health Factors</h4>
+                    <p class="text-sm text-slate-600 line-clamp-4 mb-3">The findings suggest that associated risk factors among patients were significantly higher in the group...</p>
+                    <div class="text-xs text-slate-400 font-mono">Word count: 485</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Key Insights -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 border-l-8 border-l-purple-500">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">5. Key Insights</h2>
+            <ul class="space-y-4 text-slate-600 font-medium" id="key-insights-list">
+                <li class="flex gap-3"><span class="text-purple-500 mt-1">✓</span><p><strong>Linguistic Separation:</strong> AI and Human text show distinct vocabulary footprints, with AI leaning towards technology and Human towards health/research.</p></li>
+                <li class="flex gap-3"><span class="text-purple-500 mt-1">✓</span><p><strong>Vocabulary Richness:</strong> Human authors use approximately 3 times more unique words than AI, indicating higher lexical diversity.</p></li>
+                <li class="flex gap-3"><span class="text-purple-500 mt-1">✓</span><p><strong>Domain Leakage:</strong> The Human dataset is strongly tied to medical journals, while AI focuses on abstract technical concepts.</p></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center mt-auto">
+        <p>2026 Group APlus - P4AI-DS (CO3135).</p>
+    </footer>
+
+    <script src="./script.js"></script>
 </body>
 </html>

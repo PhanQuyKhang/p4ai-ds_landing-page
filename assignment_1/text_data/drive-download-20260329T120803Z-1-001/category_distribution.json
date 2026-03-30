@@ -1,0 +1,16 @@
+{
+    "title": "Author Distribution (AI vs Human)",
+    "labels": [
+        "AI",
+        "Human"
+    ],
+    "datasets": [
+        {
+            "label": "Count",
+            "data": [
+                3069,
+                3000
+            ]
+        }
+    ]
+}
