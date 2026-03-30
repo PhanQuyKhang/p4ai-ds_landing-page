@@ -27,8 +27,7 @@ new Chart(ctxCategory, {
                 '#8b5cf6', 
                 '#10b981'
             ],
-            borderWidth: 2,
-            hoverOffset: 6 // Hiệu ứng đẩy khối ra khi hover chuột
+            borderWidth: 1,
         }]
     },
     options: {
