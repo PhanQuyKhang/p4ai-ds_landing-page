@@ -261,17 +261,50 @@
                 </div>
             </div>
 
-            <!-- Stop Words Analysis -->
+<!-- Stop Words Analysis -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+                
+                <!-- Tiêu đề & Note -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-2 border-b pb-4">
                     <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
                         <span class="w-2 h-6 bg-rose-400 rounded-full inline-block"></span> Stop Words Analysis
                     </h3>
                     <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
-                        <span class="text-xs">🔴</span> Raw Data - Distribution of actual document sizes
+                        <span class="text-xs">🔴</span> Raw Data - Analyzing dataset noise
                     </p>
                 </div>
-                <div class="w-full mx-auto" style="height: 400px;"><canvas id="stopWordsChart"></canvas></div>
+
+                <!-- 2 Tiles Thống kê (Nằm trên biểu đồ) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                    <!-- Total Stop Words -->
+                    <div class="bg-[#f8fafc] border border-rose-100 p-6 rounded-xl text-center shadow-sm">
+                        <div class="text-4xl font-black text-rose-500 mb-2">316,839</div>
+                        <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Total Stop Words</div>
+                    </div>
+
+                    <!-- Percentage -->
+                    <div class="bg-[#f8fafc] border border-rose-100 p-6 rounded-xl text-center shadow-sm" title="Exact value: 33.454972805342%">
+                        <div class="text-4xl font-black text-rose-500 mb-2">33.45%</div>
+                        <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Of All Words</div>
+                    </div>
+                </div>
+
+                <!-- Biểu đồ -->
+                <div class="w-full mx-auto mb-8" style="height: 400px;">
+                    <canvas id="stopWordsChart"></canvas>
+                </div>
+
+                <!-- Stop Word List (Theo style của Key Insights) -->
+                <div class="bg-rose-50/30 p-6 rounded-xl shadow-sm border border-rose-100 border-l-4 border-l-rose-500 mt-2">
+                    <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <span class="text-rose-500">✓</span> Stop Words List
+                    </h4>
+                    <!-- Dùng font-mono để đoạn text trông giống dữ liệu code thô -->
+                    <p class="text-sm text-slate-600 leading-relaxed font-mono">
+                        this, study, the, of, in, their, for, this, study, the, of, in, its, as, an, and, its, of, from, a, during, the, of, and, during, as, the, after, as, a, against, is, these, are, and, to, this, we, a, which, a, to, and, during, from, the, of, this, was, by
+                    </p>
+                </div>
+
             </div>
 
             <!-- Word Count Distribution -->
@@ -469,33 +502,144 @@
             </div>
         </section>
 
-        <!-- 4. Sample Articles -->
+<!-- 4. Sample Articles -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">4. Sample Articles</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sample-articles-container">
-                <!-- Nội dung mẫu -->
-                <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition bg-slate-50 relative">
-                    <span class="absolute top-4 right-4 bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded">AI</span>
-                    <h4 class="font-bold text-slate-800 mb-2 truncate">Quantum Computing in 2024</h4>
-                    <p class="text-sm text-slate-600 line-clamp-4 mb-3">This study proposes a new quantum neural network architecture that developed energy-efficient learning...</p>
-                    <div class="text-xs text-slate-400 font-mono">Word count: 312</div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 border-b pb-4 gap-2">
+                <h2 class="text-2xl font-bold text-slate-800">4. Sample Articles Comparison</h2>
+                <p class="text-sm italic text-slate-500">Scroll inside the cards to read the full text</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="sample-articles-container">
+                
+                <!-- CỘT 1: AI GENERATED SAMPLES -->
+                <div class="space-y-6">
+                    <h3 class="font-bold text-lg text-purple-700 flex items-center gap-2 mb-4">
+                        AI Generated Samples
+                    </h3>
+
+                    <!-- AI Sample 1 -->
+                    <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex justify-between items-center">
+                            <span class="font-bold text-purple-800">AI Sample #1</span>
+                        </div>
+                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
+                                Robotic reinforcement learning is hindered by the "reality gap." We introduce a "Domain Randomization" technique that varies the friction, mass, and visual texture of the simulation environment during training. A quadrupedal robot trained solely in this randomized simulation successfully learned to walk on sand, gravel, and ice in the real world without any additional fine-tuning.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- AI Sample 2 -->
+                    <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex justify-between items-center">
+                            <span class="font-bold text-purple-800">AI Sample #2</span>
+                        </div>
+                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
+                                Economic analysis of the freelance economy in creative industries uses survey data from artists and designers. Regression models show that income instability is widespread, and social networks are crucial for securing work, highlighting the need for better safety nets.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- AI Sample 3 -->
+                    <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex justify-between items-center">
+                            <span class="font-bold text-purple-800">AI Sample #3</span>
+                        </div>
+                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
+                                Quantum computers need error correction. We demonstrated a "Bosonic Code" using the photon number states of a superconducting cavity. By encoding information in the parity of photons (cat states), we can correct for photon loss errors—the dominant noise channel—extending the logical qubit lifetime beyond the break-even point.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition bg-slate-50 relative">
-                    <span class="absolute top-4 right-4 bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">Human</span>
-                    <h4 class="font-bold text-slate-800 mb-2 truncate">Public Health Factors</h4>
-                    <p class="text-sm text-slate-600 line-clamp-4 mb-3">The findings suggest that associated risk factors among patients were significantly higher in the group...</p>
-                    <div class="text-xs text-slate-400 font-mono">Word count: 485</div>
+
+                <!-- CỘT 2: HUMAN WRITTEN SAMPLES -->
+                <div class="space-y-6">
+                    <h3 class="font-bold text-lg text-emerald-700 flex items-center gap-2 mb-4">
+                        Human Written Samples
+                    </h3>
+
+                    <!-- Human Sample 1 -->
+                    <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center">
+                            <span class="font-bold text-emerald-800">Human Sample #1</span>
+                        </div>
+                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
+                                With the rapid development of artificial intelligence (AI), large language models (LLMs), such as ChatGPT have shown potential in medical education, offering personalized learning experiences. However, this integration raises ethical concerns, including privacy, autonomy, and transparency. This study employed a scoping review methodology, systematically searching relevant literature published between January 2010 and August 31, 2024, across three major databases: PubMed, Embase, and Web of Science. Through rigorous screening, 50 articles which met inclusion criteria were ultimately selected from an initial pool of 1,192 records. During data processing, the Kimi AI tool was utilized to facilitate preliminary literature screening, extraction of key information, and construction of content frameworks. Data reliability was ensured through a stringent cross-verification process whereby two independent researchers validated all AI-generated content against original source materials. The study delineates ethical challenges and opportunities arising from the integration of AI and LLMs into medical education, identifying seven core ethical dimensions: privacy and data security, algorithmic bias, accountability attribution, fairness assurance, technological reliability, application dependency, and patient autonomy. Corresponding mitigation strategies were formulated for each challenge. Future research should prioritize establishing dedicated ethical frameworks and application guidelines for AI in medical education while maintaining sustained attention to the long-term ethical implications of these technologies in healthcare domains.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Human Sample 2 -->
+                    <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center">
+                            <span class="font-bold text-emerald-800">Human Sample #2</span>
+                        </div>
+                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
+                                A comprehensive analysis of the systemic causes of safety accidents in sports tourism on the Qinghai-Tibet Plateau is significant for high-quality development. Utilizing 32 verified accident cases (2010–2025) in the Tibet Autonomous Region of China, this study extracted six critical factors through content analysis: organizational professionalism, rescue capacity, management systems, natural environment, tourist vulnerability, and tourist behavior. The Swiss Cheese Model (SCM) analyzed latent/active failures through case reports and regional environmental data, while the fuzzy-set Qualitative Comparative Analysis (fsQCA) deciphered nonlinear configuration paths across six factors. The results reveal that sports tourism accidents in Tibet arise from the coupling of multiple factors. Specifically, the combination of six influencing factors constitutes the causal paths for severe and general accidents. Among these factors, environmental factors and tourist characteristics are key contributors to accidents. Based on these findings, it is essential to establish a sports tourism risk prevention system for Tibet, which should comprise four layers: natural defense, behavioral defense, managerial defense, and rescue defense. This study deepens the understanding of sports tourism safety accidents on the Qinghai-Tibet Plateau. It integrates the SCM and the fsQCA method, contributing to sports tourism safety research. The proposed risk prevention system provides useful references for local safety management. Future research can focus on the dynamic changes of influencing factors and test the research framework and risk prevention system’s applicability in other similar areas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Human Sample 3 -->
+                    <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center">
+                            <span class="font-bold text-emerald-800">Human Sample #3</span>
+                        </div>
+                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
+                                Investment is a key driver of economic growth in emerging markets, yet the factors that enable or hinder foreign direct investment (FDI) and domestic investment (DI) remain contested. Regulatory reforms aimed at improving the ease of doing business (EDB) have been widely promoted as a means to attract capital, but empirical evidence on their effectiveness, especially in diverse and institutionally heterogeneous economies, is mixed. This study examines how EDB affects investment flows in nine BRICS+ economies (Brazil, Russia, India, China, South Africa, Egypt, Ethiopia, Iran, and the United Arab Emirates) over 2004–2020. Three objectives guide the analysis: assessing the direct EDB-investment link, testing the mediating role of institutional quality, specifically, regulatory quality, government effectiveness, and control of corruption, and analyzing moderation by financial development, economic freedom, and macroeconomic stability. A Pooled Mean Group, Autoregressive Distributed Lag (PMG-ARDL) approach is employed for the panel estimations, complemented by Structural Equation Modelling (SEM) to quantify mediation effects. The results reveal a dual effect of EDB, as it stimulates DI but exerts a modest negative long-term impact on FDI, likely due to transitional adjustment costs and the withdrawal of targeted investment incentives. Mediation analysis shows that institutional quality strongly channels the benefits of EDB to both FDI and DI, with indirect effects often exceeding direct ones. Financial development strengthens the positive EDB-investment relationship, while economic freedom and inflation partially dampen it. Country-specific results indicate substantial heterogeneity in the EDB-investment nexus, with some economies experiencing counterintuitive or insignificant effects. Policy implications differ by investment type. For FDI, reforms should be sequenced gradually, supported by transitional incentives, and aligned with targeted institutional strengthening to offset short-term deterrents. For DI, priority should be given to reducing operational costs, expanding access to finance, and maintaining macroeconomic stability, which collectively enhance domestic firms’ capacity to invest and grow.
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- 5. Key Insights -->
+<!-- 5. Key Insights -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 border-l-8 border-l-purple-500">
             <h2 class="text-2xl font-bold text-slate-800 mb-6">5. Key Insights</h2>
             <ul class="space-y-4 text-slate-600 font-medium" id="key-insights-list">
-                <li class="flex gap-3"><span class="text-purple-500 mt-1">✓</span><p><strong>Linguistic Separation:</strong> AI and Human text show distinct vocabulary footprints, with AI leaning towards technology and Human towards health/research.</p></li>
-                <li class="flex gap-3"><span class="text-purple-500 mt-1">✓</span><p><strong>Vocabulary Richness:</strong> Human authors use approximately 3 times more unique words than AI, indicating higher lexical diversity.</p></li>
-                <li class="flex gap-3"><span class="text-purple-500 mt-1">✓</span><p><strong>Domain Leakage:</strong> The Human dataset is strongly tied to medical journals, while AI focuses on abstract technical concepts.</p></li>
+                
+                <!-- Dataset Characteristics -->
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Balanced Author Distribution:</strong> The dataset is evenly distributed between human-written and AI-generated texts (49.4% – 50.6%), ensuring objectivity and minimizing label bias during analysis and model training.</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Document Length Variance:</strong> The average document length is 156 words per document.</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Linguistic Entropy:</strong> There is a clear difference in vocabulary diversity. Human-written texts tend to have higher vocabulary richness, reflecting creativity and flexibility in word usage, whereas AI-generated texts are generally more "conservative" in their lexical choices.</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Consistency:</strong> AI-generated texts exhibit a very high level of consistency in sentence structure and logical connectors, while human-written texts contain more expressive nuances and specific details.</p>
+                </li>
+
+                <!-- Data Processing Notes -->
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Raw Statistics:</strong> Word count and character count are calculated on the raw text to accurately reflect the actual size of the documents before preprocessing.</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Refined Content Analysis:</strong> Analyses such as word frequency, vocabulary richness, and TF-IDF are conducted after removing common stopwords and domain-specific noise (custom stopwords).</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>N-gram Strategy:</strong> The analysis focuses on bigrams to identify word combination patterns. AI-generated texts often reveal themselves through formulaic phrases such as "In conclusion" or "It is important to," whereas human writers tend to use more natural expressions.</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-purple-500 mt-1">✓</span>
+                    <p><strong>Similarity Assessment:</strong> A similarity matrix based on TF-IDF weights is used to measure the lexical boundary between the two groups of authors.</p>
+                </li>
             </ul>
         </section>
 
