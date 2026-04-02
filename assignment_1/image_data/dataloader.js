@@ -12,12 +12,12 @@
             // Tải đồng loạt tất cả các file JSON
             const responses = await Promise.all([
                 // 1. CORE
-                fetch('./image-EDA/core_EDA/aspect_ratio.json'), // Dán link
-                fetch('./image-EDA/core_EDA/dataset_class_distribution.json'),
-                fetch('./image-EDA/core_EDA/file_size_distribution.json'),
-                fetch('./image-EDA/core_EDA/image_quality.json'), 
-                fetch('./image-EDA/core_EDA/pixel_intensity_distribution.json'),
-                fetch('./image-EDA/core_EDA/scatter_size.json'), // Dán link file json scatter của bạn
+                fetch('./Image-EDA/core_EDA/aspect_ratio.json'), // Dán link
+                fetch('./Image-EDA/core_EDA/dataset_class_distribution.json'),
+                fetch('./Image-EDA/core_EDA/file_size_distribution.json'),
+                fetch('./Image-EDA/core_EDA/image_quality.json'), 
+                fetch('./Image-EDA/core_EDA/pixel_intensity_distribution.json'),
+                fetch('./Image-EDA/core_EDA/scatter_size.json'), // Dán link file json scatter của bạn
                 
                 // 2. CLASSIFICATION
                 fetch('./Image-EDA/classification/class_correlation_flat.json'),
@@ -25,22 +25,22 @@
                 fetch('./Image-EDA/classification/umap_embedding_grouped.json'),
 
                 // 3. DETECTION
-                fetch('./image-EDA/detection/area_histogram.json'), // Dán link
-                fetch('./image-EDA/detection/aspect_ratio_pie.json'), // Dán link
-                fetch('./image-EDA/detection/center_bias.json'), // Dán link
-                fetch('./image-EDA/detection/grid_distribution.json'), // Dán link
-                fetch('./image-EDA/detection/heatmap.json'), // Dán link
-                fetch('./image-EDA/detection/size_bar_chart.json'), // Dán link
-                fetch('./image-EDA/detection/size_categories_pie.json'), // Dán link
+                fetch('./Image-EDA/detection/area_histogram.json'), // Dán link
+                fetch('./Image-EDA/detection/aspect_ratio_pie.json'), // Dán link
+                fetch('./Image-EDA/detection/center_bias.json'), // Dán link
+                fetch('./Image-EDA/detection/grid_distribution.json'), // Dán link
+                fetch('./Image-EDA/detection/heatmap.json'), // Dán link
+                fetch('./Image-EDA/detection/size_bar_chart.json'), // Dán link
+                fetch('./Image-EDA/detection/size_categories_pie.json'), // Dán link
 
                 // 4. SEGMENTATION
-                fetch('./image-EDA/segmentation/boundary_complexity_hist.json'),
-                fetch('./image-EDA/segmentation/boundary_metrics.json'),
-                fetch('./image-EDA/segmentation/boundary_smoothness_hist.json'),
-                fetch('./image-EDA/segmentation/boundary_thickness_hist.json'),
-                fetch('./image-EDA/segmentation/pixel_distribution.json'),
-                fetch('./image-EDA/segmentation/pixel_stats.json'),
-                fetch('./image-EDA/segmentation/shape_metrics.json')
+                fetch('./Image-EDA/segmentation/boundary_complexity_hist.json'),
+                fetch('./Image-EDA/segmentation/boundary_metrics.json'),
+                fetch('./Image-EDA/segmentation/boundary_smoothness_hist.json'),
+                fetch('./Image-EDA/segmentation/boundary_thickness_hist.json'),
+                fetch('./Image-EDA/segmentation/pixel_distribution.json'),
+                fetch('./Image-EDA/segmentation/pixel_stats.json'),
+                fetch('./Image-EDA/segmentation/shape_metrics.json')
             ]);
   
             // Kiểm tra xem có file nào bị lỗi 404 không
