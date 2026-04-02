@@ -1,0 +1,12 @@
+{
+    "labels": [
+        "Convexity",
+        "Compactness",
+        "Eccentricity"
+    ],
+    "mean_values": [
+        1.0,
+        0.9217520112095057,
+        0.0
+    ]
+}

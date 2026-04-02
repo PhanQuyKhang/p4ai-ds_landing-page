@@ -1,0 +1,12 @@
+{
+    "labels": [
+        "background",
+        "boundary",
+        "foreground"
+    ],
+    "values": [
+        39780000,
+        11520000,
+        10140000
+    ]
+}

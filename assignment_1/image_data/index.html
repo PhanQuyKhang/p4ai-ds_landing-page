@@ -70,7 +70,6 @@
                 </p>
             </div>
             
-            <!-- TOÀN BỘ NỘI DUNG CORE EDA NẰM Ở ĐÂY -->
             <div id="core-eda-container" class="w-full space-y-8">
                 
                 <!-- Sample Images Grid (Full Width) -->
@@ -161,16 +160,28 @@
                 </p>
             </div>
             
-            <!-- Container chờ Data -->
             <div id="classification-eda-container" class="w-full space-y-8">
-                <div class="w-full py-16 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">
-                    <span class="text-3xl mb-2">🏷️</span>
-                    <p>Classification EDA charts will be generated here</p>
+                
+                <!-- Class Correlation Heatmap (Full Width) -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="w-1.5 h-5 bg-slate-800 rounded-full"></span>
+                        <h3 class="font-bold text-lg text-slate-800">Class Correlation Matrix</h3>
+                    </div>
+                    <div id="classCorrelationHeatmap" style="width:100%; height:600px;"></div>
                 </div>
+
+                <!-- UMAP Embedding (Full Width) -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="w-1.5 h-5 bg-purple-500 rounded-full"></span>
+                        <h3 class="font-bold text-lg text-slate-800">UMAP Embedding (Feature Space Projection)</h3>
+                    </div>
+                    <div id="umapEmbeddingChart" style="width:100%; height:600px;"></div>
+                </div>
+
             </div>
         </section>
-
-
         <!-- 3. DETECTION EDA -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
             <div class="border-b border-gray-100 pb-4 mb-8">
@@ -183,7 +194,6 @@
                 </p>
             </div>
             
-            <!-- Container Detection EDA -->
             <div id="detection-eda-container" class="w-full space-y-8">
                 
                 <!-- Hàng 1: Area & Size Statistics (Bar Charts) -->
@@ -284,33 +294,35 @@
                     </div>
                 </div>
 
-                <!-- Group 2: Boundary Distributions (3 Cột) -->
+                <!-- Group 2: Boundary Distributions (3 Cột - Đã đồng bộ màu) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Thickness -->
+                    <!-- Thickness: Màu #1e90ff -->
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-5 bg-blue-500 rounded-full"></span>
+                            <span class="w-1.5 h-5 bg-[#1e90ff] rounded-full"></span>
                             <h3 class="font-bold text-md text-slate-800">Boundary Thickness</h3>
                         </div>
-                        <div class="text-3xl font-black text-blue-600 mb-4" id="metric-thickness">--</div>
+                        <div class="text-3xl font-black text-[#1e90ff] mb-4" id="metric-thickness">--</div>
                         <div style="height: 200px;"><canvas id="segThicknessHist"></canvas></div>
                     </div>
-                    <!-- Smoothness -->
+
+                    <!-- Smoothness: Màu #ffa500 -->
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-5 bg-emerald-500 rounded-full"></span>
+                            <span class="w-1.5 h-5 bg-[#ffa500] rounded-full"></span>
                             <h3 class="font-bold text-md text-slate-800">Boundary Smoothness</h3>
                         </div>
-                        <div class="text-3xl font-black text-emerald-600 mb-4" id="metric-smoothness">--</div>
+                        <div class="text-3xl font-black text-[#ffa500] mb-4" id="metric-smoothness">--</div>
                         <div style="height: 200px;"><canvas id="segSmoothnessHist"></canvas></div>
                     </div>
-                    <!-- Complexity -->
+
+                    <!-- Complexity: Màu #008000 -->
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-5 bg-purple-500 rounded-full"></span>
+                            <span class="w-1.5 h-5 bg-[#008000] rounded-full"></span>
                             <h3 class="font-bold text-md text-slate-800">Boundary Complexity</h3>
                         </div>
-                        <div class="text-3xl font-black text-purple-600 mb-4" id="metric-complexity">--</div>
+                        <div class="text-3xl font-black text-[#008000] mb-4" id="metric-complexity">--</div>
                         <div style="height: 200px;"><canvas id="segComplexityHist"></canvas></div>
                     </div>
                 </div>
@@ -343,7 +355,7 @@
         <p>2026 Group APlus - P4AI-DS (CO3135).</p>
         <p class="mt-2 text-sm">Built with HTML & Tailwind CSS. Hosted on GitHub Pages.</p>
     </footer>
-
+    <script src="./dataloader.js"></script>
     <script src="./script.js"></script>
 </body>
 </html>

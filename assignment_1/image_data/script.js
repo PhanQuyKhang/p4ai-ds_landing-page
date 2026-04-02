@@ -1,2305 +1,355 @@
-document.fonts.ready.then(function () {
+/**
+ * IMAGE EDA - MAIN JAVASCRIPT (DRAWING LOGIC)
+ * Render charts using data loaded from window.IMAGE_DATA
+ */
 
-    // ==========================================
-    // CẤU HÌNH FONT MẶC ĐỊNH
-    // ==========================================
-    Chart.defaults.font.family = "'Inter', sans-serif";
+(function() {
+    'use strict';
 
-    // =========================================================================
-    // 1. DATA PLACEHOLDERS (DÁN DATA CỦA BẠN VÀO ĐÂY)
-    // =========================================================================
+    function initializeImageCharts() {
+        console.log('🎨 Đang khởi tạo các biểu đồ Image EDA...');
 
-    // 1. Class Distribution (Hình 1 & 6)
-    const classData = {
-    "classes": [
-        "airplane",
-        "automobile",
-        "bird",
-        "cat",
-        "deer",
-        "dog",
-        "frog",
-        "horse",
-        "ship",
-        "truck"
-    ],
-    "train_distribution": [
-        5000,
-        5000,
-        5000,
-        5000,
-        5000,
-        5000,
-        5000,
-        5000,
-        5000,
-        5000
-    ],
-    "eval_distribution": [
-        1000,
-        1000,
-        1000,
-        1000,
-        1000,
-        1000,
-        1000,
-        1000,
-        1000,
-        1000
-    ]
-};
+        // Cấu hình Style chung cho Chart.js
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        const axisTitleStyle = { display: true, font: { family: 'Inter', size: 12} };
 
-    // 2. File Size (Hình 2)
-    const fileSizeData = {
-    "counts": [
-        1,
-        0,
-        0,
-        3,
-        3,
-        6,
-        3,
-        14,
-        16,
-        21,
-        33,
-        45,
-        64,
-        83,
-        78,
-        145,
-        184,
-        242,
-        288,
-        415,
-        572,
-        719,
-        1029,
-        1278,
-        1737,
-        2123,
-        2774,
-        3555,
-        4606,
-        5371,
-        6026,
-        5910,
-        5282,
-        3678,
-        2126,
-        982,
-        429,
-        116,
-        29,
-        14
-    ],
-    "bin_edges": [
-        0.3857421875,
-        0.4483642578125,
-        0.510986328125,
-        0.5736083984375,
-        0.63623046875,
-        0.6988525390625,
-        0.761474609375,
-        0.8240966796875,
-        0.88671875,
-        0.9493408203125,
-        1.011962890625,
-        1.0745849609375,
-        1.13720703125,
-        1.1998291015625,
-        1.262451171875,
-        1.3250732421875,
-        1.3876953125,
-        1.4503173828125,
-        1.512939453125,
-        1.5755615234375,
-        1.63818359375,
-        1.7008056640625,
-        1.763427734375,
-        1.8260498046875,
-        1.888671875,
-        1.9512939453125,
-        2.013916015625,
-        2.0765380859375,
-        2.13916015625,
-        2.2017822265625,
-        2.264404296875,
-        2.3270263671875,
-        2.3896484375,
-        2.4522705078125,
-        2.514892578125,
-        2.5775146484375,
-        2.64013671875,
-        2.7027587890625,
-        2.765380859375,
-        2.8280029296875,
-        2.890625
-    ]
-};
-
-    // 3. Pixel Intensity (Hình 4)
-    const pixelData = {
-    "r": {
-        "counts": [
-            0.5496484497856002,
-            0.425615243888242,
-            0.4750293074927325,
-            0.5761230597523539,
-            0.6484083383935203,
-            0.717275273054421,
-            0.7683201865625076,
-            0.8364747838772382,
-            0.8928810456445015,
-            0.9387013677033655,
-            1.1920208449251888,
-            1.0504982660260158,
-            1.106933824674391,
-            1.1434857147114614,
-            1.1906847292754452,
-            1.245761050471696,
-            1.277430955357635,
-            1.29244263881935,
-            1.3052825029169008,
-            1.3393176835228764,
-            1.6418252911312807,
-            1.400946514098726,
-            1.4053040745774028,
-            1.3974015941253695,
-            1.3905461290529275,
-            1.3838392103569128,
-            1.3627845027775791,
-            1.3449191494434427,
-            1.3289172829792815,
-            1.3082336695038503,
-            1.5250652687418975,
-            1.2167492072574686,
-            1.1583507140643254,
-            1.1116676690160783,
-            1.060645542760413,
-            1.0065146317621534,
-            0.9373320848172376,
-            0.8943758529432801,
-            0.8405867391459838,
-            0.7927351310111341,
-            0.9078594882951616,
-            0.6847955749469519,
-            0.6402545168442887,
-            0.5850183456764368,
-            0.5472954438166082,
-            0.48896531006365784,
-            0.44910065237151503,
-            0.45153363374102945,
-            0.4451078463629211,
-            1.3189914676123917
-        ],
-        "bin_edges": [
-            0.0,
-            0.019999999552965164,
-            0.03999999910593033,
-            0.05999999865889549,
-            0.07999999821186066,
-            0.09999999403953552,
-            0.11999999731779099,
-            0.14000000059604645,
-            0.1599999964237213,
-            0.17999999225139618,
-            0.19999998807907104,
-            0.2199999988079071,
-            0.23999999463558197,
-            0.25999999046325684,
-            0.2800000011920929,
-            0.29999998211860657,
-            0.3199999928474426,
-            0.3400000035762787,
-            0.35999998450279236,
-            0.3799999952316284,
-            0.3999999761581421,
-            0.41999998688697815,
-            0.4399999976158142,
-            0.4599999785423279,
-            0.47999998927116394,
-            0.5,
-            0.5199999809265137,
-            0.5399999618530273,
-            0.5600000023841858,
-            0.5799999833106995,
-            0.5999999642372131,
-            0.6200000047683716,
-            0.6399999856948853,
-            0.6599999666213989,
-            0.6800000071525574,
-            0.699999988079071,
-            0.7199999690055847,
-            0.7400000095367432,
-            0.7599999904632568,
-            0.7799999713897705,
-            0.7999999523162842,
-            0.8199999928474426,
-            0.8399999737739563,
-            0.85999995470047,
-            0.8799999952316284,
-            0.8999999761581421,
-            0.9199999570846558,
-            0.9399999976158142,
-            0.9599999785423279,
-            0.9799999594688416,
-            1.0
-        ]
-    },
-    "g": {
-        "counts": [
-            0.5533496217433279,
-            0.42135743129307246,
-            0.49082032347068916,
-            0.588251966273456,
-            0.675742328470835,
-            0.7392283944560238,
-            0.7968065100182352,
-            0.844502129301873,
-            0.9149513627487283,
-            0.9748048908601473,
-            1.243700504702059,
-            1.1024025737290983,
-            1.1549514128166403,
-            1.2052532597017684,
-            1.2509582242567294,
-            1.284188764232464,
-            1.3018450047609185,
-            1.336895806213194,
-            1.3501945881991808,
-            1.3776087356650693,
-            1.7000479161482307,
-            1.4391398529852226,
-            1.4472474739527454,
-            1.4124308829380308,
-            1.4153019751478566,
-            1.412022830984908,
-            1.37655404715924,
-            1.3533468667391855,
-            1.3362805712514603,
-            1.3269543904823213,
-            1.5345183745846311,
-            1.2293078129842883,
-            1.1552745392556565,
-            1.0979665249072406,
-            1.0220322246858833,
-            0.9640243568652695,
-            0.91376767944687,
-            0.8339558734472976,
-            0.784112075912548,
-            0.7462214147771976,
-            0.8145686617294253,
-            0.6041997949598265,
-            0.5721880456810433,
-            0.5332899348820576,
-            0.49788133419164105,
-            0.4403226855494361,
-            0.4019230136047326,
-            0.3856839615668884,
-            0.385752321007081,
-            1.2558665955386012
-        ],
-        "bin_edges": [
-            0.0,
-            0.019999999552965164,
-            0.03999999910593033,
-            0.05999999865889549,
-            0.07999999821186066,
-            0.09999999403953552,
-            0.11999999731779099,
-            0.14000000059604645,
-            0.1599999964237213,
-            0.17999999225139618,
-            0.19999998807907104,
-            0.2199999988079071,
-            0.23999999463558197,
-            0.25999999046325684,
-            0.2800000011920929,
-            0.29999998211860657,
-            0.3199999928474426,
-            0.3400000035762787,
-            0.35999998450279236,
-            0.3799999952316284,
-            0.3999999761581421,
-            0.41999998688697815,
-            0.4399999976158142,
-            0.4599999785423279,
-            0.47999998927116394,
-            0.5,
-            0.5199999809265137,
-            0.5399999618530273,
-            0.5600000023841858,
-            0.5799999833106995,
-            0.5999999642372131,
-            0.6200000047683716,
-            0.6399999856948853,
-            0.6599999666213989,
-            0.6800000071525574,
-            0.699999988079071,
-            0.7199999690055847,
-            0.7400000095367432,
-            0.7599999904632568,
-            0.7799999713897705,
-            0.7999999523162842,
-            0.8199999928474426,
-            0.8399999737739563,
-            0.85999995470047,
-            0.8799999952316284,
-            0.8999999761581421,
-            0.9199999570846558,
-            0.9399999976158142,
-            0.9599999785423279,
-            0.9799999594688416,
-            1.0
-        ]
-    },
-    "b": {
-        "counts": [
-            0.6926269686064191,
-            0.6147851699915193,
-            0.7356640789433735,
-            0.8578613472996952,
-            0.9743166095082839,
-            1.0745115426238334,
-            1.1580173883111586,
-            1.2208205671830168,
-            1.2777248759291808,
-            1.332353793575661,
-            1.6781631622631275,
-            1.421299124631103,
-            1.4281545948112657,
-            1.4381828222486137,
-            1.435030665426889,
-            1.4301554828048144,
-            1.4098820561803278,
-            1.4044642300264645,
-            1.37881761971959,
-            1.3425403428462437,
-            1.5761514982364486,
-            1.2898235268347418,
-            1.2335949264477981,
-            1.181083350792518,
-            1.1411907940675527,
-            1.0947471377822282,
-            1.052403347400043,
-            1.0102323277056728,
-            0.9649813890279666,
-            0.9357333142598289,
-            1.090935289156447,
-            0.8615340247478722,
-            0.8273543046515509,
-            0.8000569723882043,
-            0.7733991750709296,
-            0.7425593019097346,
-            0.6986216310777988,
-            0.6939655055670791,
-            0.6831451827480152,
-            0.6521002312662423,
-            0.7501254329523611,
-            0.5955962711298667,
-            0.5690728083351215,
-            0.5468348293075445,
-            0.5153129914407648,
-            0.5008598526571776,
-            0.5082509231250653,
-            0.4711039649047517,
-            0.4987602412798322,
-            1.4350947479473692
-        ],
-        "bin_edges": [
-            0.0,
-            0.019999999552965164,
-            0.03999999910593033,
-            0.05999999865889549,
-            0.07999999821186066,
-            0.09999999403953552,
-            0.11999999731779099,
-            0.14000000059604645,
-            0.1599999964237213,
-            0.17999999225139618,
-            0.19999998807907104,
-            0.2199999988079071,
-            0.23999999463558197,
-            0.25999999046325684,
-            0.2800000011920929,
-            0.29999998211860657,
-            0.3199999928474426,
-            0.3400000035762787,
-            0.35999998450279236,
-            0.3799999952316284,
-            0.3999999761581421,
-            0.41999998688697815,
-            0.4399999976158142,
-            0.4599999785423279,
-            0.47999998927116394,
-            0.5,
-            0.5199999809265137,
-            0.5399999618530273,
-            0.5600000023841858,
-            0.5799999833106995,
-            0.5999999642372131,
-            0.6200000047683716,
-            0.6399999856948853,
-            0.6599999666213989,
-            0.6800000071525574,
-            0.699999988079071,
-            0.7199999690055847,
-            0.7400000095367432,
-            0.7599999904632568,
-            0.7799999713897705,
-            0.7999999523162842,
-            0.8199999928474426,
-            0.8399999737739563,
-            0.85999995470047,
-            0.8799999952316284,
-            0.8999999761581421,
-            0.9199999570846558,
-            0.9399999976158142,
-            0.9599999785423279,
-            0.9799999594688416,
-            1.0
-        ]
-    }
-};
-
-    // 4. Image Size - Width vs Height (Hình 3)
-    const imageSizeData = {
-        "train": [{x: 32, y: 32}, {x: 32, y: 32}], 
-        "eval": [{x: 32, y: 32}]
-    };
-
-    // 5. Image Quality - Contrast vs Sharpness (Hình 5)
-    const qualityData = {
-        "train": [{x: 40, y: 6000}, {x: 60, y: 8000}, {x: 80, y: 4000}], 
-        "eval": [{x: 45, y: 5000}, {x: 65, y: 9000}] 
-    };
-
-    // 6. THIẾU SÓT ĐƯỢC BỔ SUNG: Aspect Ratio Distribution (Hình 5)
-    const aspectRatioData = {
-        // [DÁN DATA JSON Aspect Ratio VÀO ĐÂY]
-        "train": { "counts": [0, 50000, 0], "bin_edges": [0.5, 1.0, 1.5, 2.0] },
-        "eval":  { "counts": [0, 10000, 0], "bin_edges": [0.5, 1.0, 1.5, 2.0] }
-    };
-
-
-    // =========================================================================
-    // 2. LOGIC VẼ 6 BIỂU ĐỒ BÊN TRONG CORE EDA
-    // =========================================================================
-
-    // --- Biểu đồ 1: Train Class Dist (Màu Xanh dương nhạt) ---
-    new Chart(document.getElementById('trainDistChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: classData.classes,
-            datasets: [{ data: classData.train_distribution, backgroundColor: '#87CEEB' }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-            scales: { x: { ticks: { maxRotation: 45, minRotation: 45 } } }
+        // Lấy Data từ DataLoader
+        const data = window.IMAGE_DATA;
+        if (!data) {
+            console.error("❌ Không tìm thấy window.IMAGE_DATA!");
+            return;
         }
-    });
 
-    // --- Biểu đồ 2: Eval Class Dist (Màu Hồng cam) ---
-    new Chart(document.getElementById('evalDistChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: classData.classes,
-            datasets: [{ data: classData.eval_distribution, backgroundColor: '#FA8072' }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-            scales: { x: { ticks: { maxRotation: 45, minRotation: 45 } } }
+        // Hàm hỗ trợ: Lấy Context an toàn tránh lỗi
+        const getCtx = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.getContext('2d') : null;
+        };
+
+        // ==========================================
+        // 1. VẼ CORE EDA
+        // ==========================================
+        const core = data.core;
+
+        // --- 1.1 Train & Eval Class Dist ---
+        if (core.classDist && getCtx('trainDistChart')) {
+            const drawClassDist = (ctx, distData, bgColor) => {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: core.classDist.classes, datasets: [{ data: distData, backgroundColor: bgColor }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'Image Classes' }, ticks: { maxRotation: 45, minRotation: 45 } }, y: {title: {...axisTitleStyle, text: 'Count'}} } }
+                });
+            };
+            drawClassDist(getCtx('trainDistChart'), core.classDist.train_distribution, '#87CEEB');
+            drawClassDist(getCtx('evalDistChart'), core.classDist.eval_distribution, '#FA8072');
         }
-    });
 
-    // --- Biểu đồ 3: File Size Histogram ---
-    const sizeLabels = fileSizeData.bin_edges.slice(0, -1).map(val => val.toFixed(2));
-    new Chart(document.getElementById('fileSizeChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: sizeLabels,
-            datasets: [{
-                data: fileSizeData.counts,
-                backgroundColor: '#90EE90',
-                borderColor: '#000000', borderWidth: 1,
-                categoryPercentage: 1.0, barPercentage: 1.0
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-            scales: {
-                x: { title: { display: true, text: 'File Size (Kilobytes - KB)' }, ticks: { maxTicksLimit: 10 } },
-                y: { title: { display: true, text: 'Number of Images' } }
-            }
+        // --- 1.2 File Size Histogram ---
+        if (core.fileSize && getCtx('fileSizeChart')) {
+            const edges = core.fileSize.bin_edges || core.fileSize.bins;
+            const sizeLabels = edges.slice(0, -1).map(val => val.toFixed(2));
+            new Chart(getCtx('fileSizeChart'), {
+                type: 'bar',
+                data: { labels: sizeLabels, datasets: [{ data: core.fileSize.counts, backgroundColor: '#90EE90', borderColor: '#000000', borderWidth: 1, categoryPercentage: 1.0, barPercentage: 1.0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'File Size (KB)' }, ticks: { maxTicksLimit: 10 } }, y: {title: {...axisTitleStyle, text: 'Count'}} } }
+            });
         }
-    });
 
-    // --- Biểu đồ 4: Pixel Intensity Histogram ---
-    const pxLabels = pixelData.r.bin_edges.slice(0, -1).map(val => val.toFixed(2));
-    new Chart(document.getElementById('pixelIntensityChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: pxLabels,
-            datasets: [
-                { label: 'R channel', data: pixelData.r.counts, backgroundColor: 'rgba(255, 99, 132, 0.6)', categoryPercentage: 1, barPercentage: 1 },
-                { label: 'G channel', data: pixelData.g.counts, backgroundColor: 'rgba(75, 192, 192, 0.6)', categoryPercentage: 1, barPercentage: 1 },
-                { label: 'B channel', data: pixelData.b.counts, backgroundColor: 'rgba(54, 162, 235, 0.6)', categoryPercentage: 1, barPercentage: 1 }
-            ]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'Pixel Intensity' }, ticks: { maxTicksLimit: 10 } },
-                y: { title: { display: true, text: 'Frequency' }, stacked: false }
-            }
-        }
-    });
-
-    // --- Biểu đồ 5: Image Size Scatter ---
-    new Chart(document.getElementById('imageSizeChart').getContext('2d'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                { label: 'Train', data: imageSizeData.train, backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: '#36a2eb' },
-                { label: 'Eval', data: imageSizeData.eval, backgroundColor: 'rgba(255, 159, 64, 0.5)', borderColor: '#ff9f40' }
-            ]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            scales: { x: { title: { display: true, text: 'Width' } }, y: { title: { display: true, text: 'Height' } } }
-        }
-    });
-
-    // --- Biểu đồ 6: Image Quality Scatter ---
-    new Chart(document.getElementById('qualityChart').getContext('2d'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                { label: 'Train', data: qualityData.train, backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: '#36a2eb' },
-                { label: 'Eval', data: qualityData.eval, backgroundColor: 'rgba(255, 159, 64, 0.5)', borderColor: '#ff9f40' }
-            ]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'Contrast (standard deviation)' } },
-                y: { title: { display: true, text: 'Sharpness (Laplacian variance)' } }
-            }
-        }
-    });
-
-    // --- Biểu đồ 7: Aspect Ratio Distribution (Bổ sung mới) ---
-    // Vẽ cột chồng (Overlaid) với Train màu xanh dương nhạt, Eval màu cam nhạt
-    const arLabels = aspectRatioData.train.bin_edges.slice(0, -1).map(val => val.toFixed(2));
-    new Chart(document.getElementById('aspectRatioChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: arLabels,
-            datasets: [
-                { 
-                    label: 'Train', 
-                    data: aspectRatioData.train.counts, 
-                    backgroundColor: 'rgba(110, 168, 204, 0.6)', // Xanh xám nhạt (giống hình)
-                    categoryPercentage: 1.0, barPercentage: 1.0 
+        // --- 1.3 Pixel Intensity ---
+        if (core.pixelIntensity && getCtx('pixelIntensityChart')) {
+            const edges = core.pixelIntensity.r.bin_edges || core.pixelIntensity.r.bins;
+            const pxLabels = edges.slice(0, -1).map(val => val.toFixed(2));
+            new Chart(getCtx('pixelIntensityChart'), {
+                type: 'bar',
+                data: {
+                    labels: pxLabels,
+                    datasets: [
+                        { label: 'R channel', data: core.pixelIntensity.r.counts, backgroundColor: 'rgba(255, 99, 132, 0.6)', categoryPercentage: 1, barPercentage: 1 },
+                        { label: 'G channel', data: core.pixelIntensity.g.counts, backgroundColor: 'rgba(75, 192, 192, 0.6)', categoryPercentage: 1, barPercentage: 1 },
+                        { label: 'B channel', data: core.pixelIntensity.b.counts, backgroundColor: 'rgba(54, 162, 235, 0.6)', categoryPercentage: 1, barPercentage: 1 }
+                    ]
                 },
-                { 
-                    label: 'Eval', 
-                    data: aspectRatioData.eval.counts, 
-                    backgroundColor: 'rgba(222, 163, 114, 0.7)', // Cam nhạt đất (giống hình)
-                    categoryPercentage: 1.0, barPercentage: 1.0 
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { ...axisTitleStyle, text: 'Pixel Intensity' }, ticks: {maxTicksLimit: 10} }, y: { title: { ...axisTitleStyle, text: 'Frequency' }, stacked: false } } }
+            });
+        }
+
+        // --- 1.4 Image Size Scatter (CẮT MAX 2000 ĐIỂM ĐỂ WEB KHÔNG GIẬT) ---
+        if (core.imageSize && getCtx('imageSizeChart')) {
+            const trainData = (core.imageSize.train || []).slice(0, 2000).map(item => ({ x: item.width, y: item.height }));
+            const evalData = (core.imageSize.eval || []).slice(0, 2000).map(item => ({ x: item.width, y: item.height }));
+            
+            new Chart(getCtx('imageSizeChart'), {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        { label: 'Train', data: trainData, backgroundColor: 'rgba(54, 162, 235, 0.4)' },
+                        { label: 'Eval', data: evalData, backgroundColor: 'rgba(255, 159, 64, 0.4)' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { ...axisTitleStyle, text: 'Width' } }, y: { title: { ...axisTitleStyle, text: 'Height' } } } }
+            });
+        }
+
+        // --- 1.5 Image Quality Scatter (CẮT MAX 2000 ĐIỂM) ---
+        if (core.quality && getCtx('qualityChart')) {
+            const trainData = (core.quality.train || []).slice(0, 2000).map(item => ({ x: item.contrast, y: item.sharpness }));
+            const evalData = (core.quality.eval || []).slice(0, 2000).map(item => ({ x: item.contrast, y: item.sharpness }));
+            
+            new Chart(getCtx('qualityChart'), {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        { label: 'Train', data: trainData, backgroundColor: 'rgba(54, 162, 235, 0.4)' },
+                        { label: 'Eval', data: evalData, backgroundColor: 'rgba(255, 159, 64, 0.4)' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { ...axisTitleStyle, text: 'Contrast (Std Dev)' } }, y: { title: { ...axisTitleStyle, text: 'Sharpness (Laplacian)' } } } }
+            });
+        }
+
+        // --- 1.6 Aspect Ratio (Tự động gom nhóm mảng thô thành tần suất) ---
+        if (core.aspectRatio && getCtx('aspectRatioChart')) {
+            const countFreq = (arr) => {
+                let counts = {};
+                arr.forEach(val => { let k = val.toFixed(2); counts[k] = (counts[k] || 0) + 1; });
+                return counts;
+            };
+            const trainFreq = countFreq(core.aspectRatio.train || []);
+            const evalFreq = countFreq(core.aspectRatio.eval || []);
+            const uniqueKeys = [...new Set([...Object.keys(trainFreq), ...Object.keys(evalFreq)])].sort();
+
+            const trainCounts = uniqueKeys.map(k => trainFreq[k] || 0);
+            const evalCounts = uniqueKeys.map(k => evalFreq[k] || 0);
+
+            new Chart(getCtx('aspectRatioChart'), {
+                type: 'bar',
+                data: {
+                    labels: uniqueKeys,
+                    datasets: [
+                        { label: 'Train', data: trainCounts, backgroundColor: 'rgba(110, 168, 204, 0.6)', borderColor: '#607D8B', borderWidth: 1, categoryPercentage: 1.0, barPercentage: 1.0 },
+                        { label: 'Eval', data: evalCounts, backgroundColor: 'rgba(222, 163, 114, 0.7)', borderColor: '#A0522D', borderWidth: 1, categoryPercentage: 1.0, barPercentage: 1.0 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { ...axisTitleStyle, text: 'Aspect Ratio' } }, y: { title: { ...axisTitleStyle, text: 'Count' }, stacked: false } } }
+            });
+        }
+
+        // ==========================================
+        // 2. CLASSIFICATION EDA
+        // ==========================================
+        const cls = data.classification;
+        
+        // --- 2.1 Class Correlation Heatmap (Giữ nguyên) ---
+        const corrDivId = 'classCorrelationHeatmap';
+        if (cls.classCorrelation && document.getElementById(corrDivId)) {
+            const flatData = cls.classCorrelation.data;
+            const uniqueClasses = [...new Set(flatData.map(d => d.x))];
+            
+            const corrMatrix = uniqueClasses.map(yLabel => 
+                uniqueClasses.map(xLabel => {
+                    const found = flatData.find(item => item.x === xLabel && item.y === yLabel);
+                    return found ? found.value : 0;
+                })
+            );
+
+            let annotations = [];
+            for (let i = 0; i < corrMatrix.length; i++) {
+                for (let j = 0; j < corrMatrix[i].length; j++) {
+                    annotations.push({ 
+                        x: uniqueClasses[j], 
+                        y: uniqueClasses[i], 
+                        text: corrMatrix[i][j].toFixed(2), 
+                        showarrow: false, 
+                        font: { color: corrMatrix[i][j] > 0.8 ? 'white' : 'black', size: 11, family: 'Inter' } 
+                    });
                 }
-            ]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'Aspect Ratio (Width / Height)' }, stacked: false, ticks: { maxTicksLimit: 10 } },
-                y: { title: { display: true, text: 'Count' }, stacked: false } // Đặt false để các cột đè lên nhau (Overlaid)
             }
+
+            Plotly.newPlot(corrDivId, [{ 
+                z: corrMatrix, x: uniqueClasses, y: uniqueClasses, type: 'heatmap', colorscale: 'OrRd', showscale: true 
+            }], { 
+                margin: { t: 40, b: 80, l: 100, r: 40 }, yaxis: { autorange: 'reversed' }, annotations: annotations
+            }, { responsive: true, displayModeBar: false });
         }
-    });
 
-
-    // =========================================================================
-    // 3. DATA PLACEHOLDERS - DETECTION EDA (DÁN DATA CỦA BẠN VÀO ĐÂY)
-    // =========================================================================
-    
-    // 3.1. Size Statistics (Hình 1 - Bar Chart)
-    const detSizeStatsData = {
-    "labels": [
-        "32x32"
-    ],
-    "values": [
-        60000
-    ]
-};
-
-    // 3.2. Area Distribution (Hình 2 - Histogram)
-    const detAreaData = {
-    "bins": [
-        1023.5,
-        1023.6,
-        1023.7,
-        1023.8,
-        1023.9,
-        1024.0,
-        1024.1,
-        1024.2,
-        1024.3,
-        1024.4,
-        1024.5
-    ],
-    "counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        60000,
-        0,
-        0,
-        0,
-        0
-    ]
-};
-
-    // 3.3. Aspect Ratio Distribution (Hình 3 - Pie Chart)
-    const detAspectRatioData = {
-    "labels": [
-        "1.0"
-    ],
-    "values": [
-        60000
-    ]
-};
-
-    // 3.4. Center Bias (Hình 4 - Pie Chart)
-    const detCenterBiasData = {
-    "labels": [
-        "center",
-        "edge"
-    ],
-    "values": [
-        60000,
-        0
-    ]
-};
-
-    // 3.5. 3x3 Grid Distribution (Hình 5 - Heatmap 3x3)
-    const detGridData = {
-    "grid": [
-        [
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            60000.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0
-        ]
-    ]
-};
-
-    // 3.6. Center Position Heatmap (Hình 6 - Heatmap 32x32)
-    // Dưới đây là mảng giả lập 32x32, điểm giữa (15,15) sáng nhất (60000). 
-    // Khi có data, bạn hãy chép đè mảng 32x32 thật vào biến này.
-    const detPositionData = {
-    "heatmap": [
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            60000.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ]
-    ],
-    "xedges": [
-        0.0,
-        1.0,
-        2.0,
-        3.0,
-        4.0,
-        5.0,
-        6.0,
-        7.0,
-        8.0,
-        9.0,
-        10.0,
-        11.0,
-        12.0,
-        13.0,
-        14.0,
-        15.0,
-        16.0,
-        17.0,
-        18.0,
-        19.0,
-        20.0,
-        21.0,
-        22.0,
-        23.0,
-        24.0,
-        25.0,
-        26.0,
-        27.0,
-        28.0,
-        29.0,
-        30.0,
-        31.0,
-        32.0
-    ],
-    "yedges": [
-        0.0,
-        1.0,
-        2.0,
-        3.0,
-        4.0,
-        5.0,
-        6.0,
-        7.0,
-        8.0,
-        9.0,
-        10.0,
-        11.0,
-        12.0,
-        13.0,
-        14.0,
-        15.0,
-        16.0,
-        17.0,
-        18.0,
-        19.0,
-        20.0,
-        21.0,
-        22.0,
-        23.0,
-        24.0,
-        25.0,
-        26.0,
-        27.0,
-        28.0,
-        29.0,
-        30.0,
-        31.0,
-        32.0
-    ]
-};
-
-    // 3.7. Size Categories (Hình 7 - Pie Chart)
-    const detSizeCatData = {
-    "labels": [
-        "medium"
-    ],
-    "values": [
-        60000
-    ]
-};
-
-
-// =========================================================================
-    // 4. LOGIC VẼ BIỂU ĐỒ BÊN TRONG DETECTION EDA (ĐÃ FIX LỖI JSON KEYS)
-    // =========================================================================
-    
-    // Màu sắc chủ đạo cho phần Detection (Màu Cyan/Xanh lơ)
-    const detBgColor = 'rgba(6, 182, 212, 0.7)';
-
-    // --- 1. Size Statistics (Bar Chart) ---
-    new Chart(document.getElementById('detSizeStatsChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: detSizeStatsData.labels,
-            // Sửa lại: data của bạn vẫn là .counts nên giữ nguyên
-            datasets: [{ label: 'Count', data: detSizeStatsData.values, backgroundColor: detBgColor}]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-            scales: { 
-                x: { title: { display: true, text: 'Image Size', font: { family:'Inter', size:12 } } },
-                y: { title: { display: true, text: 'Count', font: { family:'Inter', size:12 } }, beginAtZero: true } 
-            }
-        }
-    });
-
-    // --- 2. Area Distribution (Histogram/Bar) ---
-    // SỬA LỖI: Tạo mảng labels từ mảng `bins` trong JSON
-    const areaLabels = detAreaData.bins.slice(0, -1).map((val, i) => `${val.toFixed(1)} - ${detAreaData.bins[i+1].toFixed(1)}`);
-    
-    new Chart(document.getElementById('detAreaChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: areaLabels,
-            // Sửa lại: Dùng .counts
-            datasets: [{ label: 'Frequency', data: detAreaData.counts, backgroundColor: detBgColor, categoryPercentage: 1.0, barPercentage: 1.0 }] 
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-            scales: { 
-                x: { title: { display: true, text: 'Area (Pixels)', font: { family:'Inter', size:12} } }, 
-                y: { title: { display: true, text: 'Frequency', font: { family:'Inter', size:12} }, beginAtZero: true } 
-            }
-        }
-    });
-
-    // --- Hàm tiện ích vẽ Pie Chart (Dùng chung cho 3 biểu đồ tròn) ---
-    function drawDetectionPieChart(canvasId, labels, data) {
-        new Chart(document.getElementById(canvasId).getContext('2d'), {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: data,
-                    backgroundColor: ['#0ea5e9', '#94a3b8', '#f59e0b', '#10b981'], // Các màu: Sky blue, Slate, Amber, Emerald
-                    borderWidth: 0, borderColor: '#ffffff'
-                }]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'left', labels: { font: { family: 'Inter', size: 12 }, usePointStyle: true } },
-                    tooltip: { 
-                        callbacks: { 
-                            label: function(ctx) {
-                                const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = ((ctx.parsed / total) * 100).toFixed(1);
-                                return ` ${ctx.label}: ${ctx.parsed.toLocaleString()} (${percentage}%)`;
-                            } 
-                        } 
+        // --- 2.2 UMAP Embedding (Sửa lỗi theo cấu trúc JSON mới) ---
+        const umapDivId = 'umapEmbeddingChart';
+        if (cls.umapEmbedding && document.getElementById(umapDivId)) {
+            
+            // Chuyển đổi cấu trúc: Từ Array of {x, y} sang 2 mảng x:[], y:[] cho Plotly
+            const umapTraces = cls.umapEmbedding.map(group => {
+                return {
+                    // group.data là mảng [{"x":1, "y":2}, ...]
+                    // Chúng ta cần lấy toàn bộ x ra 1 mảng và y ra 1 mảng
+                    x: group.data.map(point => point.x), 
+                    y: group.data.map(point => point.y),
+                    mode: 'markers',
+                    type: 'scatter',
+                    name: group.label, // Lấy tên class từ key "label"
+                    marker: { 
+                        size: 3,        // Kích thước điểm chấm nhỏ cho giống hình mẫu
+                        opacity: 0.6,    // Độ trong suốt để thấy vùng đậm nhạt
+                        line: { width: 0 } // Bỏ viền điểm chấm cho mượt
                     }
+                };
+            });
+
+            const layout = {
+                margin: { t: 40, b: 60, l: 60, r: 20 },
+                hovermode: 'closest',
+                xaxis: { 
+                    title: { text: 'UMAP dimension 1', font: { family: 'Inter', size: 12 } },
+                    zeroline: false
+                },
+                yaxis: { 
+                    title: { text: 'UMAP dimension 2', font: { family: 'Inter', size: 12 } },
+                    zeroline: false
+                },
+                plot_bgcolor: '#ffffff',
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                legend: {
+                    font: { family: 'Inter', size: 11 },
+                    orientation: 'v',
+                    x: 1.02,
+                    y: 1
                 }
-            }
-        });
+            };
+
+            const config = {
+                responsive: true,
+                displayModeBar: true,
+                displaylogo: false
+            };
+
+            Plotly.newPlot(umapDivId, umapTraces, layout, config);
+        }
+
+
+        // ==========================================
+        // 3. DETECTION EDA
+        // ==========================================
+        const det = data.detection;
+        const detBgColor = 'rgba(6, 182, 212, 0.7)';
+
+        // 3.1 Size Stats
+        if (det.sizeBar && getCtx('detSizeStatsChart')) {
+            new Chart(getCtx('detSizeStatsChart'), {
+                type: 'bar',
+                data: { labels: det.sizeBar.labels, datasets: [{ data: det.sizeBar.values || det.sizeBar.counts, backgroundColor: detBgColor }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'Image Size' } } }, y: {title: {...axisTitleStyle, text: 'Count'}} }
+            });
+        }
+
+        // 3.2 Area Dist
+        if (det.areaHist && getCtx('detAreaChart')) {
+            const edges = det.areaHist.bins || det.areaHist.bin_edges;
+            const areaLabels = edges.slice(0, -1).map((val, i) => `${val.toFixed(1)} - ${edges[i+1].toFixed(1)}`);
+            new Chart(getCtx('detAreaChart'), {
+                type: 'bar',
+                data: { labels: areaLabels, datasets: [{ data: det.areaHist.counts, backgroundColor: detBgColor, categoryPercentage: 1.0, barPercentage: 1.0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'Area (Pixels)' }, ticks: { display: false } } }, y: {title: {...axisTitleStyle, text: 'Count'}} }
+            });
+        }
+
+        // --- Hàm vẽ Pie Chart ---
+        const drawDetPie = (canvasId, jsonObj) => {
+            if (!jsonObj || !getCtx(canvasId)) return;
+            new Chart(getCtx(canvasId), {
+                type: 'pie',
+                data: { labels: jsonObj.labels, datasets: [{ data: jsonObj.values || jsonObj.counts, backgroundColor: ['#0ea5e9', '#94a3b8', '#f59e0b', '#10b981'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'left' } } }
+            });
+        };
+
+        drawDetPie('detAspectRatioChart', det.aspectRatioPie);
+        drawDetPie('detCenterBiasChart', det.centerBias);
+        drawDetPie('detSizeCatChart', det.sizeCatPie);
+
+        // 3.6 Heatmap 3x3
+        if (det.grid3x3 && document.getElementById('detGridHeatmap')) {
+            Plotly.newPlot('detGridHeatmap', [{ z: det.grid3x3.grid || det.grid3x3.matrix, type: 'heatmap', colorscale: 'Viridis' }], { margin: { t: 10, b: 30, l: 30, r: 10 }, yaxis: { autorange: 'reversed' } }, { displayModeBar: false });
+        }
+
+        // 3.7 Heatmap Position 32x32
+        if (det.positionHeatmap && document.getElementById('detPositionHeatmap')) {
+            Plotly.newPlot('detPositionHeatmap', [{ z: det.positionHeatmap.heatmap || det.positionHeatmap.matrix, type: 'heatmap', colorscale: 'Viridis' }], { margin: { t: 20, b: 40, l: 40, r: 20 }, yaxis: { autorange: 'reversed' } }, { displayModeBar: false });
+        }
+
+
+        // ==========================================
+        // 4. SEGMENTATION EDA
+        // ==========================================
+        const seg = data.segmentation;
+
+        // Metric Values (Cập nhật text HTML)
+        if (seg.boundaryMetrics) {
+            const metricsData = seg.boundaryMetrics.mean_values || seg.boundaryMetrics.values || [0,0,0];
+            const tEl = document.getElementById('metric-thickness'); if(tEl) tEl.innerText = metricsData[0]?.toFixed(3);
+            const sEl = document.getElementById('metric-smoothness'); if(sEl) sEl.innerText = metricsData[1]?.toFixed(3);
+            const cEl = document.getElementById('metric-complexity'); if(cEl) cEl.innerText = metricsData[2]?.toFixed(3);
+        }
+
+        // Hàm vẽ Segment Histograms
+        const drawSegHist = (canvasId, histData, color) => {
+            if(!histData || !getCtx(canvasId)) return;
+            const edges = histData.bins || histData.bin_edges;
+            const labels = edges.slice(0, -1).map(v => v.toFixed(2));
+            new Chart(getCtx(canvasId), {
+                type: 'bar',
+                data: { labels: labels, datasets: [{ data: histData.counts, backgroundColor: color, categoryPercentage: 1.0, barPercentage: 1.0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: {y: {title: {...axisTitleStyle, text: 'Count'}}}}
+            });
+        };
+        drawSegHist('segThicknessHist', seg.thicknessHist, '#1e90ff');
+        drawSegHist('segSmoothnessHist', seg.smoothnessHist, '#ffa500');
+        drawSegHist('segComplexityHist', seg.complexityHist, '#008000');
+
+        // Pixel Dist (Pie)
+        if (seg.pixelDist && getCtx('segPixelDistChart')) {
+            new Chart(getCtx('segPixelDistChart'), {
+                type: 'pie',
+                data: { labels: seg.pixelDist.labels, datasets: [{ data: seg.pixelDist.values || seg.pixelDist.counts, backgroundColor: ['#64748b', '#f59e0b', '#6366f1'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'left' } } }
+            });
+        }
+
+        // Pixel Mean (Bar)
+        if (seg.pixelStats && getCtx('segPixelMeanChart')) {
+            new Chart(getCtx('segPixelMeanChart'), {
+                type: 'bar',
+                data: { labels: seg.pixelStats.classes, datasets: [{ label: 'Mean', data: seg.pixelStats.mean, backgroundColor: 'rgba(20, 184, 166, 0.7)' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { title: { ...axisTitleStyle, text: 'Mean Value' } } } }
+            });
+        }
+
+        // Shape Metrics Overview (Bar dọc)
+        if (seg.shapeMetrics && getCtx('segShapeMetricsChart')) {
+            new Chart(getCtx('segShapeMetricsChart'), {
+                type: 'bar',
+                data: {
+                    labels: seg.shapeMetrics.labels,
+                    datasets: [{ data: seg.shapeMetrics.mean_values || seg.shapeMetrics.values, backgroundColor: ['#87ceeb', '#fa8072', '#334155'], barPercentage: 0.6 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'Metric Name' } }, y: { max: 1.1, title: { ...axisTitleStyle, text: 'Mean Value' } } } }
+            });
+        }
+
+        // Boundary Metrics Comparison (Bar dọc)
+        if (seg.boundaryMetrics && getCtx('segBoundaryMetricsChart')) {
+            new Chart(getCtx('segBoundaryMetricsChart'), {
+                type: 'bar',
+                data: {
+                    labels: seg.boundaryMetrics.labels,
+                    datasets: [{ data: seg.boundaryMetrics.mean_values || seg.boundaryMetrics.values, backgroundColor: ['#1e90ff', '#ffa500', '#008000'], barPercentage: 0.6 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'Metric Name' }}, y: { title: { ...axisTitleStyle, text: 'Metric Value' } } } }
+            });
+        }
+
+        console.log('🎉 Hoàn tất vẽ toàn bộ biểu đồ Image EDA!');
     }
 
-    // --- 3. Aspect Ratio (Pie Chart) ---
-    // SỬA LỖI: JSON của bạn dùng .values thay vì .counts
-    drawDetectionPieChart('detAspectRatioChart', detAspectRatioData.labels, detAspectRatioData.values);
+    // Xuất hàm ra Global để data-loader.js gọi
+    window.initializeImageCharts = initializeImageCharts;
 
-    // --- 4. Size Categories (Pie Chart) ---
-    // SỬA LỖI: JSON dùng .values
-    drawDetectionPieChart('detSizeCatChart', detSizeCatData.labels, detSizeCatData.values);
-
-    // --- 5. Center Bias (Pie Chart) ---
-    // SỬA LỖI: JSON dùng .values
-    drawDetectionPieChart('detCenterBiasChart', detCenterBiasData.labels, detCenterBiasData.values);
-
-    // --- 6. 3x3 Grid Distribution (Plotly Heatmap) ---
-    Plotly.newPlot('detGridHeatmap', [{
-        z: detGridData.grid, // SỬA LỖI: JSON dùng chữ .grid
-        type: 'heatmap',
-        colorscale: 'Viridis', 
-        showscale: true,
-        colorbar: { tickfont: { family: 'Inter' } }
-    }], {
-        margin: { t: 10, b: 30, l: 30, r: 10 },
-        yaxis: { autorange: 'reversed', tickfont: { family: 'Inter' } },
-        xaxis: { tickfont: { family: 'Inter' } },
-        font: { family: 'Inter' }
-    }, { responsive: true, displayModeBar: false });
-
-    // --- 7. Center Position Heatmap (Plotly Heatmap) ---
-    Plotly.newPlot('detPositionHeatmap', [{
-        z: detPositionData.heatmap, // SỬA LỖI: JSON dùng chữ .heatmap
-        type: 'heatmap',
-        colorscale: 'Viridis', 
-        showscale: true,
-        colorbar: { tickfont: { family: 'Inter' } }
-    }], {
-        margin: { t: 20, b: 40, l: 40, r: 20 },
-        yaxis: { autorange: 'reversed', tickfont: { family: 'Inter' } },
-        xaxis: { tickfont: { family: 'Inter' } },
-        font: { family: 'Inter' }
-    }, { responsive: true, displayModeBar: true, displaylogo: false });
-
-
-    // ==========================================
-    // 5. SEGMENTATION EDA LOGIC
-    // ==========================================
-
-    // 5.1. Data Placeholders
-    const segPixelDist = {
-    "labels": [
-        "background",
-        "boundary",
-        "foreground"
-    ],
-    "values": [
-        39780000,
-        11520000,
-        10140000
-    ]
-};
-    const segPixelStats = {
-    "classes": [
-        "background",
-        "boundary",
-        "foreground"
-    ],
-    "mean": [
-        0.6474609375,
-        0.1875,
-        0.1650390625
-    ],
-    "std": [
-        0.0,
-        0.0,
-        0.0
-    ]
-};
-    const segShapeMetrics = {
-    "labels": [
-        "Convexity",
-        "Compactness",
-        "Eccentricity"
-    ],
-    "values": [
-        1.0,
-        0.9217520112095057,
-        0.0
-    ]
-};
-    const segBoundaryMetrics = {
-    "labels": [
-        "Boundary Thickness",
-        "Boundary Smoothness",
-        "Boundary Complexity"
-    ],
-    "values": [
-        1.5279707672673624,
-        0.15280540853955044,
-        1.7452340867985046
-    ]
-};
-
-    // Data Histogram (Dán Full JSON vào đây)
-    const thicknessHist = {
-    "bins": [
-        1.0279707672673624,
-        1.0779707672673624,
-        1.1279707672673625,
-        1.1779707672673623,
-        1.2279707672673623,
-        1.2779707672673624,
-        1.3279707672673624,
-        1.3779707672673625,
-        1.4279707672673623,
-        1.4779707672673623,
-        1.5279707672673624,
-        1.5779707672673624,
-        1.6279707672673625,
-        1.6779707672673623,
-        1.7279707672673625,
-        1.7779707672673624,
-        1.8279707672673624,
-        1.8779707672673625,
-        1.9279707672673623,
-        1.9779707672673625,
-        2.0279707672673624
-    ],
-    "counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        60000,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ]
-};
-    const smoothnessHist = {
-    "bins": [
-        -0.3471945914604496,
-        -0.29719459146044963,
-        -0.24719459146044961,
-        -0.1971945914604496,
-        -0.1471945914604496,
-        -0.09719459146044962,
-        -0.047194591460449575,
-        0.0028054085395504136,
-        0.0528054085395504,
-        0.10280540853955039,
-        0.15280540853955038,
-        0.20280540853955042,
-        0.25280540853955047,
-        0.3028054085395504,
-        0.35280540853955045,
-        0.4028054085395504,
-        0.4528054085395504,
-        0.5028054085395505,
-        0.5528054085395504,
-        0.6028054085395504,
-        0.6528054085395504
-    ],
-    "counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        60000,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ]
-};
-    const complexityHist = {
-    "bins": [
-        1.2452340867985052,
-        1.2952340867985053,
-        1.3452340867985053,
-        1.3952340867985051,
-        1.4452340867985052,
-        1.4952340867985052,
-        1.5452340867985053,
-        1.5952340867985053,
-        1.6452340867985051,
-        1.6952340867985052,
-        1.7452340867985052,
-        1.7952340867985053,
-        1.8452340867985053,
-        1.8952340867985051,
-        1.9452340867985054,
-        1.9952340867985052,
-        2.045234086798505,
-        2.0952340867985053,
-        2.145234086798505,
-        2.1952340867985054,
-        2.2452340867985052
-    ],
-    "counts": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        60000,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ]
-};
-
-    // --- Cập nhật Metric Tiles ---
-    document.getElementById('metric-thickness').innerText = segBoundaryMetrics.values[0].toFixed(3);
-    document.getElementById('metric-smoothness').innerText = segBoundaryMetrics.values[1].toFixed(3);
-    document.getElementById('metric-complexity').innerText = segBoundaryMetrics.values[2].toFixed(3);
-
-    // --- 1. Pixel Distribution (Pie) ---
-    new Chart(document.getElementById('segPixelDistChart').getContext('2d'), {
-        type: 'pie',
-        data: {
-            labels: segPixelDist.labels,
-            datasets: [{
-                data: segPixelDist.values,
-                backgroundColor: ['#64748b', '#f59e0b', '#6366f1'], // Slate, Amber, Indigo
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { position: 'left', labels: { usePointStyle: true } } }
-        }
-    });
-
-    // --- 2. Mean Pixel Intensity (Bar) ---
-    new Chart(document.getElementById('segPixelMeanChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: segPixelStats.classes,
-            datasets: [{
-                label: 'Mean Value',
-                data: segPixelStats.mean,
-                backgroundColor: 'rgba(20, 184, 166, 0.7)',
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, title: { display: true, text: 'Mean Coverage' } } }
-        }
-    });
-
-    // --- Hàm vẽ Histogram thu nhỏ cho 3 ô metrics ---
-    function drawSegHist(canvasId, histData, color) {
-        const labels = histData.bins.slice(0, -1).map(v => v.toFixed(2));
-        new Chart(document.getElementById(canvasId).getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{ data: histData.counts, backgroundColor: color, categoryPercentage: 1.0, barPercentage: 1.0 }]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-            }
-        });
-    }
-
-    drawSegHist('segThicknessHist', thicknessHist, 'rgba(59, 130, 246, 0.5)');
-    drawSegHist('segSmoothnessHist', smoothnessHist, 'rgba(16, 185, 129, 0.5)');
-    drawSegHist('segComplexityHist', complexityHist, 'rgba(168, 85, 247, 0.5)');
-
-    // --- 3. Shape Metrics Overview (Bar ngang) ---
-    new Chart(document.getElementById('segShapeMetricsChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: segShapeMetrics.labels,
-            datasets: [{
-                data: segShapeMetrics.values,
-                backgroundColor: [
-                    '#87ceeb', // Sky Blue (Convexity)
-                    '#fa8072', // Salmon (Compactness)
-                    '#334155'  // Slate (Eccentricity - vì là 0 nên để màu trung tính)
-                ]
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { x: { beginAtZero: true, ticks: {autoSkip: false}} }
-        }
-    });
-
-    // --- 4. Boundary Metrics Comparison ---
-    new Chart(document.getElementById('segBoundaryMetricsChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: segBoundaryMetrics.labels,
-            datasets: [{
-                data: segBoundaryMetrics.values,
-                backgroundColor: [
-                    '#1e90ff', // Dodger Blue (Thickness)
-                    '#ffa500', // Orange (Smoothness)
-                    '#008000' 
-                ]
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-});
+})();

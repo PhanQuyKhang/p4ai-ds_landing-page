@@ -1,0 +1,252 @@
+[
+    {
+        "class": "airplane",
+        "train_images": [
+            {
+                "path": "/static/train/train_0_0.png"
+            },
+            {
+                "path": "/static/train/train_0_1.png"
+            },
+            {
+                "path": "/static/train/train_0_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_0_0.png"
+            },
+            {
+                "path": "/static/eval/eval_0_1.png"
+            },
+            {
+                "path": "/static/eval/eval_0_2.png"
+            }
+        ]
+    },
+    {
+        "class": "automobile",
+        "train_images": [
+            {
+                "path": "/static/train/train_1_0.png"
+            },
+            {
+                "path": "/static/train/train_1_1.png"
+            },
+            {
+                "path": "/static/train/train_1_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_1_0.png"
+            },
+            {
+                "path": "/static/eval/eval_1_1.png"
+            },
+            {
+                "path": "/static/eval/eval_1_2.png"
+            }
+        ]
+    },
+    {
+        "class": "bird",
+        "train_images": [
+            {
+                "path": "/static/train/train_2_0.png"
+            },
+            {
+                "path": "/static/train/train_2_1.png"
+            },
+            {
+                "path": "/static/train/train_2_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_2_0.png"
+            },
+            {
+                "path": "/static/eval/eval_2_1.png"
+            },
+            {
+                "path": "/static/eval/eval_2_2.png"
+            }
+        ]
+    },
+    {
+        "class": "cat",
+        "train_images": [
+            {
+                "path": "/static/train/train_3_0.png"
+            },
+            {
+                "path": "/static/train/train_3_1.png"
+            },
+            {
+                "path": "/static/train/train_3_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_3_0.png"
+            },
+            {
+                "path": "/static/eval/eval_3_1.png"
+            },
+            {
+                "path": "/static/eval/eval_3_2.png"
+            }
+        ]
+    },
+    {
+        "class": "deer",
+        "train_images": [
+            {
+                "path": "/static/train/train_4_0.png"
+            },
+            {
+                "path": "/static/train/train_4_1.png"
+            },
+            {
+                "path": "/static/train/train_4_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_4_0.png"
+            },
+            {
+                "path": "/static/eval/eval_4_1.png"
+            },
+            {
+                "path": "/static/eval/eval_4_2.png"
+            }
+        ]
+    },
+    {
+        "class": "dog",
+        "train_images": [
+            {
+                "path": "/static/train/train_5_0.png"
+            },
+            {
+                "path": "/static/train/train_5_1.png"
+            },
+            {
+                "path": "/static/train/train_5_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_5_0.png"
+            },
+            {
+                "path": "/static/eval/eval_5_1.png"
+            },
+            {
+                "path": "/static/eval/eval_5_2.png"
+            }
+        ]
+    },
+    {
+        "class": "frog",
+        "train_images": [
+            {
+                "path": "/static/train/train_6_0.png"
+            },
+            {
+                "path": "/static/train/train_6_1.png"
+            },
+            {
+                "path": "/static/train/train_6_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_6_0.png"
+            },
+            {
+                "path": "/static/eval/eval_6_1.png"
+            },
+            {
+                "path": "/static/eval/eval_6_2.png"
+            }
+        ]
+    },
+    {
+        "class": "horse",
+        "train_images": [
+            {
+                "path": "/static/train/train_7_0.png"
+            },
+            {
+                "path": "/static/train/train_7_1.png"
+            },
+            {
+                "path": "/static/train/train_7_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_7_0.png"
+            },
+            {
+                "path": "/static/eval/eval_7_1.png"
+            },
+            {
+                "path": "/static/eval/eval_7_2.png"
+            }
+        ]
+    },
+    {
+        "class": "ship",
+        "train_images": [
+            {
+                "path": "/static/train/train_8_0.png"
+            },
+            {
+                "path": "/static/train/train_8_1.png"
+            },
+            {
+                "path": "/static/train/train_8_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_8_0.png"
+            },
+            {
+                "path": "/static/eval/eval_8_1.png"
+            },
+            {
+                "path": "/static/eval/eval_8_2.png"
+            }
+        ]
+    },
+    {
+        "class": "truck",
+        "train_images": [
+            {
+                "path": "/static/train/train_9_0.png"
+            },
+            {
+                "path": "/static/train/train_9_1.png"
+            },
+            {
+                "path": "/static/train/train_9_2.png"
+            }
+        ],
+        "eval_images": [
+            {
+                "path": "/static/eval/eval_9_0.png"
+            },
+            {
+                "path": "/static/eval/eval_9_1.png"
+            },
+            {
+                "path": "/static/eval/eval_9_2.png"
+            }
+        ]
+    }
+]

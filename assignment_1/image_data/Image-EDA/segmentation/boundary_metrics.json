@@ -1,0 +1,12 @@
+{
+    "labels": [
+        "Boundary Thickness",
+        "Boundary Smoothness",
+        "Boundary Complexity"
+    ],
+    "mean_values": [
+        1.5279707672673624,
+        0.15280540853955044,
+        1.7452340867985046
+    ]
+}
