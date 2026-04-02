@@ -3,8 +3,99 @@
  * Render charts using data loaded from window.IMAGE_DATA
  */
 
+// =========================================================================
+// 1. HARDCODED DATA: IMAGE SAMPLES (32x32 CIFAR-10)
+// =========================================================================
+const imageSamplesData = [
+    {
+        "class": "airplane",
+        "train": ["./Image-EDA/static/train/train_0_0.png", "./Image-EDA/static/train/train_0_1.png", "./Image-EDA/static/train/train_0_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_0_0.png", "./Image-EDA/static/eval/eval_0_1.png", "./Image-EDA/static/eval/eval_0_2.png"]
+    },
+    {
+        "class": "automobile",
+        "train": ["./Image-EDA/static/train/train_1_0.png", "./Image-EDA/static/train/train_1_1.png", "./Image-EDA/static/train/train_1_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_1_0.png", "./Image-EDA/static/eval/eval_1_1.png", "./Image-EDA/static/eval/eval_1_2.png"]
+    },
+    {
+        "class": "bird",
+        "train": ["./Image-EDA/static/train/train_2_0.png", "./Image-EDA/static/train/train_2_1.png", "./Image-EDA/static/train/train_2_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_2_0.png", "./Image-EDA/static/eval/eval_2_1.png", "./Image-EDA/static/eval/eval_2_2.png"]
+    },
+    {
+        "class": "cat",
+        "train": ["./Image-EDA/static/train/train_3_0.png", "./Image-EDA/static/train/train_3_1.png", "./Image-EDA/static/train/train_3_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_3_0.png", "./Image-EDA/static/eval/eval_3_1.png", "./Image-EDA/static/eval/eval_3_2.png"]
+    },
+    {
+        "class": "deer",
+        "train": ["./Image-EDA/static/train/train_4_0.png", "./Image-EDA/static/train/train_4_1.png", "./Image-EDA/static/train/train_4_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_4_0.png", "./Image-EDA/static/eval/eval_4_1.png", "./Image-EDA/static/eval/eval_4_2.png"]
+    },
+    {
+        "class": "dog",
+        "train": ["./Image-EDA/static/train/train_5_0.png", "./Image-EDA/static/train/train_5_1.png", "./Image-EDA/static/train/train_5_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_5_0.png", "./Image-EDA/static/eval/eval_5_1.png", "./Image-EDA/static/eval/eval_5_2.png"]
+    },
+    {
+        "class": "frog",
+        "train": ["./Image-EDA/static/train/train_6_0.png", "./Image-EDA/static/train/train_6_1.png", "./Image-EDA/static/train/train_6_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_6_0.png", "./Image-EDA/static/eval/eval_6_1.png", "./Image-EDA/static/eval/eval_6_2.png"]
+    },
+    {
+        "class": "horse",
+        "train": ["./Image-EDA/static/train/train_7_0.png", "./Image-EDA/static/train/train_7_1.png", "./Image-EDA/static/train/train_7_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_7_0.png", "./Image-EDA/static/eval/eval_7_1.png", "./Image-EDA/static/eval/eval_7_2.png"]
+    },
+    {
+        "class": "ship",
+        "train": ["./Image-EDA/static/train/train_8_0.png", "./Image-EDA/static/train/train_8_1.png", "./Image-EDA/static/train/train_8_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_8_0.png", "./Image-EDA/static/eval/eval_8_1.png", "./Image-EDA/static/eval/eval_8_2.png"]
+    },
+    {
+        "class": "truck",
+        "train": ["./Image-EDA/static/train/train_9_0.png", "./Image-EDA/static/train/train_9_1.png", "./Image-EDA/static/train/train_9_2.png"],
+        "eval": ["./Image-EDA/static/eval/eval_9_0.png", "./Image-EDA/static/eval/eval_9_1.png", "./Image-EDA/static/eval/eval_9_2.png"]
+    }
+];
+
+
 (function() {
     'use strict';
+
+    function renderImageSamples() {
+        const container = document.getElementById('imageGridContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        const headerRow = document.createElement('div');
+        headerRow.className = "grid grid-cols-7 gap-4 mb-6 border-b border-slate-200 pb-3 text-center";
+        headerRow.innerHTML = `
+            <div class="text-left font-bold text-slate-400 uppercase text-[10px] tracking-widest">Classes</div>
+            <div class="col-span-3 font-bold text-blue-500 uppercase text-[10px] tracking-widest">Train Set Samples</div>
+            <div class="col-span-3 font-bold text-orange-500 uppercase text-[10px] tracking-widest">Eval Set Samples</div>
+        `;
+        container.appendChild(headerRow);
+
+        imageSamplesData.forEach(item => {
+            const row = document.createElement('div');
+            row.className = "grid grid-cols-7 gap-4 items-center mb-4 group";
+            const label = document.createElement('div');
+            label.className = "font-black text-slate-700 capitalize text-sm group-hover:text-emerald-600 transition-colors";
+            label.innerText = item.class;
+            row.appendChild(label);
+
+            const createImg = (src) => {
+                const div = document.createElement('div');
+                div.className = "aspect-square bg-slate-200 rounded shadow-sm overflow-hidden border border-slate-200 hover:border-emerald-400 transition-all";
+                div.innerHTML = `<img src="${src}" class="w-full h-full object-contain" style="image-rendering: pixelated;">`;
+                return div;
+            };
+            item.train.forEach(path => row.appendChild(createImg(path)));
+            item.eval.forEach(path => row.appendChild(createImg(path)));
+            container.appendChild(row);
+        });
+    }
+
 
     function initializeImageCharts() {
         console.log('🎨 Đang khởi tạo các biểu đồ Image EDA...');
@@ -345,6 +436,7 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { title: { ...axisTitleStyle, text: 'Metric Name' }}, y: { title: { ...axisTitleStyle, text: 'Metric Value' } } } }
             });
         }
+        renderImageSamples();
 
         console.log('🎉 Hoàn tất vẽ toàn bộ biểu đồ Image EDA!');
     }

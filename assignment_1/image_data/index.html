@@ -45,10 +45,10 @@
     <section class="pt-32 pb-16 bg-emerald-50">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-                Image Data EDA
+                CIFAR 10 EDA
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                Computer Vision exploration: analyzing pixel distributions, file properties, and visual patterns.
+                Each class contains several thousands of small real-world RGB images of vehicle and animals for training and testing.
             </p>
             <div class="inline-flex items-center justify-center bg-white text-emerald-700 font-bold px-5 py-2.5 rounded-lg shadow-sm border border-emerald-100 uppercase tracking-wide text-sm">
                 Modality 3: Image Data
@@ -65,9 +65,9 @@
                     <span class="w-2 h-8 bg-emerald-500 rounded-full inline-block"></span>
                     1. Core EDA
                 </h2>
-                <p class="text-sm text-slate-500 mt-2 ml-4">
+                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
                     Analysis of physical image properties including dimensions, aspect ratios, file sizes, and pixel intensity (RGB).
-                </p>
+                </p> -->
             </div>
             
             <div id="core-eda-container" class="w-full space-y-8">
@@ -76,11 +76,9 @@
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                     <div class="flex items-center gap-2 mb-6">
                         <span class="w-1.5 h-5 bg-emerald-500 rounded-full"></span>
-                        <h3 class="font-bold text-lg text-slate-800">3 Random Images per Class (Train vs Eval)</h3>
+                        <h3 class="font-bold text-lg text-slate-800">Sample Images From Each Class (Train vs Eval)</h3>
                     </div>
-                    <div id="imageGridContainer" class="w-full overflow-x-auto min-h-[200px]">
-                        <p class="text-center text-slate-400 font-mono mt-4">/* Lưới hình ảnh sẽ được load bằng Javascript tại đây */</p>
-                    </div>
+                    <div id="imageGridContainer" class="w-full overflow-x-auto min-h-[200px]"></div>
                 </div>
 
                 <!-- Class Distribution (2 Cột) -->
@@ -155,9 +153,9 @@
                     <span class="w-2 h-8 bg-teal-500 rounded-full inline-block"></span>
                     2. Classification EDA
                 </h2>
-                <p class="text-sm text-slate-500 mt-2 ml-4">
+                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
                     Analysis of class distributions, label balance between train/eval sets, and category correlations.
-                </p>
+                </p> -->
             </div>
             
             <div id="classification-eda-container" class="w-full space-y-8">
@@ -189,9 +187,9 @@
                     <span class="w-2 h-8 bg-cyan-500 rounded-full inline-block"></span>
                     3. Detection EDA
                 </h2>
-                <p class="text-sm text-slate-500 mt-2 ml-4">
+                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
                     Exploration of bounding boxes, object sizes, aspect ratios, and spatial distribution of objects within images.
-                </p>
+                </p> -->
             </div>
             
             <div id="detection-eda-container" class="w-full space-y-8">
@@ -269,9 +267,9 @@
                     <span class="w-2 h-8 bg-indigo-500 rounded-full inline-block"></span>
                     4. Segmentation EDA
                 </h2>
-                <p class="text-sm text-slate-500 mt-2 ml-4">
+                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
                     Analysis of pixel-level masks, boundary properties, and object shape metrics.
-                </p>
+                </p> -->
             </div>
             
             <div id="segmentation-eda-container" class="w-full space-y-10">
