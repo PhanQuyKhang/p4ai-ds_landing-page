@@ -345,7 +345,39 @@
 
             </div>
         </section>
+        <!-- 5. Key Insights -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 border-l-8 border-l-emerald-500">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">5. Key Insights</h2>
+            <ul class="space-y-4 text-slate-600 font-medium" id="key-insights-list">
+                
+                <!-- Dataset Characteristics -->
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Small and Unified Resolution:</strong> All images in the dataset have a fixed resolution of 32x32 pixels. While this allows for more lightweight and efficient models, it may require specific preprocessing or resizing when using models with fixed high-resolution inputs like Vision Transformers (ViT).</p>
+                </li>
 
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Perfect Class Balance:</strong> There is no class imbalance in the dataset. Every category contains exactly 5,000 images in the training set and 1,000 images in the evaluation set, ensuring objectivity during model training and evaluation.</p>
+                </li>
+
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Sharpness and Contrast Relationship:</strong> Analysis shows a positive correlation where higher contrast generally leads to sharper images. Conversely, low-contrast images are consistently associated with lower sharpness and higher blurriness levels.</p>
+                </li>
+
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Semantic Class Correlation:</strong> Certain classes exhibit high visual similarity, specifically between vehicles (Truck vs. Automobile, Airplane vs. Ship) and animals (Cat vs. Dog, Deer vs. Horse). Images within the same broad type (Animals or Vehicles) show significantly higher correlation than those from different types.</p>
+                </li>
+
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Task-Specific Limitations:</strong> CIFAR-10 is strictly tailored for image classification. It does not provide native bounding boxes, segmentation masks, or other annotations required for complex tasks like detection or segmentation without additional manual labeling or pre-trained model assistance.</p>
+                </li>
+
+            </ul>
+        </section>
     </main>
 
     <!-- Footer -->
