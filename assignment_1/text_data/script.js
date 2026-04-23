@@ -34,18 +34,18 @@ new Chart(ctxCategory, {
             data: categoryData.datasets[0].data,
             // Dùng màu Tím (AI) và Xanh Ngọc (Human) chuẩn Tailwind để nổi bật
             backgroundColor: [
-                'rgba(139, 92, 246, 0.8)', // 1. Violet-500 (Chủ đạo)
-                'rgba(16, 185, 129, 0.8)', // 2. Emerald-500 (Tương phản)
-                'rgba(14, 165, 233, 0.8)', // 3. Sky-500 (Hài hòa)
-                'rgba(245, 158, 11, 0.8)', // 4. Amber-500 (Điểm nhấn)
-                'rgba(244, 63, 94, 0.8)'  // 5. Rose-500 (Nổi bật)
+                'rgba(59, 130, 246, 0.7)',  // METHODS -> Blue-500
+                'rgba(245, 158, 11, 0.7)',  // RESULTS -> Amber-500
+                'rgba(239, 68, 68, 0.7)',   // CONCLUSIONS -> Red-500
+                'rgba(16, 185, 129, 0.7)',  // BACKGROUND -> Emerald-500
+                'rgba(139, 92, 246, 0.7)'   // OBJECTIVE -> Purple-500
             ],
             borderColor: [
-                '#8b5cf6', 
-                '#10b981',
-                '#0ea5e9',
+                '#3b82f6',
                 '#f59e0b',
-                '#f43f5e'
+                '#ef4444',
+                '#10b981',
+                '#8b5cf6'
             ],
             borderWidth: 1,
         }]
@@ -407,18 +407,18 @@ new Chart(ctxVocab, {
             data: vocabData.counts,
             // Đồng bộ màu: AI = Tím, Human = Xanh Ngọc
             backgroundColor: [
-                'rgba(139, 92, 246, 0.8)', // 1. Violet-500 (Chủ đạo)
-                'rgba(16, 185, 129, 0.8)', // 2. Emerald-500 (Tương phản)
-                'rgba(14, 165, 233, 0.8)', // 3. Sky-500 (Hài hòa)
-                'rgba(245, 158, 11, 0.8)', // 4. Amber-500 (Điểm nhấn)
-                'rgba(244, 63, 94, 0.8)'  // 5. Rose-500 (Nổi bật)
+                'rgba(139, 92, 246, 0.7)', // OBJECTIVE - Purple-500
+                'rgba(16, 185, 129, 0.7)', // BACKGROUND - Emerald-500
+                'rgba(239, 68, 68, 0.7)',  // CONCLUSIONS - Red-500
+                'rgba(59, 130, 246, 0.7)', // METHODS - Blue-500
+                'rgba(245, 158, 11, 0.7)'  // RESULTS - Amber-500
             ],
             borderColor: [
                 '#8b5cf6', 
                 '#10b981',
-                '#0ea5e9',
-                '#f59e0b',
-                '#f43f5e'
+                '#ef4444',
+                '#3b82f6',
+                '#f59e0b'
             ],
             borderWidth: 1,
             barPercentage: 0.5 // Thu gọn độ rộng cột cho tinh tế
@@ -746,9 +746,15 @@ termsContainer.innerHTML = ''; // Xóa sạch dữ liệu cũ trong container
 
 Object.entries(topWordsByAuthor).forEach(([author, dataInfo]) => {
     
-    const colorTheme = author === "AI" ? 
-        { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' } : 
-        { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' };
+    const categoryThemes = {
+        "OBJECTIVE": { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' },
+        "METHODS": { bg: 'rgba(59, 130, 246, 0.7)', border: '#3b82f6', icon: 'bg-blue-500' },
+        "RESULTS": { bg: 'rgba(245, 158, 11, 0.7)', border: '#f59e0b', icon: 'bg-amber-500' },
+        "CONCLUSIONS": { bg: 'rgba(239, 68, 68, 0.7)', border: '#ef4444', icon: 'bg-red-500' },
+        "BACKGROUND": { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' }
+    };
+
+    const colorTheme = categoryThemes[author];
 
     const chartWrapper = document.createElement('div');
     // Thay đổi UI: Xếp trên - dưới, full width
@@ -811,13 +817,235 @@ Object.entries(topWordsByAuthor).forEach(([author, dataInfo]) => {
 // 7. TF-IDF TOP TERMS (Biểu đồ ngang)
 // ==========================================
 const tfidfData = {
-    "AI": {
-        "labels": ["quantum", "developed", "energy", "propose", "network", "learning", "water", "power", "economic", "analyzing", "neural", "social", "dark", "examines", "hydrogen"],
-        "data": [0.2086, 0.1862, 0.1825, 0.1504, 0.1304, 0.1213, 0.111, 0.1007, 0.0994, 0.0994, 0.0934, 0.0928, 0.0928, 0.0922, 0.0916]
+    "METHODS": {
+        "labels": [
+            "randomized",
+            "weeks",
+            "primary",
+            "using",
+            "months",
+            "randomly",
+            "control",
+            "intervention",
+            "received",
+            "participants",
+            "mg",
+            "years",
+            "baseline",
+            "assessed",
+            "outcome",
+            "clinical",
+            "assigned",
+            "placebo",
+            "controlled",
+            "week"
+        ],
+        "data": [
+            0.3485413033677044,
+            0.1824206633128414,
+            0.18065516960983619,
+            0.17433223867349193,
+            0.17207404905336895,
+            0.16735237984765733,
+            0.1666543939650739,
+            0.15409064807857165,
+            0.14817829707315883,
+            0.1449347156188004,
+            0.14394932378456493,
+            0.13926871257194645,
+            0.13081076599475866,
+            0.12415937111366923,
+            0.1205462677214725,
+            0.11783644017732496,
+            0.11734374426020723,
+            0.11352535090254479,
+            0.1100354214896275,
+            0.10950166757941661
+        ]
     },
-    "Human": {
-        "labels": ["health", "patients", "methods", "findings", "significant", "risk", "associated", "factors", "significantly", "disease", "including", "higher", "compared", "potential", "participants"],
-        "data": [0.2224, 0.1609, 0.1406, 0.1359, 0.1278, 0.1206, 0.1158, 0.1126, 0.1042, 0.0978, 0.0941, 0.0935, 0.0927, 0.0925, 0.0917]
+    "OBJECTIVE": {
+        "labels": [
+            "evaluate",
+            "efficacy",
+            "compare",
+            "determine",
+            "therapy",
+            "clinical",
+            "assess",
+            "aim",
+            "safety",
+            "investigate",
+            "compared",
+            "pain",
+            "randomized",
+            "intervention",
+            "risk",
+            "outcomes",
+            "effectiveness",
+            "using",
+            "disease",
+            "cancer"
+        ],
+        "data": [
+            0.28909843356699927,
+            0.27713215167370414,
+            0.229613872851054,
+            0.20082542655703967,
+            0.18729832528635823,
+            0.17481177026726769,
+            0.16128466899658625,
+            0.16041754712026052,
+            0.15746933274075303,
+            0.155041391487041,
+            0.13769895396052634,
+            0.12399842831457976,
+            0.12295788206298888,
+            0.12035651643401168,
+            0.11498036080079214,
+            0.11047132704389834,
+            0.10526859578594394,
+            0.10110641077958042,
+            0.0995455914021941,
+            0.09070094826367163
+        ]
+    },
+    "RESULTS": {
+        "labels": [
+            "significantly",
+            "significant",
+            "vs",
+            "ci",
+            "lsb",
+            "rsb",
+            "compared",
+            "mean",
+            "difference",
+            "control",
+            "respectively",
+            "placebo",
+            "months",
+            "higher",
+            "baseline",
+            "differences",
+            "time",
+            "lower",
+            "intervention",
+            "increased"
+        ],
+        "data": [
+            0.27168822484739963,
+            0.2657593470463652,
+            0.26541262904630475,
+            0.24700190324309274,
+            0.22918059803998359,
+            0.2291112544399715,
+            0.20054169123498716,
+            0.1838645554320776,
+            0.1618479624282365,
+            0.1604264186279885,
+            0.15217453022654887,
+            0.13927662062429866,
+            0.13775106142403248,
+            0.13144079382293158,
+            0.13064334242279246,
+            0.10966690341913284,
+            0.1058876772184735,
+            0.10522891301835857,
+            0.09839856841716693,
+            0.09770513241704595
+        ]
+    },
+    "BACKGROUND": {
+        "labels": [
+            "efficacy",
+            "risk",
+            "disease",
+            "therapy",
+            "clinical",
+            "health",
+            "care",
+            "studies",
+            "cancer",
+            "associated",
+            "intervention",
+            "compared",
+            "pain",
+            "aim",
+            "randomized",
+            "use",
+            "outcomes",
+            "effective",
+            "used",
+            "safety"
+        ],
+        "data": [
+            0.1782270722787905,
+            0.17394435150314488,
+            0.17163827108548954,
+            0.16373170965352843,
+            0.15911954881821777,
+            0.14577722640178334,
+            0.14495362625262073,
+            0.14429474613329063,
+            0.14182394568580278,
+            0.13441154434333924,
+            0.13259962401518147,
+            0.1306229836571912,
+            0.12666970294121063,
+            0.12419890249372277,
+            0.12255170219539753,
+            0.12057506183740725,
+            0.11761010130042182,
+            0.10855049965963302,
+            0.10575025915248012,
+            0.10360889876465731
+        ]
+    },
+    "CONCLUSIONS": {
+        "labels": [
+            "effective",
+            "clinical",
+            "results",
+            "associated",
+            "compared",
+            "use",
+            "therapy",
+            "intervention",
+            "risk",
+            "significant",
+            "significantly",
+            "did",
+            "improve",
+            "findings",
+            "pain",
+            "suggest",
+            "improved",
+            "efficacy",
+            "outcomes",
+            "care"
+        ],
+        "data": [
+            0.2009683009856532,
+            0.1970148262121649,
+            0.1952577263128368,
+            0.1645084780745948,
+            0.16352010938122272,
+            0.1556131598342462,
+            0.14825530400580972,
+            0.14715711656872965,
+            0.14693747908131363,
+            0.13518687350455685,
+            0.13145303621848461,
+            0.1299155738065725,
+            0.12123989305363994,
+            0.11970243064172785,
+            0.11421149345632749,
+            0.11309157025065245,
+            0.10311980034181877,
+            0.10202161290473868,
+            0.10169215667361467,
+            0.09883686933720648
+        ]
     }
 };
 
@@ -830,9 +1058,15 @@ tfidfContainer.appendChild(tfidfGrid);
 
 Object.entries(tfidfData).forEach(([author, dataInfo]) => {
     
-    const colorTheme = author === "AI" ? 
-        { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' } : 
-        { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' };
+    const categoryThemes = {
+        "OBJECTIVE": { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' },
+        "METHODS": { bg: 'rgba(59, 130, 246, 0.7)', border: '#3b82f6', icon: 'bg-blue-500' },
+        "RESULTS": { bg: 'rgba(245, 158, 11, 0.7)', border: '#f59e0b', icon: 'bg-amber-500' },
+        "CONCLUSIONS": { bg: 'rgba(239, 68, 68, 0.7)', border: '#ef4444', icon: 'bg-red-500' },
+        "BACKGROUND": { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' }
+    };
+
+    const colorTheme = categoryThemes[author];
 
     const chartWrapper = document.createElement('div');
     chartWrapper.innerHTML = `
@@ -1093,11 +1327,55 @@ if (heatmapDiv) {
 // ==========================================
 const overallFrequentData = {
     "title": "Top 20 Frequent Words",
-    "labels": ["health", "patients", "methods", "findings", "among", "significant", "risk", "associated", "factors", "significantly", "across", "disease", "compared", "potential", "higher", "system", "including", "studies", "high", "participants"],
-    "datasets": [{
-        "label": "Frequency",
-        "data": [2355, 1706, 1491, 1442, 1438, 1376, 1303, 1208, 1170, 1169, 1115, 1037, 1036, 1032, 1021, 1020, 984, 973, 969, 963]
-    }]
+    "labels": [
+        "p",
+        "randomized",
+        "compared",
+        "control",
+        "significant",
+        "intervention",
+        "significantly",
+        "n",
+        "months",
+        "vs",
+        "rsb",
+        "lsb",
+        "clinical",
+        "placebo",
+        "baseline",
+        "ci",
+        "weeks",
+        "primary",
+        "mean",
+        "using"
+    ],
+    "datasets": [
+        {
+            "label": "Frequency",
+            "data": [
+                29990,
+                11495,
+                10647,
+                10166,
+                9479,
+                9430,
+                9240,
+                9043,
+                8993,
+                8383,
+                8200,
+                8198,
+                7651,
+                7539,
+                7421,
+                7306,
+                6991,
+                6847,
+                6715,
+                6549
+            ]
+        }
+    ]
 };
 
 const ctxOverallFreq = document.getElementById('mostFrequentChart').getContext('2d');
