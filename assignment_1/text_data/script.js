@@ -1437,7 +1437,13 @@ if (heatmapDiv) {
         x: labels,
         y: labels,
         type: 'heatmap',
-        colorscale: 'Reds', // Đã đổi sang tone Đỏ giống hình mẫu
+        colorscale: [
+            [0, '#361b8f'],    // Màu cho mức Low (0.0)
+            [0.45, '#6a34b8'],  // Mức Moderate (0.5)
+            [0.6, '#9945dc'],  // Mức High (0.7)
+            [0.75, '#d94fd1'], // Mức Very High (0.85)
+            [1, '#f860b7']     // Mức Perfect Match (1.0)
+        ],
         showscale: true,
         colorbar: {
             title: 'Similarity',
@@ -1502,6 +1508,58 @@ if (heatmapDiv) {
     guideWrapper.appendChild(guideHeader);
     guideWrapper.appendChild(guideGrid);
     parentContainer.appendChild(guideWrapper);
+}
+
+// ==========================================
+// 11. CATEGORY DISTRIBUTION BY SENTENCE POSITION
+// ==========================================
+const positionData = {
+    "x_labels": ["0.05", "0.10", "0.15", "0.20", "0.25", "0.30", "0.35", "0.40", "0.45", "0.50", "0.55", "0.60", "0.65", "0.70", "0.75", "0.80", "0.85", "0.90", "0.95", "1.00"],
+    "y_labels": ["BACKGROUND", "CONCLUSIONS", "METHODS", "OBJECTIVE", "RESULTS"],
+    "matrix": [
+        [7471, 4403, 2179, 1995, 1050, 516, 296, 242, 91, 94, 17, 22, 10, 6, 1, 2, 0, 3, 4, 0],
+        [13, 4, 5, 0, 0, 0, 1, 9, 4, 17, 7, 37, 54, 136, 357, 845, 1454, 4155, 5360, 14710],
+        [106, 2852, 3317, 6049, 6489, 6124, 5757, 7600, 4727, 6543, 1759, 3072, 1364, 1196, 777, 494, 332, 320, 159, 244],
+        [7540, 2394, 1440, 1261, 629, 277, 133, 83, 31, 24, 5, 5, 5, 3, 3, 0, 2, 1, 2, 0],
+        [0, 34, 73, 176, 281, 438, 665, 1742, 1818, 5077, 2521, 6509, 5269, 7713, 7633, 6464, 4719, 4737, 1960, 124]
+    ]
+};
+
+const posDivId = 'positionHeatmap';
+if (document.getElementById(posDivId)) {
+    const dataPlot = [{
+        z: positionData.matrix,
+        x: positionData.x_labels,
+        y: positionData.y_labels,
+        type: 'heatmap',
+        colorscale: 'Viridis', // Dải màu xanh-vàng rất chuyên nghiệp cho mật độ
+        showscale: true,
+        colorbar: {
+            title: 'Sentence Count',
+            titleside: 'right',
+            tickfont: { family: 'Inter', size: 10 }
+        },
+        hoverongaps: false
+    }];
+
+    const layoutPlot = {
+        xaxis: { 
+            title: { text: 'Relative Position in Abstract', font: { size: 12 } },
+            tickfont: { size: 10 },
+            gridcolor: 'rgba(0,0,0,0)'
+        },
+        yaxis: { 
+            autorange: 'reversed', // Giữ đúng thứ tự nhãn y
+            tickfont: { family: 'Inter', size: 11 }
+        },
+        margin: { t: 20, b: 60, l: 120, r: 20 },
+        height: 450,
+        font: { family: 'Inter' },
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)'
+    };
+
+    Plotly.newPlot(posDivId, dataPlot, layoutPlot, { responsive: true, displayModeBar: false });
 }
 
 // ==========================================
