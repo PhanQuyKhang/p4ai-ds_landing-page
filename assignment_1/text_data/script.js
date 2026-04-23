@@ -91,12 +91,56 @@ new Chart(ctxCategory, {
 // 2. STOP WORDS ANALYSIS (Cột dọc - Đã sửa lỗi nhãn)
 // ==========================================
 const stopWordsData = {
-    "title": "Top 20 Stop Words in Dataset (Raw Data)",
-    "labels": ["the", "and", "of", "in", "to", "a", "for", "with", "we", "that", "this", "is", "were", "on", "by", "was", "from", "as", "study", "are"],
-    "datasets": [{
-        "label": "Freq",
-        "data": [43149, 35379, 29168, 20593, 18661, 17094, 9740, 9640, 7314, 6906, 6202, 5546, 5250, 5057, 4937, 4566, 4196, 4194, 3590, 3089]
-    }]
+    "title": "Top 20 Most Frequent Stop Words",
+    "labels": [
+        "the",
+        "and",
+        "of",
+        "in",
+        "to",
+        "with",
+        "a",
+        "were",
+        "was",
+        "for",
+        "patients",
+        "group",
+        "at",
+        "or",
+        "study",
+        "on",
+        "treatment",
+        "is",
+        "after",
+        "by"
+    ],
+    "datasets": [
+        {
+            "label": "Frequency",
+            "data": [
+                170629,
+                137446,
+                130330,
+                106501,
+                76156,
+                61197,
+                58510,
+                50373,
+                46183,
+                39660,
+                39147,
+                34559,
+                24240,
+                24134,
+                18715,
+                18530,
+                18448,
+                15985,
+                15695,
+                15565
+            ]
+        }
+    ]
 };
 
 const ctxStopWords = document.getElementById('stopWordsChart').getContext('2d');
