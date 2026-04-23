@@ -1304,7 +1304,7 @@ const bigramData = {
 };
 
 // Tìm thẻ Canvas `bigramChart` đã khai báo trong HTML file
-const bigramCanvasDiv = document.getElementById('bigramChart').parentNode;
+const bigramCanvasDiv = document.getElementById('bigramChart');
 // Xóa thẻ canvas cũ vì ta sẽ thay bằng grid 2 cột
 bigramCanvasDiv.innerHTML = ''; 
 
@@ -1539,6 +1539,7 @@ if (document.getElementById(posDivId)) {
         type: 'heatmap',
         colorscale: 'YlGnBu', // Đổi sang dải màu Vàng-Xanh y hệt hình mẫu
         showscale: true,
+        reversescale: true, 
         colorbar: {
             title: 'Count',
             titleside: 'right',
