@@ -1,3 +1,4 @@
+const axisTitleStyle = { display: true};
 // Target variable distribution
 const ctxTarget = document.getElementById('targetDistChart').getContext('2d');
 
@@ -96,12 +97,14 @@ const univariateData = {
         "labels": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
         "counts": [160052, 11388, 14764, 8495, 4542, 7622, 1330, 4538, 809, 179, 5595, 60, 578, 68, 2587, 4916, 112, 96, 152, 22, 3273, 663, 70, 56, 72, 1336, 69, 99, 522, 215, 19400]}            
     },
-    "categorical": {
+    "ordinal": {
         "Diabetes": {"labels": ["No (0)", "Borderline (1)", "Diabetes (2)"], "counts": [213703, 4631, 35346]},
         "GenHlth": {"labels": ["Excellent (1)", "Very good (2)", "Good (3)", "Fair (4)", "Poor (5)"], "counts": [45299, 89084, 75646, 31570, 12081]},
         "Age": {"labels": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "counts": [5700, 7598, 11123, 13823, 16157, 19819, 26314, 30832, 33244, 32194, 23533, 15980, 17363]},
         "Education": {"labels": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0], "counts": [174, 4043, 9478, 62750, 69910, 107325]},
         "Income": {"labels": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0], "counts": [9811, 11783, 15994, 20135, 25883, 36470, 43219, 90385]},
+    },
+    "binary": {
         "HighBP": {"labels": [0.0, 1.0], "counts": [144851, 108829]},
         "HighChol": {"labels": [0.0, 1.0], "counts": [146089, 107591]},
         "CholCheck": {"labels": [0.0, 1.0], "counts": [9470, 244210]},
@@ -119,145 +122,108 @@ const univariateData = {
 };
 
 
-// ==========================================
-// BẢNG MÀU CHUẨN TAILWIND 
-// ==========================================
-const colorPalette = [
-    { border: '#3b82f6', bg: 'rgba(59, 130, 246, 0.6)' }, { border: '#10b981', bg: 'rgba(16, 185, 129, 0.6)' },
-    { border: '#f59e0b', bg: 'rgba(245, 158, 11, 0.6)' }, { border: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.6)' },
-    { border: '#ec4899', bg: 'rgba(236, 72, 153, 0.6)' }, { border: '#06b6d4', bg: 'rgba(6, 182, 212, 0.6)' },
-    { border: '#f43f5e', bg: 'rgba(244, 63, 94, 0.6)' }, { border: '#84cc16', bg: 'rgba(132, 204, 22, 0.6)' },
-    { border: '#6366f1', bg: 'rgba(99, 102, 241, 0.6)' }, { border: '#14b8a6', bg: 'rgba(20, 184, 166, 0.6)' }
-];
+    const labelMappings = {
+        "Sex": ["Female (0)", "Male (1)"],
+        "Diabetes": ["No (0)", "Borderline (1)", "Diabetes (2)"],
+        "GenHlth": ["Excellent (1)", "Very Good (2)", "Good (3)", "Fair (4)", "Poor (5)"],
+    };
 
-// ==========================================
-// 1. VẼ NHÓM CONTINUOUS (Cột dọc)
-// ==========================================
-const numContainer = document.getElementById('continuous-charts-container');
+    const colorPalette = [
+        { border: '#3b82f6', bg: 'rgba(59, 130, 246, 0.6)' }, { border: '#10b981', bg: 'rgba(16, 185, 129, 0.6)' },
+        { border: '#f59e0b', bg: 'rgba(245, 158, 11, 0.6)' }, { border: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.6)' },
+        { border: '#ec4899', bg: 'rgba(236, 72, 153, 0.6)' }
+    ];
 
-Object.entries(univariateData.continuous).forEach(([feature, data], index) => {
-    const color = colorPalette[index % colorPalette.length];
-    
-    const chartDiv = document.createElement('div');
-    chartDiv.className = "bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-6";
-    chartDiv.innerHTML = `
-        <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
-            <span class="w-2 h-6 rounded-full inline-block" style="background-color: ${color.border}"></span> 
-            ${feature} Distribution
-        </h3>
-        <div style="height: 350px; width: 100%;">
-            <canvas id="numChart-${index}"></canvas>
-        </div>
-    `;
-    numContainer.appendChild(chartDiv);
-    
-    const ctx = document.getElementById(`numChart-${index}`).getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: data.labels, 
-            datasets: [{
-                label: 'Frequency',
-                data: data.counts,
-                backgroundColor: color.bg,       
-                borderColor: color.border,       
-                borderWidth: 1,
-                categoryPercentage: feature === "BMI" ? 1.0 : 0.8,
-                barPercentage: feature === "BMI" ? 1.0 : 0.9,
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                y: {
-                    beginAtZero: true, 
-                    title: { display: true, text: 'Count'},
-                    ticks: { callback: value => value.toLocaleString() } 
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: feature, // Nhãn cho trục X
-                        font: {
-                            family: 'Inter',
-                            size: 12,
-                        },
-                        padding: { top: 10 }
-                    },
-                    ticks: { maxRotation: 45, minRotation: 45, autoSkip: true, maxTicksLimit: 20 }
-                }
+    let colorIndex = 0; // Biến đếm để màu sắc nối tiếp nhau
+
+    // ==========================================
+    // HÀM VẼ BIỂU ĐỒ CHUNG (Dùng cho cả 3 nhóm)
+    // ==========================================
+    function renderCharts(groupData, containerId, isHorizontal = false, isBinary = false) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        Object.entries(groupData).forEach(([feature, data]) => {
+            const color = colorPalette[colorIndex % colorPalette.length];
+            colorIndex++;
+
+            const chartDiv = document.createElement('div');
+            chartDiv.className = "bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-6";
+            chartDiv.innerHTML = `
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="w-1.5 h-5 rounded-full" style="background-color: ${color.border}"></span>
+                    <h3 class="font-bold text-lg text-slate-800">${feature} Distribution</h3>
+                </div>
+                <div style="height: ${isHorizontal ? '300px' : '350px'}; width: 100%;">
+                    <canvas id="chart-${feature}"></canvas>
+                </div>
+            `;
+            container.appendChild(chartDiv);
+
+            // Xử lý nhãn (Labels)
+            let displayLabels = data.labels;
+            if (isBinary) {
+                displayLabels = feature === "Sex" ? labelMappings["Sex"] : ["No (0)", "Yes (1)"];
+            } else if (labelMappings[feature]) {
+                displayLabels = labelMappings[feature];
             }
-        }
-    });
-});
-const labelMappings = {
-    "Sex": ["Female (0)", "Male (1)"],
-    "Diabetes": ["No (0)", "Borderline (1)", "Diabetes (2)"],
-    "GenHlth": ["Excellent (1)", "Very Good (2)", "Good (3)", "Fair (4)", "Poor (5)"],
-};
 
-// ==========================================
-// 2. VẼ NHÓM CATEGORICAL (Cột ngang)
-// ==========================================
-const catContainer = document.getElementById('binary-charts-container');
-const offset = Object.keys(univariateData.continuous).length;
-
-Object.entries(univariateData.categorical).forEach(([feature, data], index) => {
-    const color = colorPalette[(offset + index) % colorPalette.length];
-    
-    const chartDiv = document.createElement('div');
-    chartDiv.className = "bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-6";
-    chartDiv.innerHTML = `
-        <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
-            <span class="w-2 h-6 rounded-full inline-block" style="background-color: ${color.border}"></span> 
-            ${feature} Distribution
-        </h3>
-        <div style="height: 300px; width: 100%;">
-            <canvas id="catChart-${index}"></canvas>
-        </div>
-    `;
-    catContainer.appendChild(chartDiv);
-    
-    let displayLabels;
-
-    if (labelMappings[feature]) {
-        displayLabels = labelMappings[feature];
-    } 
-    else if (data.labels.length === 2) {
-        displayLabels = ["No (0)", "Yes (1)"];
-    } 
-    else {
-        displayLabels = data.labels;
+            const ctx = document.getElementById(`chart-${feature}`).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: displayLabels,
+                    datasets: [{
+                        label: 'Count',
+                        data: data.counts,
+                        backgroundColor: color.bg,
+                        borderColor: color.border,
+                        borderWidth: 1,
+                        categoryPercentage: !isHorizontal ? 1.0 : 0.8, // Sát cột nếu là Histogram dọc
+                        barPercentage: !isHorizontal ? 1.0 : 0.9
+                    }]
+                },
+                options: {
+                    indexAxis: isHorizontal ? 'y' : 'x',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { 
+                            title: { ...axisTitleStyle, text: isHorizontal ? 'Count' : feature },
+                            ticks: { maxRotation: 45, minRotation: 45, autoSkip: true }
+                        },
+                        y: { 
+                            type: isHorizontal ? 'category' : 'linear', 
+                            title: { ...axisTitleStyle, text: isHorizontal ? feature : 'Count' },
+                            beginAtZero: true,
+                            ticks: { callback: function(value) {
+                                        // Chỉ thêm dấu phẩy cho trục con số (linear)
+                                        if (this.type === 'linear') {
+                                            return value.toLocaleString();
+                                        }
+                                        return this.getLabelForValue(value);
+                                    }, autoSkip: false 
+                            }
+                        }
+                    }
+                }
+            });
+        });
     }
 
-    const ctx = document.getElementById(`catChart-${index}`).getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: displayLabels,
-            datasets: [{
-                label: 'Count',
-                data: data.counts,
-                backgroundColor: color.bg,     
-                borderColor: color.border,
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            indexAxis: 'y', // Xoay ngang toàn bộ
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Count' },
-                    ticks: { callback: value => value.toLocaleString() } 
-                },
-            }
-        }
-    });
-});
+    // ==========================================
+    // THỰC THI VẼ 3 NHÓM BIỂU ĐỒ
+    // ==========================================
+    
+    // Group 1: Continuous (Vẽ dọc - Histogram style)
+    renderCharts(univariateData.continuous, 'continuous-charts-container', false, false);
+
+    // Group 2: Binary (Vẽ ngang)
+    renderCharts(univariateData.binary, 'binary-charts-container', true, true);
+
+    // Group 3: Ordinal (Vẽ ngang)
+    renderCharts(univariateData.ordinal, 'ordinal-charts-container', true, false);
 
 // Correlation Heatmap
 document.addEventListener('DOMContentLoaded', function() {

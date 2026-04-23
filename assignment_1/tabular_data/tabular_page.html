@@ -236,17 +236,94 @@
                 </h3>   
                 <p class="text-sm text-gray-500 mb-8">Distributions of continuous and categorial features across the dataset.</p>
 
-                <!-- Vùng chứa Continuous (Histograms) -->
-                <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">1. Continuous Features</h4>
-                <div id="continuous-charts-container" class="space-y-8 mb-16 w-full"></div>
+                <!-- 1. Continuous Features Section -->
+                <div class="mb-16">
+                    <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">1. Continuous Features</h4>
+                    
+                    <!-- Nơi chứa biểu đồ (JS sẽ đổ vào đây) -->
+                    <div id="continuous-charts-container" class="space-y-8 mb-6 w-full"></div>
 
-                <!-- Vùng chứa Binary (Bar charts) -->
-                <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">2. Binary Features</h4>
-                <div id="binary-charts-container" class="space-y-8 mb-16 w-full"></div>
+                    <!-- HỘP INSIGHTS BỔ SUNG -->
+                    <div class="p-6 bg-indigo-50/50 rounded-xl border border-indigo-100 shadow-sm mt-6">
+                        <h5 class="font-bold text-indigo-800 mb-3 flex items-center gap-2 uppercase text-xs tracking-widest">
+                            <span class="w-1 h-3 bg-indigo-500 rounded-full"></span> Continuous Features Insights
+                        </h5>
+                        <ul class="list-disc ml-5 space-y-2 text-sm text-slate-700 font-medium leading-relaxed">
+                            <li>
+                                <strong>BMI is right-skewed</strong>, with most values concentrated in the normal-to-overweight range and a small number of very high values.
+                            </li>
+                            <li>
+                                <strong>MentHlth and PhysHlth are heavily right-skewed and zero-inflated</strong>, as most respondents report 0 unhealthy days.
+                            </li>
+                            <li>
+                                Both variables also show a spike at <strong>30 days</strong>, indicating a subgroup with persistent health problems.
+                            </li>
+                            <li>
+                                Overall, these variables are <strong>not normally distributed</strong> and may contain outliers, especially in the right tail.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                <!-- Vùng chứa Binary (Bar charts) -->
-                <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">3. Ordinal Features</h4>
-                <div id="ordinal-charts-container" class="space-y-8 mb-16 w-full"></div>
+                <!-- 2. Binary Features Section -->
+                <div class="mb-16">
+                    <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">2. Binary Features</h4>
+                    <div id="binary-charts-container" class="space-y-8 mb-6 w-full"></div>
+
+                    <!-- HỘP INSIGHTS CHO BINARY -->
+                    <div class="p-6 bg-emerald-50/50 rounded-xl border border-emerald-100 shadow-sm mt-6">
+                        <h5 class="font-bold text-emerald-800 mb-3 flex items-center gap-2 uppercase text-xs tracking-widest">
+                            <span class="w-1 h-3 bg-emerald-500 rounded-full"></span> Binary Features Insights
+                        </h5>
+                        <ul class="list-disc ml-5 space-y-2 text-sm text-slate-700 font-medium leading-relaxed">
+                            <li>
+                                <strong>HighBP, HighChol, and Smoker</strong> have substantial “Yes” counts, indicating these risk factors are fairly common.
+                            </li>
+                            <li>
+                                <strong>CholCheck and AnyHealthcare</strong> are overwhelmingly “Yes”, showing that most respondents had healthcare access and cholesterol screening.
+                            </li>
+                            <li>
+                                <strong>Stroke and HvyAlcoholConsump</strong> are strongly imbalanced toward “No”, so positive cases are rare.
+                            </li>
+                            <li>
+                                <strong>PhysActivity, Fruits, and Veggies</strong> are mostly “Yes”, suggesting many respondents report healthy behaviors.
+                            </li>
+                            <li>
+                                <strong>DiffWalk</strong> remains mostly “No”, but its positive cases are still notable.
+                            </li>
+                            <li>
+                                <strong>Sex</strong> is relatively balanced, with slightly more females than males.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Ordinal Features Section -->
+                <div class="mb-16">
+                    <h4 class="font-bold text-lg text-slate-700 mb-4 border-b pb-2">3. Ordinal Features</h4>
+                    <div id="ordinal-charts-container" class="space-y-8 mb-6 w-full"></div>
+
+                    <!-- HỘP INSIGHTS CHO ORDINAL -->
+                    <div class="p-6 bg-purple-50/50 rounded-xl border border-purple-100 shadow-sm mt-6">
+                        <h5 class="font-bold text-purple-800 mb-3 flex items-center gap-2 uppercase text-xs tracking-widest">
+                            <span class="w-1 h-3 bg-purple-500 rounded-full"></span> Ordinal Features Insights
+                        </h5>
+                        <ul class="list-disc ml-5 space-y-2 text-sm text-slate-700 font-medium leading-relaxed">
+                            <li>
+                                <strong>Diabetes</strong> is dominated by the “No” category, while borderline diabetes is the least common group.
+                            </li>
+                            <li>
+                                For <strong>GenHlth</strong>, most respondents report Good or Very Good health, while Poor health is relatively uncommon.
+                            </li>
+                            <li>
+                                <strong>Age</strong> is more concentrated in the middle-to-older groups, suggesting strong representation of older adults.
+                            </li>
+                            <li>
+                                <strong>Education and Income</strong> are skewed toward higher levels, with lower categories appearing less frequently.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Correlation heatmap -->
