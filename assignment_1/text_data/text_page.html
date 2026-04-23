@@ -694,31 +694,31 @@
                 <!-- 1. Sequential Positioning -->
                 <li class="flex gap-3">
                     <span class="text-purple-500 mt-1">✓</span>
-                    <p><strong>Strict Sequential Positioning:</strong> The position heatmap reveals that sentence position is the strongest predictor for classification. Background/Objective are strictly at the beginning (0.0–0.15), Methods occupy the middle-early phase (0.2–0.5), Results dominate the latter half (0.5–0.9), and Conclusions are found exclusively at the end (0.9–1.0).</p>
+                    <p><strong>Strict Sequential Positioning:</strong> The position heatmap reveals that sentence position is the strongest predictor. <span class="text-emerald-600">Background</span> and <span class="text-purple-600">Objective</span> are strictly at the beginning (0.0–0.15), <span class="text-blue-600">Methods</span> occupy the middle-early phase (0.2–0.5), <span class="text-amber-600">Results</span> dominate the latter half (0.5–0.9), and <span class="text-red-600">Conclusions</span> appear exclusively at the end (0.9–1.0).</p>
                 </li>
 
                 <!-- 2. Class Imbalance -->
                 <li class="flex gap-3">
                     <span class="text-purple-500 mt-1">✓</span>
-                    <p><strong>Significant Class Imbalance:</strong> The dataset is heavily skewed toward <span class="text-blue-600">Methods</span> (~59k) and <span class="text-amber-600">Results</span> (~58k), which together comprise nearly 75% of the data. Evaluation should focus on <strong>F1-Score</strong> and <strong>Precision-Recall</strong> curves rather than raw accuracy.</p>
+                    <p><strong>Significant Class Imbalance:</strong> The dataset is heavily skewed toward <span class="text-blue-600">Methods</span> (~59k) and <span class="text-amber-600">Results</span> (~58k), comprising nearly 75% of the data. <span class="text-purple-600">Objective</span> and <span class="text-emerald-600">Background</span> are minority classes, meaning evaluation should focus on <strong>F1-Score</strong> rather than raw accuracy.</p>
                 </li>
 
                 <!-- 3. Lexical Signatures -->
                 <li class="flex gap-3">
                     <span class="text-purple-500 mt-1">✓</span>
-                    <p><strong>Distinct Lexical Signatures:</strong> Each category utilizes specific "trigger words." Results are highly <strong>quantitative</strong> (p-value, confidence interval), Methods are <strong>procedural</strong> (randomized, participants), and Objectives are dominated by <strong>action-oriented verbs</strong> (evaluate, compare, assess).</p>
+                    <p><strong>Distinct Lexical Signatures:</strong> Each category utilizes specific "trigger words." <span class="text-amber-600">Results</span> are highly <strong>quantitative</strong> (p-value, confidence interval), <span class="text-blue-600">Methods</span> are <strong>procedural</strong> (randomized, participants), and <span class="text-purple-600">Objectives</span> are dominated by <strong>action-oriented verbs</strong> (evaluate, compare, assess).</p>
                 </li>
 
                 <!-- 4. Vocabulary Richness -->
                 <li class="flex gap-3">
                     <span class="text-purple-500 mt-1">✓</span>
-                    <p><strong>Variability in Vocabulary Richness:</strong> Objective (11.8%) and Background (9.8%) have the highest Type-Token Ratio, indicating diverse phrasing. In contrast, Results (4.9%) has the lowest TTR, meaning it is highly formulaic and likely easier for the model to learn through repetition.</p>
+                    <p><strong>Variability in Vocabulary Richness:</strong> <span class="text-purple-600">Objective</span> (11.8%) and <span class="text-emerald-600">Background</span> (9.8%) have the highest vocabulary richness, indicating diverse phrasing. In contrast, <span class="text-amber-600">Results</span> (4.9%) has the lowest richness, meaning it is highly formulaic and repetitive.</p>
                 </li>
 
                 <!-- 5. Semantic Overlap -->
                 <li class="flex gap-3">
                     <span class="text-purple-500 mt-1">✓</span>
-                    <p><strong>High Semantic Overlap (Confusion Risk):</strong> The similarity matrix indicates a very high correlation between <strong>Background & Objective (0.87)</strong> and <strong>Background & Conclusions (0.82)</strong>. These pairs represent the highest risk for model misclassification due to shared vocabulary.</p>
+                    <p><strong>High Semantic Overlap (Confusion Risk):</strong> The similarity matrix indicates a very high correlation between <span class="text-emerald-600">Background</span> & <span class="text-purple-600">Objective</span> (0.87) and <span class="text-emerald-600">Background</span> & <span class="text-red-600">Conclusions</span> (0.82). Những cặp này có rủi ro bị phân loại nhầm cao nhất do dùng chung nhiều từ vựng.</p>
                 </li>
             </ul>
         </section>
