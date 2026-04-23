@@ -329,9 +329,35 @@
             <!-- Correlation heatmap -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
-                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Correlation Heatmap
+                    <span class="w-2 h-6 bg-slate-800 rounded-full inline-block"></span> Correlation Heatmap
                 </h3>
+                
+                <!-- Biểu đồ Heatmap -->
                 <div id="correlationHeatmap" style="width:100%; height:650px; margin: 20px 0;"></div>
+
+                <!-- HỘP INSIGHTS BỔ SUNG -->
+                <div class="mt-8 p-6 bg-slate-50/80 rounded-xl border border-slate-200 shadow-sm">
+                    <h5 class="font-bold text-slate-700 mb-4 flex items-center gap-2 uppercase text-xs tracking-widest">
+                        <span class="w-1 h-3 bg-slate-600 rounded-full"></span> Correlation Matrix Insights
+                    </h5>
+                    <ul class="list-disc ml-5 space-y-3 text-sm text-slate-700 font-medium leading-relaxed">
+                        <li>
+                            Most correlations are <strong>weak to moderate</strong>, indicating there is no serious multicollinearity within the dataset.
+                        </li>
+                        <li>
+                            <strong>GenHlth, Age, DiffWalk, HighBP, and Stroke</strong> show the strongest positive correlations with heart disease.
+                        </li>
+                        <li>
+                            <strong>Income, Education, and PhysActivity</strong> are negatively correlated with the target variable.
+                        </li>
+                        <li>
+                            The strongest inter-feature relationships appear between <strong>GenHlth–PhysHlth</strong>, <strong>PhysHlth–DiffWalk</strong>, and <strong>Education–Income</strong>.
+                        </li>
+                        <li>
+                            Overall, heart disease risk seems to be related to a <strong>combination</strong> of health, lifestyle, and socioeconomic factors.
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Feature vs Target Analysis -->
@@ -556,6 +582,32 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- HỘP INSIGHTS BỔ SUNG -->
+                <div class="mt-8 p-6 bg-red-50/50 rounded-xl border border-red-100 shadow-sm">
+                    <h5 class="font-bold text-red-800 mb-4 flex items-center gap-2 uppercase text-xs tracking-widest">
+                        <span class="w-1 h-3 bg-red-500 rounded-full"></span> Outlier Analysis Insights
+                    </h5>
+                    <ul class="list-disc ml-5 space-y-3 text-sm text-slate-700 font-medium leading-relaxed">
+                        <li>
+                            Outliers are concentrated in only a <strong>subset</strong> of features.
+                        </li>
+                        <li>
+                            <strong>PhysActivity, Veggies, DiffWalk, PhysHlth, and Diabetes</strong> have the highest outlier proportions.
+                        </li>
+                        <li>
+                            <strong>BMI, MentHlth, and PhysHlth</strong> show outliers consistent with their skewed distributions.
+                        </li>
+                        <li>
+                            Several variables such as <strong>Age, Education, Income, and Sex</strong> have no detected outliers.
+                        </li>
+                        <li>
+                            For binary/ordinal features, IQR-based outliers may reflect <strong>class imbalance</strong> rather than true anomalies.
+                        </li>
+                        <li>
+                            Outlier treatment should do focus mainly on <strong>continuous variables</strong>.
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Feature Importance -->
@@ -566,6 +618,33 @@
                 <!-- Gắn thêm ID và thẻ canvas vào đây -->
                 <div class="w-full mx-auto" style="height: 500px;"> 
                     <canvas id="featureImportanceChart"></canvas>
+                </div>
+                <!-- HỘP INSIGHTS BỔ SUNG -->
+                <div class="mt-8 p-6 bg-amber-50/50 rounded-xl border border-amber-100 shadow-sm">
+                    <h5 class="font-bold text-amber-800 mb-4 flex items-center gap-2 uppercase text-xs tracking-widest">
+                        <span class="w-1 h-3 bg-amber-500 rounded-full"></span> Model Predictors Insights
+                    </h5>
+                    <ul class="list-disc ml-5 space-y-3 text-sm text-slate-700 font-medium leading-relaxed">
+                        <li>
+                            <strong>BMI</strong> is the most influential feature in the model, showing the highest relative importance score.
+                        </li>
+                        <li>
+                            <strong>Age, Income, PhysHlth, GenHlth, MentHlth, and Education</strong> are also strong predictors of heart disease risk.
+                        </li>
+                        <li>
+                            Several medical and lifestyle factors such as <strong>Diabetes, Stroke, HighBP, and PhysActivity</strong> have moderate importance.
+                        </li>
+                        <li>
+                            <strong>CholCheck, AnyHealthcare, and HvyAlcoholConsump</strong> contribute the least to this specific model's performance.
+                        </li>
+                        <li>
+                            Overall, the model suggests that heart disease risk depends on a <strong>mix of health condition, lifestyle, and demographic factors</strong>.
+                        </li>
+                    </ul>
+                    <!-- Ghi chú về tính chất của Feature Importance -->
+                    <div class="mt-4 pt-4 border-t border-amber-100 text-[11px] text-amber-700 italic">
+                        * Note: Feature importance is model-specific and reflects contribution within this particular model, not direct causality.
+                    </div>
                 </div>
             </div>
         </section>
