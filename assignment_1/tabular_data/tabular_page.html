@@ -365,7 +365,33 @@
                 <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
                     <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Feature vs Target Analysis
                 </h3>
+                
+                <!-- Container cho biểu đồ (JS vẽ vào đây) -->
                 <div id="bivariate-charts-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+                <!-- HỘP INSIGHTS BỔ SUNG -->
+                <div class="mt-10 p-6 bg-indigo-50/50 rounded-xl border border-indigo-100 shadow-sm">
+                    <h5 class="font-bold text-indigo-800 mb-4 flex items-center gap-2 uppercase text-xs tracking-widest">
+                        <span class="w-1 h-3 bg-indigo-500 rounded-full"></span> Bivariate Analysis Insights
+                    </h5>
+                    <ul class="list-disc ml-5 space-y-3 text-sm text-slate-700 font-medium leading-relaxed">
+                        <li>
+                            Heart disease is significantly more common among respondents with <strong>HighBP, HighChol, Stroke, Diabetes, and DiffWalk</strong>.
+                        </li>
+                        <li>
+                            <strong>Healthier behaviors</strong> such as physical activity and fruit/vegetable consumption are clearly associated with <strong>lower heart disease prevalence</strong>.
+                        </li>
+                        <li>
+                            <strong>Older age groups</strong> and individuals with <strong>poorer self-rated general health</strong> show extremely strong associations with heart disease.
+                        </li>
+                        <li>
+                            Socioeconomic factors, specifically <strong>lower income and lower education</strong>, also appear related to higher heart disease risk.
+                        </li>
+                        <li>
+                            Some variables like <strong>CholCheck and AnyHealthcare</strong> provide limited visual separation because the vast majority of respondents fall into a single "Yes" category.
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Outlier Detection (IQR method) -->
