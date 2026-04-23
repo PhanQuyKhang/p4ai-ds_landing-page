@@ -559,122 +559,126 @@
                 
                 <!-- Card: Min Words -->
                 <div class="bg-[#f8fafc] border border-purple-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-purple-600 mb-2">5</div>
+                    <div class="text-4xl font-black text-purple-600 mb-2">1</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Min Words</div>
                 </div>
 
                 <!-- Card: Max Words -->
                 <div class="bg-[#f8fafc] border border-blue-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-blue-600 mb-2">703</div>
+                    <div class="text-4xl font-black text-blue-600 mb-2">296</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Max Words</div>
                 </div>
 
                 <!-- Card: Median Words -->
                 <div class="bg-[#f8fafc] border border-green-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-green-600 mb-2">64</div>
+                    <div class="text-4xl font-black text-green-600 mb-2">24</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Median Words</div>
                 </div>
 
                 <!-- Card: Std Dev -->
                 <div class="bg-[#f8fafc] border border-rose-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-rose-600 mb-2">129.2</div>
+                    <div class="text-4xl font-black text-rose-600 mb-2">15.28</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Std Dev</div>
                 </div>
 
             </div>
         </section>
 
-<!-- 4. Sample Articles -->
-        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+        <!-- 4. Sample Articles Showcase -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 font-sans">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 border-b pb-4 gap-2">
-                <h2 class="text-2xl font-bold text-slate-800">4. Sample Articles Comparison</h2>
-                <p class="text-sm italic text-slate-500">Scroll inside the cards to read the full text</p>
+                <h2 class="text-2xl font-bold text-slate-800">4. Structural Label Samples</h2>
+                <p class="text-sm italic text-slate-500">Representative sentences for each section of a medical abstract</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="sample-articles-container">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sample-articles-container">
                 
-                <!-- CỘT 1: AI GENERATED SAMPLES -->
-                <div class="space-y-6">
-                    <h3 class="font-bold text-lg text-purple-700 flex items-center gap-2 mb-4">
-                        AI Generated Samples
-                    </h3>
-
-                    <!-- AI Sample 1 -->
-                    <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                        <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex justify-between items-center">
-                            <span class="font-bold text-purple-800">AI Sample #1</span>
-                        </div>
-                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
-                                Robotic reinforcement learning is hindered by the "reality gap." We introduce a "Domain Randomization" technique that varies the friction, mass, and visual texture of the simulation environment during training. A quadrupedal robot trained solely in this randomized simulation successfully learned to walk on sand, gravel, and ice in the real world without any additional fine-tuning.
-                            </p>
-                        </div>
+                <!-- BACKGROUND -->
+                <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition">
+                    <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex items-center gap-2">
+                        <span class="w-2 h-4 bg-emerald-500 rounded-full"></span>
+                        <span class="font-bold text-emerald-800 text-sm uppercase tracking-wider">Background</span>
                     </div>
-
-                    <!-- AI Sample 2 -->
-                    <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                        <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex justify-between items-center">
-                            <span class="font-bold text-purple-800">AI Sample #2</span>
+                    <div class="p-5 bg-white space-y-4 flex-grow h-[220px] overflow-y-auto custom-scrollbar text-sm leading-relaxed">
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.0]</span>
+                            <p class="text-slate-600 italic">Emotional eating is associated with overeating and the development of obesity.</p>
                         </div>
-                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
-                                Economic analysis of the freelance economy in creative industries uses survey data from artists and designers. Regression models show that income instability is widespread, and social networks are crucial for securing work, highlighting the need for better safety nets.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- AI Sample 3 -->
-                    <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                        <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex justify-between items-center">
-                            <span class="font-bold text-purple-800">AI Sample #3</span>
-                        </div>
-                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
-                                Quantum computers need error correction. We demonstrated a "Bosonic Code" using the photon number states of a superconducting cavity. By encoding information in the parity of photons (cat states), we can correct for photon loss errors—the dominant noise channel—extending the logical qubit lifetime beyond the break-even point.
-                            </p>
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.077]</span>
+                            <p class="text-slate-600 italic">We tested whether theory-based education increases alarm operability.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- CỘT 2: HUMAN WRITTEN SAMPLES -->
-                <div class="space-y-6">
-                    <h3 class="font-bold text-lg text-emerald-700 flex items-center gap-2 mb-4">
-                        Human Written Samples
-                    </h3>
-
-                    <!-- Human Sample 1 -->
-                    <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                        <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center">
-                            <span class="font-bold text-emerald-800">Human Sample #1</span>
+                <!-- OBJECTIVE -->
+                <div class="border border-purple-100 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition">
+                    <div class="bg-purple-50 px-5 py-3 border-b border-purple-100 flex items-center gap-2">
+                        <span class="w-2 h-4 bg-purple-500 rounded-full"></span>
+                        <span class="font-bold text-purple-800 text-sm uppercase tracking-wider">Objective</span>
+                    </div>
+                    <div class="p-5 bg-white space-y-4 flex-grow h-[220px] overflow-y-auto custom-scrollbar text-sm leading-relaxed">
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.0]</span>
+                            <p class="text-slate-600 italic">To investigate the efficacy of @ weeks of daily low-dose oral prednisolone in improving pain, mobility, and systemic low-grade inflammation...</p>
                         </div>
-                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
-                                With the rapid development of artificial intelligence (AI), large language models (LLMs), such as ChatGPT have shown potential in medical education, offering personalized learning experiences. However, this integration raises ethical concerns, including privacy, autonomy, and transparency. This study employed a scoping review methodology, systematically searching relevant literature published between January 2010 and August 31, 2024, across three major databases: PubMed, Embase, and Web of Science. Through rigorous screening, 50 articles which met inclusion criteria were ultimately selected from an initial pool of 1,192 records. During data processing, the Kimi AI tool was utilized to facilitate preliminary literature screening, extraction of key information, and construction of content frameworks. Data reliability was ensured through a stringent cross-verification process whereby two independent researchers validated all AI-generated content against original source materials. The study delineates ethical challenges and opportunities arising from the integration of AI and LLMs into medical education, identifying seven core ethical dimensions: privacy and data security, algorithmic bias, accountability attribution, fairness assurance, technological reliability, application dependency, and patient autonomy. Corresponding mitigation strategies were formulated for each challenge. Future research should prioritize establishing dedicated ethical frameworks and application guidelines for AI in medical education while maintaining sustained attention to the long-term ethical implications of these technologies in healthcare domains.
-                            </p>
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.2]</span>
+                            <p class="text-slate-600 italic">The aim of this study was to test if attention bias for food moderates the effect of self-reported emotional eating during sad mood...</p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Human Sample 2 -->
-                    <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                        <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center">
-                            <span class="font-bold text-emerald-800">Human Sample #2</span>
+                <!-- METHODS -->
+                <div class="border border-blue-100 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition">
+                    <div class="bg-blue-50 px-5 py-3 border-b border-blue-100 flex items-center gap-2">
+                        <span class="w-2 h-4 bg-blue-500 rounded-full"></span>
+                        <span class="font-bold text-blue-800 text-sm uppercase tracking-wider">Methods</span>
+                    </div>
+                    <div class="p-5 bg-white space-y-4 flex-grow h-[220px] overflow-y-auto custom-scrollbar text-sm leading-relaxed">
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.091]</span>
+                            <p class="text-slate-600 italic">A total of @ patients with primary knee OA were randomized @:@; @ received @ mg/day of prednisolone and @ received placebo for @ weeks.</p>
                         </div>
-                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
-                                A comprehensive analysis of the systemic causes of safety accidents in sports tourism on the Qinghai-Tibet Plateau is significant for high-quality development. Utilizing 32 verified accident cases (2010–2025) in the Tibet Autonomous Region of China, this study extracted six critical factors through content analysis: organizational professionalism, rescue capacity, management systems, natural environment, tourist vulnerability, and tourist behavior. The Swiss Cheese Model (SCM) analyzed latent/active failures through case reports and regional environmental data, while the fuzzy-set Qualitative Comparative Analysis (fsQCA) deciphered nonlinear configuration paths across six factors. The results reveal that sports tourism accidents in Tibet arise from the coupling of multiple factors. Specifically, the combination of six influencing factors constitutes the causal paths for severe and general accidents. Among these factors, environmental factors and tourist characteristics are key contributors to accidents. Based on these findings, it is essential to establish a sports tourism risk prevention system for Tibet, which should comprise four layers: natural defense, behavioral defense, managerial defense, and rescue defense. This study deepens the understanding of sports tourism safety accidents on the Qinghai-Tibet Plateau. It integrates the SCM and the fsQCA method, contributing to sports tourism safety research. The proposed risk prevention system provides useful references for local safety management. Future research can focus on the dynamic changes of influencing factors and test the research framework and risk prevention system’s applicability in other similar areas.
-                            </p>
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.182]</span>
+                            <p class="text-slate-600 italic">Outcome measures included pain reduction and improvement in function scores and systemic inflammation markers.</p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Human Sample 3 -->
-                    <div class="border border-emerald-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                        <div class="bg-emerald-50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center">
-                            <span class="font-bold text-emerald-800">Human Sample #3</span>
+                <!-- RESULTS -->
+                <div class="border border-amber-100 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition">
+                    <div class="bg-amber-50 px-5 py-3 border-b border-amber-100 flex items-center gap-2">
+                        <span class="w-2 h-4 bg-amber-500 rounded-full"></span>
+                        <span class="font-bold text-amber-800 text-sm uppercase tracking-wider">Results</span>
+                    </div>
+                    <div class="p-5 bg-white space-y-4 flex-grow h-[220px] overflow-y-auto custom-scrollbar text-sm leading-relaxed">
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.545]</span>
+                            <p class="text-slate-600 italic">There was a clinically relevant reduction in the intervention group compared to the placebo group for knee pain, physical function, PGA...</p>
                         </div>
-                        <div class="p-5 bg-white h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-700 leading-relaxed text-justify">
-                                Investment is a key driver of economic growth in emerging markets, yet the factors that enable or hinder foreign direct investment (FDI) and domestic investment (DI) remain contested. Regulatory reforms aimed at improving the ease of doing business (EDB) have been widely promoted as a means to attract capital, but empirical evidence on their effectiveness, especially in diverse and institutionally heterogeneous economies, is mixed. This study examines how EDB affects investment flows in nine BRICS+ economies (Brazil, Russia, India, China, South Africa, Egypt, Ethiopia, Iran, and the United Arab Emirates) over 2004–2020. Three objectives guide the analysis: assessing the direct EDB-investment link, testing the mediating role of institutional quality, specifically, regulatory quality, government effectiveness, and control of corruption, and analyzing moderation by financial development, economic freedom, and macroeconomic stability. A Pooled Mean Group, Autoregressive Distributed Lag (PMG-ARDL) approach is employed for the panel estimations, complemented by Structural Equation Modelling (SEM) to quantify mediation effects. The results reveal a dual effect of EDB, as it stimulates DI but exerts a modest negative long-term impact on FDI, likely due to transitional adjustment costs and the withdrawal of targeted investment incentives. Mediation analysis shows that institutional quality strongly channels the benefits of EDB to both FDI and DI, with indirect effects often exceeding direct ones. Financial development strengthens the positive EDB-investment relationship, while economic freedom and inflation partially dampen it. Country-specific results indicate substantial heterogeneity in the EDB-investment nexus, with some economies experiencing counterintuitive or insignificant effects. Policy implications differ by investment type. For FDI, reforms should be sequenced gradually, supported by transitional incentives, and aligned with targeted institutional strengthening to offset short-term deterrents. For DI, priority should be given to reducing operational costs, expanding access to finance, and maintaining macroeconomic stability, which collectively enhance domestic firms’ capacity to invest and grow.
-                            </p>
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 0.727]</span>
+                            <p class="text-slate-600 italic">Further, there was a clinically relevant reduction in the serum levels of IL-@, IL-@, TNF-, and hsCRP at @ weeks in the intervention group...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONCLUSIONS -->
+                <div class="border border-red-100 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition">
+                    <div class="bg-red-50 px-5 py-3 border-b border-red-100 flex items-center gap-2">
+                        <span class="w-2 h-4 bg-red-500 rounded-full"></span>
+                        <span class="font-bold text-red-800 text-sm uppercase tracking-wider">Conclusions</span>
+                    </div>
+                    <div class="p-5 bg-white space-y-4 flex-grow h-[220px] overflow-y-auto custom-scrollbar text-sm leading-relaxed">
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 1.0]</span>
+                            <p class="text-slate-600 italic">Low-dose oral prednisolone had both a short-term and a longer sustained effect resulting in less knee pain, better physical function...</p>
+                        </div>
+                        <div class="border-l-2 border-slate-100 pl-3">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">[Pos: 1.0]</span>
+                            <p class="text-slate-600 italic">Results further suggest that attention maintenance on food relates to eating motivation when in a neutral affective state...</p>
                         </div>
                     </div>
                 </div>
