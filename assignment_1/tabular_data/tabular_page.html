@@ -58,14 +58,18 @@
             </div>
             
             <!-- 3 thẻ thống kê -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="bg-[#f8fafc] border border-blue-100 p-8 rounded-xl text-center shadow-sm">
                     <div class="text-4xl font-black text-blue-600 mb-2">253,680</div>
                     <div class="text-sm text-slate-600 font-bold uppercase tracking-wider">Total Samples</div>
                 </div>
                 <div class="bg-[#f8fafc] border border-green-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-green-600 mb-2">22</div>
+                    <div class="text-4xl font-black text-green-600 mb-2">21</div>
                     <div class="text-sm text-slate-600 font-bold uppercase tracking-wider">Features</div>
+                </div>
+                <div class="bg-[#f8fafc] border border-green-100 p-8 rounded-xl text-center shadow-sm">
+                    <div class="text-4xl font-black text-rose-600 mb-2">1</div>
+                    <div class="text-sm text-slate-600 font-bold uppercase tracking-wider">Target variable</div>
                 </div>
                 <div class="bg-[#f8fafc] border border-purple-100 p-8 rounded-xl text-center shadow-sm">
                     <div class="text-4xl font-black text-purple-600 mb-2">23,899</div>
@@ -188,6 +192,11 @@
                             <td class="px-6 py-4 font-bold text-slate-800">Income</td>
                             <td class="px-6 py-4"><span class="bg-purple-100 text-purple-700 font-semibold px-3 py-1 rounded-md text-xs">Ordinal</span></td>
                             <td class="px-6 py-4 text-slate-600">Income level encoded (target: 0 = no heart disease, 1 = heart disease)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="px-6 py-4 font-bold text-slate-800">HeartDiseaseorAttack</td>
+                            <td class="px-6 py-4"><span class="bg-gray-100 text-gray-700 font-semibold px-3 py-1 rounded-md text-xs">Binary</span></td>
+                            <td class="px-6 py-4 text-slate-600">Had heart disease or a heart attack (0 = no, 1 = yes)</td>
                         </tr>
                     </tbody>
                 </table>
