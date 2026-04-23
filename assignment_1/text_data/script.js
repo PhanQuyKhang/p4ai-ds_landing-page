@@ -2,12 +2,26 @@
 // 1. CATEGORY DISTRIBUTION (AI vs Human)
 // ==========================================
 const categoryData = {
-    "title": "Author Distribution (AI vs Human)",
-    "labels": ["AI", "Human"],
-    "datasets": [{
-        "label": "Count",
-        "data": [3069, 3000]
-    }]
+    "title": "Category Distribution",
+    "labels": [
+        "METHODS",
+        "RESULTS",
+        "CONCLUSIONS",
+        "BACKGROUND",
+        "OBJECTIVE"
+    ],
+    "datasets": [
+        {
+            "label": "Count",
+            "data": [
+                59281,
+                57953,
+                27168,
+                18402,
+                13838
+            ]
+        }
+    ]
 };
 
 const ctxCategory = document.getElementById('categoryDistChart').getContext('2d');
@@ -20,12 +34,18 @@ new Chart(ctxCategory, {
             data: categoryData.datasets[0].data,
             // Dùng màu Tím (AI) và Xanh Ngọc (Human) chuẩn Tailwind để nổi bật
             backgroundColor: [
-                'rgba(139, 92, 246, 0.8)', // Violet-500
-                'rgba(16, 185, 129, 0.8)'  // Emerald-500
+                'rgba(139, 92, 246, 0.8)', // 1. Violet-500 (Chủ đạo)
+                'rgba(16, 185, 129, 0.8)', // 2. Emerald-500 (Tương phản)
+                'rgba(14, 165, 233, 0.8)', // 3. Sky-500 (Hài hòa)
+                'rgba(245, 158, 11, 0.8)', // 4. Amber-500 (Điểm nhấn)
+                'rgba(244, 63, 94, 0.8)'  // 5. Rose-500 (Nổi bật)
             ],
             borderColor: [
                 '#8b5cf6', 
-                '#10b981'
+                '#10b981',
+                '#0ea5e9',
+                '#f59e0b',
+                '#f43f5e'
             ],
             borderWidth: 1,
         }]
