@@ -261,9 +261,9 @@
 
         // Correlation Heatmap
         document.addEventListener('DOMContentLoaded', function() {
-        
+
         const corrDiv = document.getElementById('correlationHeatmap');
-        
+
         if (corrDiv) {
             var annotations =[];
             
@@ -339,9 +339,9 @@
             // 6. LỆNH VẼ
             Plotly.newPlot('correlationHeatmap', heatmapData, layout, config);
         }
-    });
+        });
 
-    // 1. Data JSON của bạn (bạn có thể đang load từ file, ở đây mình gán cứng để ví dụ)
+        // 1. Data JSON của bạn (bạn có thể đang load từ file, ở đây mình gán cứng để ví dụ)
         const featureImportanceData = {
         "labels": ["BMI", "Age", "Income", "PhysHlth", "Education", "GenHlth", "MentHlth", "Fruits", "PhysActivity", "Diabetes", "Stroke", "Veggies", "HighBP", "DiffWalk", "HighChol", "Sex", "Smoker", "NoDocbcCost", "HvyAlcoholConsump", "AnyHealthcare", "CholCheck"],
         "data": [
