@@ -211,8 +211,52 @@ new Chart(ctxStopWords, {
 // 3. WORD COUNT DISTRIBUTION (Cột dọc - Histogram)
 // ==========================================
 const wordCountData = {
-    "labels": ["0-99", "100-199", "200-299", "300-399", "400-499", "500-599", "600-699", "700-799", "800-899", "900-999", "1000+"],
-    "counts": [3113, 516, 1565, 622, 200, 44, 8, 1, 0, 0, 0]
+    "labels": [
+        "0-9",
+        "10-19",
+        "20-29",
+        "30-39",
+        "40-49",
+        "50-59",
+        "60-69",
+        "70-79",
+        "80-89",
+        "90-99",
+        "100-109",
+        "110-119",
+        "120-129",
+        "130-139",
+        "140-149",
+        "150-159",
+        "160-169",
+        "170-179",
+        "180-189",
+        "190-199",
+        "200-209"
+    ],
+    "counts": [
+                9877,
+                53841,
+                54638,
+                31157,
+                14223,
+                6539,
+                3047,
+                1519,
+                807,
+                430,
+                226,
+                139,
+                71,
+                36,
+                30,
+                13,
+                9,
+                11,
+                3,
+                7,
+                6
+            ]
 };
 
 const ctxWordCount = document.getElementById('wordCountChart').getContext('2d');
@@ -261,8 +305,36 @@ new Chart(ctxWordCount, {
 // 4. CHARACTER COUNT DISTRIBUTION (Cột dọc - Histogram)
 // ==========================================
 const charCountData = {
-    "labels": ["0-499", "500-999", "1000-1499", "1500-1999", "2000-2499", "2500-2999", "3000-3499", "3500-3999", "4000+"],
-    "counts": [3076, 91, 549, 1136, 756, 266, 127, 55, 13]
+    "labels": [
+        "0-99",
+        "100-199",
+        "200-299",
+        "300-399",
+        "400-499",
+        "500-599",
+        "600-699",
+        "700-799",
+        "800-899",
+        "900-999",
+        "1000-1099",
+        "1100-1199",
+        "1300-1399"
+    ],
+    "counts": [
+                46192,
+                92181,
+                30575,
+                6006,
+                1263,
+                279,
+                86,
+                36,
+                12,
+                7,
+                2,
+                2,
+                1
+            ]
 };
 
 const ctxCharCount = document.getElementById('charCountChart').getContext('2d');
@@ -309,8 +381,20 @@ new Chart(ctxCharCount, {
 // 5. VOCABULARY RICHNESS (Unique Words)
 // ==========================================
 const vocabData = {
-    "labels": ["AI", "Human"],
-    "counts": [15113, 45242]
+    "labels": [
+        "OBJECTIVE",
+        "BACKGROUND",
+        "CONCLUSIONS",
+        "METHODS",
+        "RESULTS"
+    ],
+    "counts": [
+                0.11871305359046419,
+                0.09850340369495,
+                0.08749074669611544,
+                0.05999634219722258,
+                0.0498531311571244
+            ]
 };
 
 const ctxVocab = document.getElementById('vocabRichnessChart').getContext('2d');
@@ -322,8 +406,20 @@ new Chart(ctxVocab, {
             label: 'Unique Words',
             data: vocabData.counts,
             // Đồng bộ màu: AI = Tím, Human = Xanh Ngọc
-            backgroundColor: ['rgba(139, 92, 246, 0.8)', 'rgba(16, 185, 129, 0.8)'],
-            borderColor: ['#8b5cf6', '#10b981'],
+            backgroundColor: [
+                'rgba(139, 92, 246, 0.8)', // 1. Violet-500 (Chủ đạo)
+                'rgba(16, 185, 129, 0.8)', // 2. Emerald-500 (Tương phản)
+                'rgba(14, 165, 233, 0.8)', // 3. Sky-500 (Hài hòa)
+                'rgba(245, 158, 11, 0.8)', // 4. Amber-500 (Điểm nhấn)
+                'rgba(244, 63, 94, 0.8)'  // 5. Rose-500 (Nổi bật)
+            ],
+            borderColor: [
+                '#8b5cf6', 
+                '#10b981',
+                '#0ea5e9',
+                '#f59e0b',
+                '#f43f5e'
+            ],
             borderWidth: 1,
             barPercentage: 0.5 // Thu gọn độ rộng cột cho tinh tế
         }]
@@ -339,7 +435,7 @@ new Chart(ctxVocab, {
             x: { 
                 title: {
                     display: true,
-                    text: 'Authors', // Nhãn cho trục X
+                    text: 'Categories', // Nhãn cho trục X
                     font: {
                         family: 'Inter',
                         size: 12,
@@ -350,7 +446,7 @@ new Chart(ctxVocab, {
             },
             y: { 
                 beginAtZero: true,
-                title: { display: true, text: 'Unique Word Count' },
+                title: { display: true, text: 'Frequency' },
                 ticks: { callback: value => value.toLocaleString() },
                 grace: '5%', // Thêm khoảng trống đỉnh cột,
                 autoSkip: false
@@ -363,13 +459,285 @@ new Chart(ctxVocab, {
 // 6. TOP WORDS BY CATEGORY (AI vs HUMAN) - ĐÃ FIX HIỂN THỊ ĐỦ 25 LABELS
 // ==========================================
 const topWordsByAuthor = {
-    "AI": {
-        "labels": ["system", "quantum", "developed", "energy", "propose", "without", "network", "learning", "water", "power", "analyzing", "economic", "neural", "dark", "social", "examines", "hydrogen", "cells", "introduce", "deep", "carbon", "new", "matter", "standard", "allows"],
-        "data": [362, 344, 307, 301, 248, 247, 215, 200, 183, 166, 164, 164, 154, 153, 153, 152, 151, 139, 133, 130, 130, 128, 128, 127, 124]
+    "OBJECTIVE": {
+        "labels": [
+            "evaluate",
+            "efficacy",
+            "compare",
+            "determine",
+            "therapy",
+            "clinical",
+            "assess",
+            "aim",
+            "safety",
+            "investigate",
+            "compared",
+            "pain",
+            "randomized",
+            "intervention",
+            "risk",
+            "outcomes",
+            "effectiveness",
+            "using",
+            "disease",
+            "cancer",
+            "associated",
+            "care",
+            "children",
+            "use",
+            "objective"
+        ],
+        "data": [
+            1667,
+            1598,
+            1324,
+            1158,
+            1080,
+            1008,
+            930,
+            925,
+            908,
+            894,
+            794,
+            715,
+            709,
+            694,
+            663,
+            637,
+            607,
+            583,
+            574,
+            523,
+            514,
+            506,
+            505,
+            504,
+            473
+        ]
     },
-    "Human": {
-        "labels": ["health", "patients", "methods", "among", "findings", "significant", "risk", "associated", "factors", "significantly", "across", "disease", "including", "higher", "compared", "potential", "participants", "studies", "may", "group", "use", "clinical", "care", "high", "two"],
-        "data": [2283, 1652, 1444, 1421, 1395, 1312, 1238, 1189, 1156, 1070, 1052, 1004, 966, 960, 952, 950, 942, 937, 924, 888, 882, 875, 855, 853, 848]
+    "METHODS": {
+        "labels": [
+            "randomized",
+            "n",
+            "weeks",
+            "primary",
+            "using",
+            "months",
+            "randomly",
+            "control",
+            "intervention",
+            "received",
+            "participants",
+            "mg",
+            "years",
+            "baseline",
+            "assessed",
+            "outcome",
+            "clinical",
+            "assigned",
+            "placebo",
+            "controlled",
+            "week",
+            "included",
+            "days",
+            "used",
+            "receive"
+        ],
+        "data": [
+            8489,
+            6062,
+            4443,
+            4400,
+            4246,
+            4191,
+            4076,
+            4059,
+            3753,
+            3609,
+            3530,
+            3506,
+            3392,
+            3186,
+            3024,
+            2936,
+            2870,
+            2858,
+            2765,
+            2680,
+            2667,
+            2656,
+            2596,
+            2375,
+            2351
+        ]
+    },
+    "RESULTS": {
+        "labels": [
+            "p",
+            "significantly",
+            "significant",
+            "vs",
+            "ci",
+            "lsb",
+            "rsb",
+            "compared",
+            "mean",
+            "difference",
+            "control",
+            "respectively",
+            "placebo",
+            "months",
+            "higher",
+            "baseline",
+            "differences",
+            "time",
+            "lower",
+            "intervention",
+            "increased",
+            "rate",
+            "n",
+            "versus",
+            "total"
+        ],
+        "data": [
+            29337,
+            7836,
+            7665,
+            7655,
+            7124,
+            6610,
+            6608,
+            5784,
+            5303,
+            4668,
+            4627,
+            4389,
+            4017,
+            3973,
+            3791,
+            3768,
+            3163,
+            3054,
+            3035,
+            2838,
+            2818,
+            2761,
+            2761,
+            2740,
+            2621
+        ]
+    },
+    "CONCLUSIONS": {
+        "labels": [
+            "effective",
+            "clinical",
+            "results",
+            "associated",
+            "compared",
+            "use",
+            "therapy",
+            "intervention",
+            "risk",
+            "significant",
+            "significantly",
+            "did",
+            "improve",
+            "findings",
+            "pain",
+            "improved",
+            "efficacy",
+            "outcomes",
+            "care",
+            "health",
+            "suggest",
+            "increased",
+            "reduce",
+            "studies",
+            "time"
+        ],
+        "data": [
+            1830,
+            1794,
+            1778,
+            1498,
+            1489,
+            1417,
+            1350,
+            1340,
+            1338,
+            1231,
+            1197,
+            1183,
+            1104,
+            1090,
+            1040,
+            939,
+            929,
+            926,
+            900,
+            878,
+            871,
+            830,
+            799,
+            790,
+            775
+        ]
+    },
+    "BACKGROUND": {
+        "labels": [
+            "efficacy",
+            "risk",
+            "disease",
+            "therapy",
+            "clinical",
+            "health",
+            "care",
+            "studies",
+            "cancer",
+            "associated",
+            "intervention",
+            "compared",
+            "pain",
+            "aim",
+            "randomized",
+            "use",
+            "outcomes",
+            "effective",
+            "used",
+            "safety",
+            "improve",
+            "evaluate",
+            "chronic",
+            "children",
+            "effectiveness"
+        ],
+        "data": [
+            1082,
+            1056,
+            1042,
+            994,
+            966,
+            885,
+            880,
+            876,
+            861,
+            816,
+            805,
+            793,
+            769,
+            754,
+            744,
+            732,
+            714,
+            659,
+            642,
+            629,
+            616,
+            580,
+            580,
+            559,
+            558
+        ]
     }
 };
 
@@ -378,7 +746,6 @@ termsContainer.innerHTML = ''; // Xóa sạch dữ liệu cũ trong container
 
 Object.entries(topWordsByAuthor).forEach(([author, dataInfo]) => {
     
-    // Giữ nguyên Semantic Color: AI = Tím, Human = Xanh Ngọc
     const colorTheme = author === "AI" ? 
         { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' } : 
         { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' };

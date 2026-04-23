@@ -186,25 +186,25 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 <!-- Total Documents -->
                 <div class="bg-[#f8fafc] border border-purple-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-purple-600 mb-2">6,069</div>
+                    <div class="text-4xl font-black text-purple-600 mb-2">176,642</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Total Documents</div>
                 </div>
 
                 <!-- Categories -->
                 <div class="bg-[#f8fafc] border border-blue-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-blue-600 mb-2">2</div>
+                    <div class="text-4xl font-black text-blue-600 mb-2">5</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Categories</div>
                 </div>
 
                 <!-- Avg Words/Doc -->
                 <div class="bg-[#f8fafc] border border-green-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-green-600 mb-2">156.0</div>
+                    <div class="text-4xl font-black text-green-600 mb-2">26.7</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Avg Words/Doc</div>
                 </div>
 
                 <!-- Avg Chars/Doc -->
                 <div class="bg-[#f8fafc] border border-rose-100 p-8 rounded-xl text-center shadow-sm">
-                    <div class="text-4xl font-black text-rose-600 mb-2">1,119.2</div>
+                    <div class="text-4xl font-black text-rose-600 mb-2">151.3</div>
                     <div class="text-[11px] text-slate-600 font-bold uppercase tracking-wider">Avg Chars/Doc</div>
                 </div>
             </div>
@@ -228,7 +228,6 @@
                                 <th class="px-6 py-4">Category</th>
                                 <th class="px-6 py-4 text-center">Count</th>
                                 <th class="px-6 py-4 text-center">Percentage</th>
-                                <th class="px-6 py-4 text-center">Cumulative %</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50">
@@ -242,7 +241,6 @@
                                 <td class="px-6 py-4 text-center">
                                     <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold text-xs">33.56%</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-semibold text-slate-700">33.56%</td>
                             </tr>
                             <!-- Row RESULTS -->
                             <tr class="hover:bg-slate-50 transition">
@@ -254,7 +252,6 @@
                                 <td class="px-6 py-4 text-center">
                                     <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold text-xs">32.81%</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-semibold text-slate-700">66.38%</td>
                             </tr>
                             <!-- Row CONCLUSIONS -->
                             <tr class="hover:bg-slate-50 transition">
@@ -266,7 +263,6 @@
                                 <td class="px-6 py-4 text-center">
                                     <span class="bg-sky-100 text-sky-700 px-3 py-1 rounded-full font-bold text-xs">15.38%</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-semibold text-slate-700">81.76%</td>
                             </tr>
                             <!-- Row BACKGROUND -->
                             <tr class="hover:bg-slate-50 transition">
@@ -278,7 +274,6 @@
                                 <td class="px-6 py-4 text-center">
                                     <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-bold text-xs">10.42%</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-semibold text-slate-700">92.18%</td>
                             </tr>
                             <!-- Row OBJECTIVE -->
                             <tr class="hover:bg-slate-50 transition">
@@ -290,7 +285,6 @@
                                 <td class="px-6 py-4 text-center">
                                     <span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-bold text-xs">7.83%</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-semibold text-slate-700">100.00%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -377,7 +371,7 @@
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
                     <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
-                        <span class="w-2 h-6 bg-orange-400 rounded-full inline-block"></span> Vocabulary Richness by Author
+                        <span class="w-2 h-6 bg-orange-400 rounded-full inline-block"></span> Vocabulary Richness (Type-Token Ratio) by Category
                     </h3>
                     <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
                         <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
@@ -394,7 +388,7 @@
                     <table class="w-full text-left border-collapse text-sm">
                         <thead>
                             <tr class="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
-                                <th class="px-6 py-4">Author</th>
+                                <th class="px-6 py-4">Category</th>
                                 <th class="px-6 py-4 text-center">Total Words</th>
                                 <th class="px-6 py-4 text-center">Unique Words</th>
                                 <th class="px-6 py-4 text-center">Total Texts</th>
@@ -402,30 +396,69 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50">
-                            <!-- Row AI -->
+                            <!-- Row OBJECTIVE -->
                             <tr class="hover:bg-slate-50 transition">
                                 <td class="px-6 py-4 flex items-center gap-3">
                                     <span class="w-3 h-3 rounded-full bg-purple-500"></span>
-                                    <span class="font-bold text-slate-800">AI</span>
+                                    <span class="font-bold text-slate-800">OBJECTIVE</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-mono text-slate-600">88,612</td>
-                                <td class="px-6 py-4 text-center font-mono text-slate-600">15,113</td>
-                                <td class="px-6 py-4 text-center font-mono text-slate-600">3,069</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">196,061</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">23,275</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">13,838</td>
                                 <td class="px-6 py-4 text-center">
-                                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold text-xs">17.06%</span>
+                                    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold text-xs">11.87%</span>
                                 </td>
                             </tr>
-                            <!-- Row Human -->
+                            <!-- Row METHODS -->
                             <tr class="hover:bg-slate-50 transition">
                                 <td class="px-6 py-4 flex items-center gap-3">
                                     <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
-                                    <span class="font-bold text-slate-800">Human</span>
+                                    <span class="font-bold text-slate-800">METHODS</span>
                                 </td>
-                                <td class="px-6 py-4 text-center font-mono text-slate-600">522,069</td>
-                                <td class="px-6 py-4 text-center font-mono text-slate-600">45,242</td>
-                                <td class="px-6 py-4 text-center font-mono text-slate-600">3,000</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">716,277</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">42,974</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">59,281</td>
                                 <td class="px-6 py-4 text-center">
-                                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold text-xs">8.67%</span>
+                                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold text-xs">6.00%</span>
+                                </td>
+                            </tr>
+                            <!-- Row RESULTS -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                    <span class="font-bold text-slate-800">RESULTS</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">692,795</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">34,538</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">57,953</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold text-xs">4.99%</span>
+                                </td>
+                            </tr>
+                            <!-- Row CONCLUSIONS -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                    <span class="font-bold text-slate-800">CONCLUSIONS</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">329,612</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">28,838</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">27,168</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-bold text-xs">8.75%</span>
+                                </td>
+                            </tr>
+                            <!-- Row BACKGROUND -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                    <span class="font-bold text-slate-800">BACKGROUND</span>
+                                </td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">233,129</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">22,964</td>
+                                <td class="px-6 py-4 text-center font-mono text-slate-600">18,402</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-bold text-xs">9.85%</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -437,7 +470,7 @@
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-2 border-b pb-4">
                     <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
-                        <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Top Words by Author
+                        <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Top Words by Category
                     </h3>
                     <p class="text-[13px] font-medium text-slate-500 flex items-center gap-2">
                         <span class="text-xs">🟢</span> Stopwords Removed - Measuring content vocabulary diversity
