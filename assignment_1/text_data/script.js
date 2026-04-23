@@ -1121,14 +1121,186 @@ Object.entries(tfidfData).forEach(([author, dataInfo]) => {
 // 8. BIGRAM ANALYSIS (Biểu đồ ngang, vẽ lên 1 thẻ HTML đã tạo sẵn)
 // ==========================================
 const bigramData = {
-    "AI": {
-        "labels": ["dark matter", "neural network", "deep learning", "reinforcement learning", "magnetic field", "quantum computing", "dark energy", "art historical", "black hole", "large language", "carbon capture", "times faster", "graph neural", "neural networks", "fusion energy"],
-        "data": [90, 73, 60, 43, 34, 34, 33, 32, 30, 27, 26, 25, 24, 24, 24]
+    "OBJECTIVE": {
+        "labels": [
+        "efficacy safety",
+        "type diabetes",
+        "evaluate efficacy",
+        "quality life",
+        "randomized controlled",
+        "compare efficacy",
+        "aim evaluate",
+        "safety efficacy",
+        "diabetes mellitus",
+        "assess efficacy",
+        "evaluate effectiveness",
+        "risk factors",
+        "physical activity",
+        "heart failure",
+        "blood pressure"
+    ],
+        "data": [
+                425,
+                268,
+                255,
+                245,
+                224,
+                190,
+                178,
+                147,
+                136,
+                129,
+                122,
+                118,
+                113,
+                112,
+                111
+            ]
     },
-    "Human": {
-        "labels": ["author summary", "mental health", "public health", "logistic regression", "machine learning", "risk factors", "findings suggest", "older adults", "findings highlight", "gene expression", "significantly associated", "statistically significant", "factors associated", "significant differences", "breast cancer"],
-        "data": [408, 341, 335, 270, 209, 186, 168, 162, 148, 131, 113, 113, 111, 105, 105]
-    }
+    "METHODS": {
+        "labels": [
+        "randomly assigned",
+        "randomized controlled",
+        "primary outcome",
+        "aged years",
+        "secondary outcomes",
+        "quality life",
+        "randomized receive",
+        "primary endpoint",
+        "prospective randomized",
+        "randomly allocated",
+        "randomized doubleblind",
+        "age years",
+        "end point",
+        "outcome measures",
+        "doubleblind placebocontrolled"
+    ],
+        "data": [
+                2281,
+                1631,
+                1576,
+                932,
+                805,
+                772,
+                716,
+                676,
+                648,
+                640,
+                635,
+                607,
+                585,
+                577,
+                535
+            ]
+    },
+    "RESULTS": {
+        "labels": [
+        "lsb rsb",
+        "confidence interval",
+        "adverse events",
+        "significant differences",
+        "significant difference",
+        "statistically significant",
+        "ci rsb",
+        "lsb ci",
+        "significantly higher",
+        "significantly lower",
+        "hazard ratio",
+        "rsb vs",
+        "vs lsb",
+        "compared control",
+        "did differ"
+    ],
+        "data": [
+                3211,
+                1677,
+                1551,
+                1524,
+                1485,
+                1442,
+                1429,
+                1250,
+                1163,
+                1012,
+                872,
+                778,
+                747,
+                706,
+                655
+            ]
+    },
+    "CONCLUSIONS": {
+        "labels": [
+        "results suggest",
+        "quality life",
+        "number nct",
+        "clinicaltrialsgov number",
+        "findings suggest",
+        "statistically significant",
+        "type diabetes",
+        "physical activity",
+        "adverse events",
+        "safe effective",
+        "weight loss",
+        "clinical trials",
+        "breast cancer",
+        "compared placebo",
+        "risk factors"
+    ],
+        "data": [
+                328,
+                302,
+                239,
+                218,
+                206,
+                183,
+                182,
+                168,
+                168,
+                166,
+                163,
+                159,
+                153,
+                152,
+                151
+            ]
+    },
+    "BACKGROUND": {
+        "labels": [
+        "quality life",
+        "randomized controlled",
+        "efficacy safety",
+        "physical activity",
+        "type diabetes",
+        "heart failure",
+        "breast cancer",
+        "risk factors",
+        "primary care",
+        "cardiovascular disease",
+        "aimed assess",
+        "little known",
+        "aim evaluate",
+        "blood pressure",
+        "mental health"
+    ],
+        "data": [
+                286,
+                269,
+                256,
+                229,
+                198,
+                195,
+                195,
+                149,
+                146,
+                132,
+                128,
+                127,
+                125,
+                121,
+                116
+            ]
+    },
 };
 
 // Tìm thẻ Canvas `bigramChart` đã khai báo trong HTML file
@@ -1138,14 +1310,20 @@ bigramCanvasDiv.innerHTML = '';
 
 // Tạo Grid 2 cột cho Bigram
 const bigramGrid = document.createElement('div');
-bigramGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-8 h-full";
+bigramGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-slate-100 pt-8";
 bigramCanvasDiv.appendChild(bigramGrid);
 
 Object.entries(bigramData).forEach(([author, dataInfo]) => {
     
-    const colorTheme = author === "AI" ? 
-        { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' } : 
-        { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' };
+    const categoryThemes = {
+        "OBJECTIVE": { bg: 'rgba(139, 92, 246, 0.7)', border: '#8b5cf6', icon: 'bg-purple-500' },
+        "METHODS": { bg: 'rgba(59, 130, 246, 0.7)', border: '#3b82f6', icon: 'bg-blue-500' },
+        "RESULTS": { bg: 'rgba(245, 158, 11, 0.7)', border: '#f59e0b', icon: 'bg-amber-500' },
+        "CONCLUSIONS": { bg: 'rgba(239, 68, 68, 0.7)', border: '#ef4444', icon: 'bg-red-500' },
+        "BACKGROUND": { bg: 'rgba(16, 185, 129, 0.7)', border: '#10b981', icon: 'bg-emerald-500' }
+    };
+
+    const colorTheme = categoryThemes[author];
 
     const chartWrapper = document.createElement('div');
     chartWrapper.innerHTML = `
@@ -1197,32 +1375,44 @@ Object.entries(bigramData).forEach(([author, dataInfo]) => {
 });
 
 // ==========================================
-// 9. AUTHOR SIMILARITY MATRIX & INTERPRETATION GUIDE
+// 9. CATEGORY SIMILARITY MATRIX & INTERPRETATION GUIDE
 // ==========================================
 const similarityData = {
-    "title": "Author Similarity Matrix (AI vs Human)",
-    "authors": ["AI", "Human"],
+    "title": "Category Similarity Matrix",
+    "categories": [
+        "BACKGROUND",
+        "CONCLUSIONS",
+        "METHODS",
+        "OBJECTIVE",
+        "RESULTS"
+    ],
     "matrix": [
-        [0.9999999999999987, 0.5598894766435247],
-        [0.5598894766435247, 1.0000000000000002]
+        [1.000, 0.826, 0.566, 0.875, 0.397],
+        [0.826, 1.000, 0.535, 0.699, 0.560],
+        [0.566, 0.535, 1.000, 0.550, 0.522],
+        [0.875, 0.699, 0.550, 1.000, 0.369],
+        [0.397, 0.560, 0.522, 0.369, 1.000]
     ]
 };
 
 const interpretationData = [
-    { "range": "1.000", "label": "Same Category<br>(Perfect Match)", "color": "#e74c3c" },
-    { "range": "0.80 - 0.95", "label": "High Similarity<br>(⚠️ Potential Confusion)", "color": "#f39c12" },
-    { "range": "0.50 - 0.80", "label": "Moderate Similarity<br>(Acceptable Separation)", "color": "#9b59b6" },
-    { "range": "0.00 - 0.50", "label": "Low Similarity<br>(✓ Easy to Distinguish)", "color": "#2980b9" }
+    { "range": "1.000", "label": "Same Category (Perfect Match)", "color": "#f860b7" },
+    { "range": "0.75 - 0.99", "label": "Very High Similarity (Strong Overlap in Vocabulary)", "color": "#d94fd1" },
+    { "range": "0.60 - 0.75", "label": "High Similarity (Potential Confusion)", "color": "#9945dc" },
+    { "range": "0.45 - 0.60", "label": "Moderate Similarity (Acceptable Separation)", "color": "#6a34b8" },
+    { "range": "0.00 - 0.45", "label": "Low Similarity (Clearly Distinct Categories)", "color": "#361b8f" }
 ];
 
-// --- PHẦN 1: VẼ HEATMAP BẰNG PLOTLY (Cập nhật config công cụ) ---
+// --- PHẦN 1: VẼ HEATMAP BẰNG PLOTLY ---
 const heatmapDivId = 'categorySimilarityHeatmap';
 const heatmapDiv = document.getElementById(heatmapDivId);
 
 if (heatmapDiv) {
+    heatmapDiv.innerHTML = '';
+    
     let annotations = [];
     let matrix = similarityData.matrix;
-    let labels = similarityData.authors;
+    let labels = similarityData.categories;
 
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
@@ -1233,8 +1423,9 @@ if (heatmapDiv) {
                 text: val.toFixed(3),
                 showarrow: false,
                 font: {
-                    color: val > 0.8 ? 'black' : 'white', 
-                    size: 14,
+                    // Nếu ô màu quá đỏ (giá trị cao > 0.6), chữ màu trắng, ngược lại chữ đen
+                    color: val > 0.6 ? 'white' : 'black', 
+                    size: 12,
                     family: 'Inter'
                 }
             });
@@ -1246,80 +1437,71 @@ if (heatmapDiv) {
         x: labels,
         y: labels,
         type: 'heatmap',
-        colorscale: 'magma',
+        colorscale: 'Reds', // Đã đổi sang tone Đỏ giống hình mẫu
         showscale: true,
         colorbar: {
-            title: 'Similarity Score',
+            title: 'Similarity',
             titleside: 'right',
             tickfont: { family: 'Inter' }
         }
     }];
 
     let layout = {
-        xaxis: { title: '', tickfont: { family: 'Inter' } },
+        xaxis: { 
+            side: 'bottom',
+            tickangle: 0, // Đã sửa: Chữ nằm ngang
+            tickfont: { family: 'Inter', size: 10 } // Giảm size 1 chút để không chạm nhau
+        },
         yaxis: { 
-            title: '', 
             autorange: 'reversed',
-            tickfont: { family: 'Inter' }
+            tickfont: { family: 'Inter', size: 11 }
         },
         annotations: annotations,
-        margin: { t: 40, b: 40, l: 60, r: 20 }, // Tăng margin top một chút để thanh công cụ không đè lên biểu đồ
-        height: 450,
-        font: { family: 'Inter' }
+        margin: { t: 40, b: 50, l: 120, r: 20 }, // Tăng lề trái (l:120) để hiện đủ chữ BACKGROUND
+        height: 500,
+        font: { family: 'Inter' },
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        paper_bgcolor: 'rgba(0,0,0,0)'
     };
 
-    // CẬP NHẬT CONFIG TẠI ĐÂY
-    let config = { 
-        responsive: true, 
-        displayModeBar: true,  // BẬT THANH TIỆN ÍCH
-        displaylogo: false,    // Ẩn logo Plotly cho sạch giao diện
-        modeBarButtonsToRemove: ['select2d', 'lasso2d'], // Xóa các nút chọn vùng không cần thiết cho Heatmap
-        toImageButtonOptions: {
-            format: 'png', // Định dạng ảnh khi tải về
-            filename: 'author_similarity_matrix',
-            height: 500,
-            width: 700,
-            scale: 2 // Tăng chất lượng ảnh (x2) khi tải về
-        }
-    };
+    Plotly.newPlot(heatmapDivId, plotData, layout, { responsive: true, displayModeBar: true, displaylogo: false });
 
-    Plotly.newPlot(heatmapDivId, plotData, layout, config);
-
-    // --- PHẦN 2: THÊM SUBTITLE VÀ INTERPRETATION GUIDE ---
-    // Lấy vùng chứa cha (thẻ div card màu trắng bao ngoài)
+    // --- PHẦN 2: INTERPRETATION GUIDE ---
     const parentContainer = heatmapDiv.parentElement;
+    const existingGuide = parentContainer.querySelector('.interpretation-guide-container');
+    if (existingGuide) existingGuide.remove();
 
-    // 1. Tạo Subtitle màu xanh lá cây
+    const guideWrapper = document.createElement('div');
+    guideWrapper.className = "interpretation-guide-container";
+
     const subtitle = document.createElement('p');
-    subtitle.className = "text-green-700 font-medium text-sm mt-2 mb-8";
+    subtitle.className = "text-green-700 font-medium text-sm mt-6 mb-10 border-l-4 border-green-500 pl-3";
     subtitle.innerHTML = "Stopwords Removed - Content-based category similarity (mean pairwise)";
     
-    // 2. Tạo phần Interpretation Guide Header
     const guideHeader = document.createElement('h3');
     guideHeader.className = "font-bold text-xl text-slate-700 mb-6";
     guideHeader.innerHTML = "Interpretation Guide";
 
-    // 3. Tạo Grid chứa 4 ô màu
+    // Đã sửa: md:grid-cols-5 để 5 thẻ nằm trên 1 hàng
     const guideGrid = document.createElement('div');
-    guideGrid.className = "grid grid-cols-1 md:grid-cols-4 gap-4";
+    guideGrid.className = "grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-3";
 
     interpretationData.forEach(item => {
         const card = document.createElement('div');
-        // Sử dụng inline-style cho background-color để nhận mã HEX chính xác từ JSON
         card.style.backgroundColor = item.color;
-        card.className = "p-6 rounded-sm text-white text-center shadow-sm flex flex-col justify-center min-h-[120px]";
+        card.className = `p-4 rounded-xl text-white text-center shadow-sm flex flex-col justify-center min-h-[110px] transition-transform hover:scale-105 duration-300`;
         
         card.innerHTML = `
-            <div class="font-bold text-xl mb-2">${item.range}</div>
-            <div class="text-xs opacity-90 leading-tight">${item.label}</div>
+            <div class="font-bold text-lg mb-1">${item.range}</div>
+            <div class="text-[10px] font-bold opacity-90 leading-tight uppercase tracking-wide">${item.label}</div>
         `;
         guideGrid.appendChild(card);
     });
 
-    // Chèn các phần tử vừa tạo vào sau thẻ div Plotly
-    parentContainer.appendChild(subtitle);
-    parentContainer.appendChild(guideHeader);
-    parentContainer.appendChild(guideGrid);
+    guideWrapper.appendChild(subtitle);
+    guideWrapper.appendChild(guideHeader);
+    guideWrapper.appendChild(guideGrid);
+    parentContainer.appendChild(guideWrapper);
 }
 
 // ==========================================
