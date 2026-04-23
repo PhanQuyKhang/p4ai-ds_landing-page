@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text ML - PubMed Classification - Group APlus</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Thư viện biểu đồ (Sẵn sàng cho kết quả ML) -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navbar (Giống style EDA nhưng trỏ link về Assignment 2 Home) -->
+    <nav class="bg-white shadow-md fixed w-full z-10 top-0">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-purple-700">APlus Group</div>
+                <div class="space-x-4 flex items-center">
+                    <a href="../ass2_home.html" class="text-gray-600 hover:text-purple-600 font-semibold flex items-center gap-1 transition">
+                        <span>&larr;</span> Back to Assignment 2
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section (Title & Description) -->
+    <section class="pt-32 pb-16 bg-purple-50">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                PubMed Sentence Classification
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Applying Machine Learning and Deep Learning models to classify medical abstract sentences into structural roles.
+            </p>
+            <div class="inline-flex items-center justify-center bg-white text-purple-700 font-bold px-5 py-2.5 rounded-lg shadow-sm border border-purple-100 uppercase tracking-wide text-sm">
+                Modality 2: Text Data Machine Learning
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-12 flex-grow w-full space-y-12">
+        
+        <!-- Tabs Navigation -->
+        <div class="flex flex-wrap gap-2 md:gap-8 mb-8 border-b border-gray-200" id="tab-headers">
+            <button onclick="switchTab('traditional')" id="btn-traditional" class="tab-btn py-3 px-6 font-bold border-b-2 transition-all duration-300 border-purple-600 text-purple-600">
+                Traditional ML
+            </button>
+            <button onclick="switchTab('pipeline')" id="btn-pipeline" class="tab-btn py-3 px-6 font-bold border-b-2 transition-all duration-300 border-transparent text-gray-500 hover:text-purple-600">
+                Traditional Pipeline
+            </button>
+            <button onclick="switchTab('deeplearning')" id="btn-deeplearning" class="tab-btn py-3 px-6 font-bold border-b-2 transition-all duration-300 border-transparent text-gray-500 hover:text-purple-600">
+                Deep Learning (BERT)
+            </button>
+        </div>
+
+        <!-- 1. TRADITIONAL ML SECTION -->
+        <div id="section-traditional" class="tab-content space-y-12">
+            <!-- Configuration -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Configuration
+                </h3>
+                <div id="traditional-config-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Performance Table -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-purple-500 rounded-full inline-block"></span> Results
+                </h3>
+                <div id="traditional-results-table"></div>
+            </div>
+            
+            <!-- Matrix Container -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-orange-500 rounded-full inline-block"></span> Confusion Matrices
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="traditional-matrix-grid"></div>
+            </div>
+        </div>
+
+        <!-- 2. TRADITIONAL PIPELINE SECTION -->
+        <div id="section-pipeline" class="tab-content hidden space-y-12">
+            <!-- Configuration -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Configuration
+                </h3>
+                <div id="pipeline-config-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Performance Table -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-purple-500 rounded-full inline-block"></span> Results
+                </h3>
+                <div id="pipeline-results-table"></div>
+            </div>
+
+            <!-- Confusion Matrices -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-orange-500 rounded-full inline-block"></span> Confusion Matrices
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10" id="pipeline-matrix-grid"></div>
+            </div>
+        </div>
+
+        <!-- 3. DEEP LEARNING SECTION -->
+        <div id="section-deeplearning" class="tab-content hidden space-y-12">
+            <!-- Configuration -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-blue-500 rounded-full inline-block"></span> Configuration
+                </h3>
+                <div id="deeplearning-config-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Performance Table -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-purple-500 rounded-full inline-block"></span> Results
+                </h3>
+                <div id="deeplearning-results-table"></div>
+            </div>
+
+            <!-- Confusion Matrices -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-lg text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-orange-500 rounded-full inline-block"></span> Confusion Matrices
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="deeplearning-matrix-grid"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer (Đồng nhất với toàn bộ dự án) -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center mt-auto">
+        <p>2026 Group APlus - P4AI-DS (CO3135).</p>
+        <p class="mt-2 text-sm">Built with HTML & Tailwind CSS. Hosted on GitHub Pages.</p>
+    </footer>
+    <script src="./dataloader.js"></script>
+    <script src="./script.js"></script>
+
+</body>
+</html>

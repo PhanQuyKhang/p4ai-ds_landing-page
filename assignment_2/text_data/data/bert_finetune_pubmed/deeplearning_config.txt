@@ -1,0 +1,87 @@
+🔤 Tokenization
+Tokenizer: WordPiece (BERT)
+Max Length: 128 tokens
+Padding: Max length
+Truncation: Enabled
+Vocabulary Size: ~30,522
+Special Tokens: [CLS], [SEP], [PAD]
+🤖 PubMedBERT + Pooler
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: BERT built-in pooler: [CLS] → Dense(768→768) → Tanh
+🤖 PubMedBERT + CLS
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: Use raw [CLS] token embedding from last hidden state
+🤖 PubMedBERT + Mean
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: Average all token embeddings (captures full context)
+🤖 DistilBERT + CLS
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: Use raw [CLS] token embedding from last hidden state
+🤖 DistilBERT + Mean
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: Average all token embeddings (captures full context)
+🤖 TinyBERT + Mean
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: Average all token embeddings (captures full context)
+🤖 TinyBERT + Pooler
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: BERT built-in pooler: [CLS] → Dense(128→128) → Tanh
+🤖 TinyBERT + CLS
+Learning Rate: 0.00002
+Batch Size: 32
+Epochs: 2
+Weight Decay: 0.01
+Warmup Ratio: 0.1
+Optimizer: AdamW
+FP16: true
+Gradient Accumulation: 1
+Pooling: Use raw [CLS] token embedding from last hidden state

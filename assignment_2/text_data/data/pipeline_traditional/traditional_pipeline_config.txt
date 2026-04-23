@@ -1,0 +1,102 @@
+Base Features: 25,000 (from Vectorizers).
+Engineered Feature: +1 (Normalized Sentence Position).
+Total Features:
+None: 25,001
+Chi²: 6,001
+SVD: 301
+
+1. TF-IDF → None → Logistic Regression
+🔢 Extractor: TF-IDF (max_features=25000, ngram_range=(1,2), min_df=3, max_df=0.9, sublinear_tf=True)
+🎯 Reducer: None
+🤖 Classifier: Logistic Regression (C=1, solver='saga', class_weight='balanced', max_iter=3000)
+📊 Features: 25,001
+2. TF-IDF → None → Linear SVM
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: None
+🤖 Classifier: LinearSVC (C=0.5, class_weight='balanced', max_iter=2000)
+📊 Features: 25,001
+3. TF-IDF → None → SGD
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: None
+🤖 Classifier: SGDClassifier (loss='hinge', class_weight='balanced', max_iter=2000)
+📊 Features: 25,001
+4. TF-IDF → None → Naive Bayes
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: None
+🤖 Classifier: MultinomialNB (alpha=1.0)
+📊 Features: 25,001
+5. TF-IDF → Chi² → Logistic Regression
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: Logistic Regression (Same as above)
+📊 Features: 6,001
+6. TF-IDF → Chi² → Linear SVM
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: LinearSVC (Same as above)
+📊 Features: 6,001
+7. TF-IDF → Chi² → SGD
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: SGDClassifier (Same as above)
+📊 Features: 6,001
+8. TF-IDF → Chi² → Naive Bayes
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: MultinomialNB (Same as above)
+📊 Features: 6,001
+9. TF-IDF → SVD → Logistic Regression
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: TruncatedSVD (n_components=300, random_state=42)
+🤖 Classifier: Logistic Regression (Same as above)
+📊 Features: 301
+10. TF-IDF → SVD → Linear SVM
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: TruncatedSVD (n_components=300)
+🤖 Classifier: LinearSVC (Same as above)
+📊 Features: 301
+11. TF-IDF → SVD → SGD
+🔢 Extractor: TF-IDF (Same as above)
+🎯 Reducer: TruncatedSVD (n_components=300)
+🤖 Classifier: SGDClassifier (Same as above)
+📊 Features: 301
+12. BoW → None → Linear SVM
+🔢 Extractor: BoW (max_features=25000, ngram_range=(1,2), min_df=3)
+🎯 Reducer: None
+🤖 Classifier: LinearSVC (C=0.5, class_weight='balanced', max_iter=2000)
+📊 Features: 25,001
+13. BoW → None → SGD
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: None
+🤖 Classifier: SGDClassifier (loss='hinge', class_weight='balanced', max_iter=2000)
+📊 Features: 25,001
+14. BoW → None → Naive Bayes
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: None
+🤖 Classifier: MultinomialNB (alpha=1.0)
+📊 Features: 25,001
+15. BoW → Chi² → Linear SVM
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: LinearSVC (Same as above)
+📊 Features: 6,001
+16. BoW → Chi² → SGD
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: SGDClassifier (Same as above)
+📊 Features: 6,001
+17. BoW → Chi² → Naive Bayes
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: SelectKBest (score_func=chi2, k=6000)
+🤖 Classifier: MultinomialNB (Same as above)
+📊 Features: 6,001
+18. BoW → SVD → Linear SVM
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: TruncatedSVD (n_components=300, random_state=42)
+🤖 Classifier: LinearSVC (Same as above)
+📊 Features: 301
+19. BoW → SVD → SGD
+🔢 Extractor: BoW (Same as above)
+🎯 Reducer: TruncatedSVD (n_components=300)
+🤖 Classifier: SGDClassifier (Same as above)
+📊 Features: 301

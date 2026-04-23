@@ -1,0 +1,48 @@
+1. TF-IDF & Feature Configuration
+Feature Extraction: TF-IDF (Term Frequency-Inverse Document Frequency)
+Max Features: 25,000
+N-gram Range: (1, 2) — Unigrams & Bigrams
+Min DF: 3
+Max DF: 0.9
+Sublinear TF: True (Logarithmic scaling: 1+log(tf))
+Engineered Features: TF-IDF Vectors concatenated with Normalized Sentence Position
+2. Logistic Regression
+Penalty: L2 (Default)
+C (Regularization): 1.0
+Solver: lbfgs
+Max Iterations: 1000
+Class Weight: Balanced (Adjusts for label imbalance)
+N-Jobs: -1 (Multi-core processing)
+Random State: 42
+3. Linear SVM (LinearSVC)
+Kernel: Linear
+C (Regularization): 1.0
+Loss Function: Squared Hinge
+Max Iterations: 2000
+Class Weight: Balanced
+Random State: 42
+4. SGD Classifier (Logistic)
+Loss Function: log_loss (Probabilistic Logistic Regression)
+Max Iterations: 1000
+Learning Rate: Optimal
+Class Weight: Balanced
+Random State: 42
+5. SGD Classifier (SVM Style)
+Loss Function: hinge (Linear SVM approximation)
+Max Iterations: 1000
+Alpha: 0.0001 (Regularization strength)
+Class Weight: Balanced
+Random State: 42
+6. XGBoost
+N Estimators: 50
+Max Depth: 6
+Learning Rate: 0.3
+Objective: multi:softprob
+Booster: gbtree
+N-Jobs: -1
+Random State: 42
+7. Naive Bayes
+Algorithm: Multinomial Naive Bayes
+Alpha (Smoothing): 1.0 (Laplace smoothing)
+Fit Prior: True
+Feature Input: Combined Sparse Matrix (Text + Position)

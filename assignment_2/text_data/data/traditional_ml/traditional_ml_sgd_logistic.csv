@@ -1,0 +1,7 @@
+Actual\Predicted,background,conclusions,methods,objective,results
+background,2388,5,172,503,9
+conclusions,2,4261,7,1,300
+methods,86,176,9132,70,420
+objective,828,1,123,1373,8
+results,15,516,909,0,8273
+f1score,0.746716698,0.894228751,0.9029515,0.641588785,0.883725899
