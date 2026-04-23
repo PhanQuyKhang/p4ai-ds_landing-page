@@ -1482,7 +1482,6 @@ if (heatmapDiv) {
 
     const subtitle = document.createElement('p');
     subtitle.className = "text-green-700 font-medium text-sm mt-6 mb-10 border-l-4 border-green-500 pl-3";
-    subtitle.innerHTML = "Stopwords Removed - Content-based category similarity (mean pairwise)";
     
     const guideHeader = document.createElement('h3');
     guideHeader.className = "font-bold text-xl text-slate-700 mb-6";
@@ -1511,10 +1510,16 @@ if (heatmapDiv) {
 }
 
 // ==========================================
-// 11. CATEGORY DISTRIBUTION BY SENTENCE POSITION
+// 11. CATEGORY DISTRIBUTION BY SENTENCE POSITION (Đã sửa nhãn trục X)
 // ==========================================
 const positionData = {
-    "x_labels": ["0.05", "0.10", "0.15", "0.20", "0.25", "0.30", "0.35", "0.40", "0.45", "0.50", "0.55", "0.60", "0.65", "0.70", "0.75", "0.80", "0.85", "0.90", "0.95", "1.00"],
+    "x_labels": [
+        "(-0.001, 0.05]", "(0.05, 0.1]", "(0.1, 0.15]", "(0.15, 0.2]",
+        "(0.2, 0.25]", "(0.25, 0.3]", "(0.3, 0.35]", "(0.35, 0.4]",
+        "(0.4, 0.45]", "(0.45, 0.5]", "(0.5, 0.55]", "(0.55, 0.6]",
+        "(0.6, 0.65]", "(0.65, 0.7]", "(0.7, 0.75]", "(0.75, 0.8]",
+        "(0.8, 0.85]", "(0.85, 0.9]", "(0.9, 0.95]", "(0.95, 1.0]"
+    ],
     "y_labels": ["BACKGROUND", "CONCLUSIONS", "METHODS", "OBJECTIVE", "RESULTS"],
     "matrix": [
         [7471, 4403, 2179, 1995, 1050, 516, 296, 242, 91, 94, 17, 22, 10, 6, 1, 2, 0, 3, 4, 0],
@@ -1532,34 +1537,37 @@ if (document.getElementById(posDivId)) {
         x: positionData.x_labels,
         y: positionData.y_labels,
         type: 'heatmap',
-        colorscale: 'Viridis', // Dải màu xanh-vàng rất chuyên nghiệp cho mật độ
+        colorscale: 'YlGnBu', // Đổi sang dải màu Vàng-Xanh y hệt hình mẫu
         showscale: true,
         colorbar: {
-            title: 'Sentence Count',
+            title: 'Count',
             titleside: 'right',
             tickfont: { family: 'Inter', size: 10 }
-        },
-        hoverongaps: false
+        }
     }];
 
     const layoutPlot = {
         xaxis: { 
-            title: { text: 'Relative Position in Abstract', font: { size: 12 } },
-            tickfont: { size: 10 },
-            gridcolor: 'rgba(0,0,0,0)'
+            title: { text: 'Sentence Position (binned)', font: { size: 12 }, standoff: 20 },
+            type: 'category', // ÉP HIỂN THỊ DẠNG PHÂN LOẠI (Để hiện đủ 20 nhãn)
+            tickangle: -90,   // XOAY NHÃN 90 ĐỘ y hệt hình mẫu
+            tickfont: { size: 9 },
+            gridcolor: 'rgba(0,0,0,0)',
+            automargin: true  // Tự động căn lề để không bị mất chữ khi xoay
         },
         yaxis: { 
-            autorange: 'reversed', // Giữ đúng thứ tự nhãn y
-            tickfont: { family: 'Inter', size: 11 }
+            autorange: 'reversed', 
+            tickfont: { family: 'Inter', size: 11 },
+            automargin: true
         },
-        margin: { t: 20, b: 60, l: 120, r: 20 },
-        height: 450,
+        margin: { t: 30, b: 20, l: 30, r: 30 }, // Để margin nhỏ lại vì automargin sẽ tự lo phần chữ
+        height: 450, // Giảm chiều cao xuống 450px để nằm gọn trong card trắng
         font: { family: 'Inter' },
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)'
     };
 
-    Plotly.newPlot(posDivId, dataPlot, layoutPlot, { responsive: true, displayModeBar: false });
+    Plotly.newPlot(posDivId, dataPlot, layoutPlot, { responsive: true, displayModeBar: true, displaylogo: false });
 }
 
 // ==========================================
