@@ -68,6 +68,9 @@ window.renderAllMLCharts = function() {
         pipeGrid.innerHTML = '';
         renderConfusionMatrix('pipeline-matrix-grid', 'BoW + Chi2 + SGD', pipe.matrix.bow_chi2_sgd);
         renderConfusionMatrix('pipeline-matrix-grid', 'BoW + None + SGD', pipe.matrix.bow_none_sgd);
+        renderConfusionMatrix('pipeline-matrix-grid', 'TF-IDF + Chi2 + Log', pipe.matrix.tfidf_chi2_log);
+        renderConfusionMatrix('pipeline-matrix-grid', 'TF-IDF + None + Log', pipe.matrix.tfidf_none_log);
+        renderConfusionMatrix('pipeline-matrix-grid', 'TF-IDF + None + SGD', pipe.matrix.tfidf_none_sgd);
     }
 
 

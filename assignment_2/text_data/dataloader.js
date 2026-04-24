@@ -51,13 +51,16 @@
                 fetch(`${baseUrl}/traditional_ml/traditional_ml_sgd_svm.csv`).then(r => r.ok ? r.text() : ""),
                 fetch(`${baseUrl}/traditional_ml/traditional_ml_xgboost.csv`).then(r => r.ok ? r.text() : ""),
                 
-                // --- Pipeline (Index 8-11) ---
+                // --- Pipeline (Index 8-14) ---
                 fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_result.csv`).then(r => r.ok ? r.text() : ""),
                 fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_config.txt`).then(r => r.ok ? r.text() : ""),
                 fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_bow-chi2-sgd.csv`).then(r => r.ok ? r.text() : ""),
                 fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_bow-none-sgd.csv`).then(r => r.ok ? r.text() : ""),
+                fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_tfidf_chi2_log.csv`).then(r => r.ok ? r.text() : ""),
+                fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_tfidf_none_log.csv`).then(r => r.ok ? r.text() : ""),
+                fetch(`${baseUrl}/pipeline_traditional/traditional_pipeline_tfidf_none_sgd.csv`).then(r => r.ok ? r.text() : ""),
                 
-                // --- Deep Learning (Index 12-21) ---
+                // --- Deep Learning (Index 15-24) ---
                 fetch(`${baseUrl}/bert_finetune_pubmed/results_sumary_final.csv`).then(r => r.ok ? r.text() : ""),
                 fetch(`${baseUrl}/bert_finetune_pubmed/deeplearning_config.txt`).then(r => r.ok ? r.text() : ""),
                 fetch(`${baseUrl}/bert_finetune_pubmed/deeplearning_pubmed-cls.csv`).then(r => r.ok ? r.text() : ""),
@@ -90,27 +93,30 @@
                 config: responses[9],
                 matrix: {
                     bow_chi2_sgd: parseCSV(responses[10]),
-                    bow_none_sgd: parseCSV(responses[11])
+                    bow_none_sgd: parseCSV(responses[11]),
+                    tfidf_chi2_log: parseCSV(responses[12]),
+                    tfidf_none_log: parseCSV(responses[13]),
+                    tfidf_none_sgd: parseCSV(responses[14]),
                 }
             };
 
             // Gán dữ liệu Deep Learning (Đầy đủ các biến thể)
             window.TEXT_ML_DATA.deeplearning = {
-                performance: parseCSV(responses[12]),
-                config: responses[13],
+                performance: parseCSV(responses[15]),
+                config: responses[16],
                 matrix: {
-                    pubmed_cls: parseCSV(responses[14]),
-                    pubmed_mean: parseCSV(responses[15]),
-                    pubmed_pooler: parseCSV(responses[16]),
-                    distil_cls: parseCSV(responses[17]),
-                    distil_mean: parseCSV(responses[18]),
-                    tiny_cls: parseCSV(responses[19]),
-                    tiny_mean: parseCSV(responses[20]),
-                    tiny_pooler: parseCSV(responses[21])
+                    pubmed_cls: parseCSV(responses[17]),
+                    pubmed_mean: parseCSV(responses[18]),
+                    pubmed_pooler: parseCSV(responses[19]),
+                    distil_cls: parseCSV(responses[20]),
+                    distil_mean: parseCSV(responses[21]),
+                    tiny_cls: parseCSV(responses[22]),
+                    tiny_mean: parseCSV(responses[23]),
+                    tiny_pooler: parseCSV(responses[24])
                 }
             };
 
-            console.log("✅ Đã tải thành công 22 file dữ liệu!");
+            console.log("✅ Đã tải thành công 24 file dữ liệu!");
             if (typeof window.renderAllMLCharts === 'function') window.renderAllMLCharts();
         } catch (error) {
             console.error("❌ Lỗi load dữ liệu:", error);
