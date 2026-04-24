@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Data EDA - Group APlus</title>
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Nhúng Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Plotly JS CDN -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -27,7 +23,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
 
-    <!-- Navbar -->
     <nav class="bg-white shadow-md fixed w-full z-20 top-0">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center py-4">
@@ -41,14 +36,13 @@
         </div>
     </nav>
 
-    <!-- Header Section -->
     <section class="pt-32 pb-16 bg-emerald-50">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-                CIFAR 10 EDA
+                Intel Image Classification EDA
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                Each class contains several thousands of small real-world RGB images of vehicle and animals for training and testing.
+                Exploratory Data Analysis of image dimensions, aspect ratios, RGB intensity, and class embeddings.
             </p>
             <div class="inline-flex items-center justify-center bg-white text-emerald-700 font-bold px-5 py-2.5 rounded-lg shadow-sm border border-emerald-100 uppercase tracking-wide text-sm">
                 Modality 3: Image Data
@@ -56,7 +50,6 @@
         </div>
     </section>
 
-    <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-12 flex-grow w-full space-y-12">
         <!-- 1. CORE EDA -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
@@ -65,71 +58,67 @@
                     <span class="w-2 h-8 bg-emerald-500 rounded-full inline-block"></span>
                     1. Core EDA
                 </h2>
-                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
-                    Analysis of physical image properties including dimensions, aspect ratios, file sizes, and pixel intensity (RGB).
-                </p> -->
             </div>
             
             <div id="core-eda-container" class="w-full space-y-8">
-                
-                <!-- Sample Images Grid (Full Width) -->
+                <!-- Sample Images Grid (Dynamic Loading) -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                     <div class="flex items-center gap-2 mb-6">
                         <span class="w-1.5 h-5 bg-emerald-500 rounded-full"></span>
-                        <h3 class="font-bold text-lg text-slate-800">Sample Images From Each Class (Train vs Eval)</h3>
+                        <h3 class="font-bold text-lg text-slate-800">Sample Images From Each Class</h3>
                     </div>
                     <div id="imageGridContainer" class="w-full overflow-x-auto min-h-[200px]"></div>
                 </div>
 
-                <!-- Class Distribution (2 Cột) -->
+                <!-- Class Distribution -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="w-1.5 h-5 bg-blue-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Train Dataset Class Distribution</h3>
+                            <h3 class="font-bold text-lg text-slate-800">Train Dataset Distribution</h3>
                         </div>
                         <div style="height: 300px;"><canvas id="trainDistChart"></canvas></div>
                     </div>
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="w-1.5 h-5 bg-orange-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Eval Dataset Class Distribution</h3>
+                            <h3 class="font-bold text-lg text-slate-800">Eval Dataset Distribution</h3>
                         </div>
                         <div style="height: 300px;"><canvas id="evalDistChart"></canvas></div>
                     </div>
                 </div>
 
-                <!-- File Size & Pixel Intensity (2 Cột) -->
+                <!-- File Size & Pixel Intensity -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="w-1.5 h-5 bg-emerald-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Distribution of Image File Sizes</h3>
+                            <h3 class="font-bold text-lg text-slate-800">File Size Distribution</h3>
                         </div>
                         <div style="height: 350px;"><canvas id="fileSizeChart"></canvas></div>
                     </div>
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="w-1.5 h-5 bg-purple-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Pixel Intensity Distribution per Channel</h3>
+                            <h3 class="font-bold text-lg text-slate-800">Pixel Intensity per Channel</h3>
                         </div>
                         <div style="height: 350px;"><canvas id="pixelIntensityChart"></canvas></div>
                     </div>
                 </div>
 
-                <!-- Scatter Plots: Size & Quality (2 Cột) -->
+                <!-- Scatter Plots: Size & Quality -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="w-1.5 h-5 bg-teal-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Image Size Distribution (Width vs Height)</h3>
+                            <h3 class="font-bold text-lg text-slate-800">Image Size Distribution</h3>
                         </div>
                         <div style="height: 350px;"><canvas id="imageSizeChart"></canvas></div>
                     </div>
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="w-1.5 h-5 bg-rose-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Image Quality Distribution (Contrast vs Sharpness)</h3>
+                            <h3 class="font-bold text-lg text-slate-800">Image Quality Distribution</h3>
                         </div>
                         <div style="height: 350px;"><canvas id="qualityChart"></canvas></div>
                     </div>
@@ -151,16 +140,13 @@
             <div class="border-b border-gray-100 pb-4 mb-8">
                 <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
                     <span class="w-2 h-8 bg-teal-500 rounded-full inline-block"></span>
-                    2. Classification EDA
+                    2. Classification & Feature Clustering EDA
                 </h2>
-                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
-                    Analysis of class distributions, label balance between train/eval sets, and category correlations.
-                </p> -->
             </div>
             
             <div id="classification-eda-container" class="w-full space-y-8">
                 
-                <!-- Class Correlation Heatmap (Full Width) -->
+                <!-- Class Correlation Heatmap -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                     <div class="flex items-center gap-2 mb-6">
                         <span class="w-1.5 h-5 bg-slate-800 rounded-full"></span>
@@ -169,218 +155,52 @@
                     <div id="classCorrelationHeatmap" style="width:100%; height:600px;"></div>
                 </div>
 
-                <!-- UMAP Embedding (Full Width) -->
+                <!-- UMAP Embedding -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                     <div class="flex items-center gap-2 mb-6">
                         <span class="w-1.5 h-5 bg-purple-500 rounded-full"></span>
-                        <h3 class="font-bold text-lg text-slate-800">UMAP Embedding (Feature Space Projection)</h3>
+                        <h3 class="font-bold text-lg text-slate-800">UMAP Embedding</h3>
                     </div>
                     <div id="umapEmbeddingChart" style="width:100%; height:600px;"></div>
                 </div>
 
-            </div>
-        </section>
-        <!-- 3. DETECTION EDA -->
-        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <div class="border-b border-gray-100 pb-4 mb-8">
-                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-2 h-8 bg-cyan-500 rounded-full inline-block"></span>
-                    3. Detection EDA
-                </h2>
-                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
-                    Exploration of bounding boxes, object sizes, aspect ratios, and spatial distribution of objects within images.
-                </p> -->
-            </div>
-            
-            <div id="detection-eda-container" class="w-full space-y-8">
-                
-                <!-- Hàng 1: Area & Size Statistics (Bar Charts) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-cyan-500 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Size Statistics</h3>
-                        </div>
-                        <div style="height: 300px;"><canvas id="detSizeStatsChart"></canvas></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-indigo-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Area Distribution</h3>
-                        </div>
-                        <div style="height: 300px;"><canvas id="detAreaChart"></canvas></div>
-                    </div>
-                </div>
-
-                <!-- Hàng 2: Aspect Ratio & Size Categories (Pie Charts) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-purple-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Aspect Ratio Distribution</h3>
-                        </div>
-                        <div class="flex-grow relative" style="min-height: 250px;"><canvas id="detAspectRatioChart"></canvas></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-pink-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Size Categories</h3>
-                        </div>
-                        <div class="flex-grow relative" style="min-height: 250px;"><canvas id="detSizeCatChart"></canvas></div>
-                    </div>
-                </div>
-
-                <!-- Hàng 3: Center Bias & 3x3 Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-orange-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Center Bias</h3>
-                        </div>
-                        <div class="flex-grow relative" style="min-height: 300px;"><canvas id="detCenterBiasChart"></canvas></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-yellow-500 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">3x3 Grid Distribution</h3>
-                        </div>
-                        <div id="detGridHeatmap" style="width:100%; height:300px;"></div>
-                    </div>
-                </div>
-
-                <!-- Hàng 4: Center Position Heatmap (Full Width) -->
+                <!-- t-SNE Embedding (Mới thêm) -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
                     <div class="flex items-center gap-2 mb-6">
-                        <span class="w-1.5 h-5 bg-red-400 rounded-full"></span>
-                        <h3 class="font-bold text-lg text-slate-800">Center Position Heatmap (32x32)</h3>
+                        <span class="w-1.5 h-5 bg-indigo-500 rounded-full"></span>
+                        <h3 class="font-bold text-lg text-slate-800">t-SNE Embedding</h3>
                     </div>
-                    <div id="detPositionHeatmap" style="width:100%; height:500px; margin: 0 auto;"></div>
+                    <div id="tsneEmbeddingChart" style="width:100%; height:600px;"></div>
+                </div>
+
+                <!-- PCA (Mới thêm) -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="w-1.5 h-5 bg-rose-500 rounded-full"></span>
+                        <h3 class="font-bold text-lg text-slate-800">PCA Feature Projection</h3>
+                    </div>
+                    <div id="pcaEmbeddingChart" style="width:100%; height:600px;"></div>
                 </div>
 
             </div>
         </section>
 
-        <!-- 4. SEGMENTATION EDA -->
-        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <div class="border-b border-gray-100 pb-4 mb-8">
-                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-2 h-8 bg-indigo-500 rounded-full inline-block"></span>
-                    4. Segmentation EDA
-                </h2>
-                <!-- <p class="text-sm text-slate-500 mt-2 ml-4">
-                    Analysis of pixel-level masks, boundary properties, and object shape metrics.
-                </p> -->
-            </div>
-            
-            <div id="segmentation-eda-container" class="w-full space-y-10">
-                
-                <!-- Group 1: Pixel Composition (2 Cột) -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-indigo-500 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Pixel Class Distribution</h3>
-                        </div>
-                        <div style="height: 300px;"><canvas id="segPixelDistChart"></canvas></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-teal-500 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Mean Pixel Intensity</h3>
-                        </div>
-                        <div style="height: 300px;"><canvas id="segPixelMeanChart"></canvas></div>
-                    </div>
-                </div>
-
-                <!-- Group 2: Boundary Distributions (3 Cột - Đã đồng bộ màu) -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Thickness: Màu #1e90ff -->
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-5 bg-[#1e90ff] rounded-full"></span>
-                            <h3 class="font-bold text-md text-slate-800">Boundary Thickness</h3>
-                        </div>
-                        <div class="text-3xl font-black text-[#1e90ff] mb-4" id="metric-thickness">--</div>
-                        <div style="height: 200px;"><canvas id="segThicknessHist"></canvas></div>
-                    </div>
-
-                    <!-- Smoothness: Màu #ffa500 -->
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-5 bg-[#ffa500] rounded-full"></span>
-                            <h3 class="font-bold text-md text-slate-800">Boundary Smoothness</h3>
-                        </div>
-                        <div class="text-3xl font-black text-[#ffa500] mb-4" id="metric-smoothness">--</div>
-                        <div style="height: 200px;"><canvas id="segSmoothnessHist"></canvas></div>
-                    </div>
-
-                    <!-- Complexity: Màu #008000 -->
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-5 bg-[#008000] rounded-full"></span>
-                            <h3 class="font-bold text-md text-slate-800">Boundary Complexity</h3>
-                        </div>
-                        <div class="text-3xl font-black text-[#008000] mb-4" id="metric-complexity">--</div>
-                        <div style="height: 200px;"><canvas id="segComplexityHist"></canvas></div>
-                    </div>
-                </div>
-
-                <!-- Group 3: Shape & Metrics Comparison (2 Cột) -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-orange-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Shape Metrics Overview</h3>
-                        </div>
-                        <div style="height: 300px;"><canvas id="segShapeMetricsChart"></canvas></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm">
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="w-1.5 h-5 bg-rose-400 rounded-full"></span>
-                            <h3 class="font-bold text-lg text-slate-800">Boundary Metrics Comparison</h3>
-                        </div>
-                        <div style="height: 300px;"><canvas id="segBoundaryMetricsChart"></canvas></div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        <!-- 5. Key Insights -->
+        <!-- 3. Key Insights (Cần update lại theo Dataset mới) -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 border-l-8 border-l-emerald-500">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6">5. Key Insights</h2>
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">3. Key Insights</h2>
             <ul class="space-y-4 text-slate-600 font-medium" id="key-insights-list">
-                
-                <!-- Dataset Characteristics -->
                 <li class="flex gap-3">
                     <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Small and Unified Resolution:</strong> All images in the dataset have a fixed resolution of 32x32 pixels. While this allows for more lightweight and efficient models, it may require specific preprocessing or resizing when using models with fixed high-resolution inputs like Vision Transformers (ViT).</p>
+                    <p><strong>Dataset Transition:</strong> The dataset has been updated to focus solely on Image Classification tasks. Object detection and segmentation properties have been omitted from this analysis pipeline.</p>
                 </li>
-
                 <li class="flex gap-3">
                     <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Perfect Class Balance:</strong> There is no class imbalance in the dataset. Every category contains exactly 5,000 images in the training set and 1,000 images in the evaluation set, ensuring objectivity during model training and evaluation.</p>
+                    <p><strong>Feature Clustering:</strong> The T-SNE and UMAP visualizations provide insights into how well traditional features separate the different classes in lower-dimensional space.</p>
                 </li>
-
-                <li class="flex gap-3">
-                    <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Sharpness and Contrast Relationship:</strong> Analysis shows a positive correlation where higher contrast generally leads to sharper images. Conversely, low-contrast images are consistently associated with lower sharpness and higher blurriness levels.</p>
-                </li>
-
-                <li class="flex gap-3">
-                    <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Semantic Class Correlation:</strong> Certain classes exhibit high visual similarity, specifically between vehicles (Truck vs. Automobile, Airplane vs. Ship) and animals (Cat vs. Dog, Deer vs. Horse). Images within the same broad type (Animals or Vehicles) show significantly higher correlation than those from different types.</p>
-                </li>
-
-                <li class="flex gap-3">
-                    <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Task-Specific Limitations:</strong> CIFAR-10 is strictly tailored for image classification. It does not provide native bounding boxes, segmentation masks, or other annotations required for complex tasks like detection or segmentation without additional manual labeling or pre-trained model assistance.</p>
-                </li>
-
             </ul>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-8 text-center mt-auto">
         <p>2026 Group APlus - P4AI-DS (CO3135).</p>
         <p class="mt-2 text-sm">Built with HTML & Tailwind CSS. Hosted on GitHub Pages.</p>

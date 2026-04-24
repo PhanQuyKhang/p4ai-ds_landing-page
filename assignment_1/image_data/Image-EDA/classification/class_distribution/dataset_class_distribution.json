@@ -1,0 +1,38 @@
+{
+    "classes": [
+        "buildings",
+        "forest",
+        "glacier",
+        "mountain",
+        "sea",
+        "street"
+    ],
+    "train_distribution": [
+        1972,
+        2044,
+        2164,
+        2261,
+        2047,
+        2144
+    ],
+    "train_total": 12632,
+    "eval_distribution": [
+        219,
+        227,
+        240,
+        251,
+        227,
+        238
+    ],
+    "eval_total": 1402,
+    "test_distribution": [
+        437,
+        474,
+        553,
+        525,
+        510,
+        501
+    ],
+    "test_total": 3000,
+    "total_dataset_size": 17034
+}

@@ -1,0 +1,115 @@
+[
+    {
+        "class": "buildings",
+        "images": [
+            {
+                "path": "/static/0_0.png"
+            },
+            {
+                "path": "/static/0_1.png"
+            },
+            {
+                "path": "/static/0_2.png"
+            },
+            {
+                "path": "/static/0_3.png"
+            }
+        ]
+    },
+    {
+        "class": "forest",
+        "images": [
+            {
+                "path": "/static/1_0.png"
+            },
+            {
+                "path": "/static/1_1.png"
+            },
+            {
+                "path": "/static/1_2.png"
+            },
+            {
+                "path": "/static/1_3.png"
+            }
+        ]
+    },
+    {
+        "class": "glacier",
+        "images": [
+            {
+                "path": "/static/2_0.png"
+            },
+            {
+                "path": "/static/2_1.png"
+            },
+            {
+                "path": "/static/2_2.png"
+            },
+            {
+                "path": "/static/2_3.png"
+            }
+        ]
+    },
+    {
+        "class": "mountain",
+        "images": [
+            {
+                "path": "/static/3_0.png"
+            },
+            {
+                "path": "/static/3_1.png"
+            },
+            {
+                "path": "/static/3_2.png"
+            },
+            {
+                "path": "/static/3_3.png"
+            }
+        ]
+    },
+    {
+        "class": "sea",
+        "images": [
+            {
+                "path": "/static/4_0.png"
+            },
+            {
+                "path": "/static/4_1.png"
+            },
+            {
+                "path": "/static/4_2.png"
+            },
+            {
+                "path": "/static/4_3.png"
+            }
+        ]
+    },
+    {
+        "class": "street",
+        "images": [
+            {
+                "path": "/static/5_0.png"
+            },
+            {
+                "path": "/static/5_1.png"
+            },
+            {
+                "path": "/static/5_2.png"
+            },
+            {
+                "path": "/static/5_3.png"
+            }
+        ]
+    },
+    {
+        "num_class": 6,
+        "class_names": [
+            "buildings",
+            "forest",
+            "glacier",
+            "mountain",
+            "sea",
+            "street"
+        ]
+    }
+]

@@ -1,0 +1,184 @@
+{
+    "data": [
+        {
+            "x": "buildings",
+            "y": "buildings",
+            "value": 0.9999999999999999
+        },
+        {
+            "x": "forest",
+            "y": "buildings",
+            "value": 0.214579047945071
+        },
+        {
+            "x": "glacier",
+            "y": "buildings",
+            "value": 0.21387787631587213
+        },
+        {
+            "x": "mountain",
+            "y": "buildings",
+            "value": 0.26397734965892033
+        },
+        {
+            "x": "sea",
+            "y": "buildings",
+            "value": 0.2904219070163971
+        },
+        {
+            "x": "street",
+            "y": "buildings",
+            "value": 0.7504318193330606
+        },
+        {
+            "x": "buildings",
+            "y": "forest",
+            "value": 0.21457904794507096
+        },
+        {
+            "x": "forest",
+            "y": "forest",
+            "value": 1.0
+        },
+        {
+            "x": "glacier",
+            "y": "forest",
+            "value": 0.321477153422062
+        },
+        {
+            "x": "mountain",
+            "y": "forest",
+            "value": 0.4182852065059876
+        },
+        {
+            "x": "sea",
+            "y": "forest",
+            "value": 0.1920972607077491
+        },
+        {
+            "x": "street",
+            "y": "forest",
+            "value": 0.1606814486808573
+        },
+        {
+            "x": "buildings",
+            "y": "glacier",
+            "value": 0.21387787631587213
+        },
+        {
+            "x": "forest",
+            "y": "glacier",
+            "value": 0.321477153422062
+        },
+        {
+            "x": "glacier",
+            "y": "glacier",
+            "value": 1.0
+        },
+        {
+            "x": "mountain",
+            "y": "glacier",
+            "value": 0.9140771501824473
+        },
+        {
+            "x": "sea",
+            "y": "glacier",
+            "value": 0.4582380879437808
+        },
+        {
+            "x": "street",
+            "y": "glacier",
+            "value": 0.1283440938407737
+        },
+        {
+            "x": "buildings",
+            "y": "mountain",
+            "value": 0.26397734965892033
+        },
+        {
+            "x": "forest",
+            "y": "mountain",
+            "value": 0.41828520650598755
+        },
+        {
+            "x": "glacier",
+            "y": "mountain",
+            "value": 0.9140771501824473
+        },
+        {
+            "x": "mountain",
+            "y": "mountain",
+            "value": 1.0
+        },
+        {
+            "x": "sea",
+            "y": "mountain",
+            "value": 0.361837038293667
+        },
+        {
+            "x": "street",
+            "y": "mountain",
+            "value": 0.15449228211822233
+        },
+        {
+            "x": "buildings",
+            "y": "sea",
+            "value": 0.29042190701639714
+        },
+        {
+            "x": "forest",
+            "y": "sea",
+            "value": 0.1920972607077491
+        },
+        {
+            "x": "glacier",
+            "y": "sea",
+            "value": 0.4582380879437808
+        },
+        {
+            "x": "mountain",
+            "y": "sea",
+            "value": 0.361837038293667
+        },
+        {
+            "x": "sea",
+            "y": "sea",
+            "value": 1.0
+        },
+        {
+            "x": "street",
+            "y": "sea",
+            "value": 0.15371934833311526
+        },
+        {
+            "x": "buildings",
+            "y": "street",
+            "value": 0.7504318193330605
+        },
+        {
+            "x": "forest",
+            "y": "street",
+            "value": 0.1606814486808573
+        },
+        {
+            "x": "glacier",
+            "y": "street",
+            "value": 0.1283440938407737
+        },
+        {
+            "x": "mountain",
+            "y": "street",
+            "value": 0.15449228211822233
+        },
+        {
+            "x": "sea",
+            "y": "street",
+            "value": 0.1537193483331153
+        },
+        {
+            "x": "street",
+            "y": "street",
+            "value": 1.0
+        }
+    ]
+}
