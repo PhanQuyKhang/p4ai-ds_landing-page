@@ -455,13 +455,220 @@
 
             </div>
         </section>
+        <!-- 5. Preprocessing Configuration -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="mb-8 border-b border-gray-100 pb-4">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-indigo-500 rounded-full inline-block"></span>
+                    5. Preprocessing Configuration
+                </h2>
+            </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Linear Preprocessor -->
+                <div class="border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+                    <div class="bg-slate-800 p-4 text-white font-bold flex items-center gap-2">
+                        <span class="text-indigo-400">📊</span> Linear Preprocessor
+                    </div>
+                    <table class="w-full text-sm">
+                        <tbody class="divide-y divide-slate-50">
+                            <tr><td class="px-4 py-3 text-slate-500 font-medium">Used for</td><td class="px-4 py-3 font-bold text-slate-700">Logistic Regression</td></tr>
+                            <tr class="bg-slate-50/50"><td class="px-4 py-3 text-slate-500 font-medium">Scaled features</td><td class="px-4 py-3 text-slate-700">Continuous + Ordinal</td></tr>
+                            <tr><td class="px-4 py-3 text-slate-500 font-medium">Scaler</td><td class="px-4 py-3"><span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-mono text-xs">StandardScaler</span></td></tr>
+                            <tr class="bg-slate-50/50"><td class="px-4 py-3 text-slate-500 font-medium">Binary features</td><td class="px-4 py-3 text-slate-700">Passthrough</td></tr>
+                            <tr><td class="px-4 py-3 text-slate-500 font-medium">Purpose</td><td class="px-4 py-3 text-xs italic text-slate-600">Make feature scales suitable for linear modeling</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tree Preprocessor -->
+                <div class="border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+                    <div class="bg-slate-800 p-4 text-white font-bold flex items-center gap-2">
+                        <span class="text-emerald-400">🌿</span> Tree Preprocessor
+                    </div>
+                    <table class="w-full text-sm">
+                        <tbody class="divide-y divide-slate-50">
+                            <tr><td class="px-4 py-3 text-slate-500 font-medium">Used for</td><td class="px-4 py-3 font-bold text-slate-700">Dummy, RF, ET, HistGB, XGBoost</td></tr>
+                            <tr class="bg-slate-50/50"><td class="px-4 py-3 text-slate-500 font-medium">Feature handling</td><td class="px-4 py-3 text-slate-700">Passthrough</td></tr>
+                            <tr><td class="px-4 py-3 text-slate-500 font-medium">Scaling</td><td class="px-4 py-3 text-slate-700">Not required</td></tr>
+                            <tr class="bg-slate-50/50"><td class="px-4 py-3 text-slate-500 font-medium">Purpose</td><td class="px-4 py-3 text-xs italic text-slate-600">Preserve raw feature values for tree-based splits</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Detailed Model Hyperparameters -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-bold text-slate-800 px-4 flex items-center gap-2">
+                <span class="w-1.5 h-6 bg-blue-600 rounded-full"></span> 6. Model Parameters
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. Dummy -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h4 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest mb-4">Baseline Model</h4>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-xl">🔘</div>
+                        <span class="font-black text-slate-800">Dummy Classifier</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Strategy</span><span class="font-bold">most_frequent</span></div>
+                        <div class="flex justify-between"><span>Balancing</span><span class="font-bold text-slate-400">Not applied</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. Logistic -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h4 class="font-bold text-blue-400 uppercase text-[10px] tracking-widest mb-4">Linear Model</h4>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-xl">📈</div>
+                        <span class="font-black text-slate-800">Logistic Regression</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Penalty</span><span class="font-bold">l2</span></div>
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>C</span><span class="font-bold text-blue-600">0.5</span></div>
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Solver</span><span class="font-bold text-blue-600">liblinear</span></div>
+                        <div class="flex justify-between"><span>Weight</span><span class="font-bold text-emerald-600">balanced</span></div>
+                    </div>
+                </div>
+
+                <!-- 3. Random Forest -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h4 class="font-bold text-emerald-400 uppercase text-[10px] tracking-widest mb-4">Ensemble Model</h4>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-xl">🌲</div>
+                        <span class="font-black text-slate-800">Random Forest</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Estimators</span><span class="font-bold text-emerald-600">300</span></div>
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Max Depth</span><span class="font-bold text-emerald-600">12</span></div>
+                        <div class="flex justify-between"><span>Weight</span><span class="font-bold text-emerald-600">balanced_subsample</span></div>
+                    </div>
+                </div>
+
+                <!-- 4. HistGB -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h4 class="font-bold text-purple-400 uppercase text-[10px] tracking-widest mb-4">Boosting Model</h4>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center text-xl">🚀</div>
+                        <span class="font-black text-slate-800">HistGradientBoosting</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Learning Rate</span><span class="font-bold text-purple-600">0.05</span></div>
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Iterations</span><span class="font-bold text-purple-600">300</span></div>
+                        <div class="flex justify-between"><span>Max Depth</span><span class="font-bold text-purple-600">8</span></div>
+                    </div>
+                </div>
+
+                <!-- Extra trees -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <h4 class="font-bold text-teal-400 uppercase text-[10px] tracking-widest mb-4">Randomized Ensemble</h4>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center text-xl">🌴</div>
+                        <span class="font-black text-slate-800">Extra Trees</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>N Estimators</span><span class="font-bold text-teal-600">400</span></div>
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Max Depth</span><span class="font-bold text-teal-600">12</span></div>
+                        <div class="flex justify-between border-b border-slate-50 pb-1"><span>Min Samples Split</span><span class="font-bold">10</span></div>
+                        <div class="flex justify-between"><span>Weight</span><span class="font-bold text-teal-600">balanced</span></div>
+                    </div>
+                </div>
+
+                <!-- 6. XGBoost (Hightlighted) -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-orange-400 uppercase text-[10px] tracking-widest mb-4">Top Performance</h4>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center text-2xl shadow-lg shadow-orange-500/20">⚔️</div>
+                            <div>
+                                <span class="font-black text-lg text-white block leading-tight">XGBoost Balanced</span>
+                                <span class="text-slate-400 text-[10px] uppercase font-bold tracking-tighter">PR-AUC Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flex flex-col border-l border-slate-700 pl-2">
+                            <span class="text-[8px] text-slate-500 uppercase">Estimators</span>
+                            <span class="text-xs font-bold text-white">400</span>
+                        </div>
+                        <div class="flex flex-col border-l border-slate-700 pl-2">
+                            <span class="text-[8px] text-slate-500 uppercase">L-Rate</span>
+                            <span class="text-xs font-bold text-white">0.05</span>
+                        </div>
+                        <div class="flex flex-col border-l border-slate-700 pl-2">
+                            <span class="text-[8px] text-slate-500 uppercase">Subsample</span>
+                            <span class="text-xs font-bold text-white">0.8</span>
+                        </div>
+                        <div class="flex flex-col border-l border-slate-700 pl-2">
+                            <span class="text-[8px] text-slate-500 uppercase">Alpha/Lambda</span>
+                            <span class="text-xs font-bold text-white">0.5 / 2.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Formulas & Definitions -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="mb-8 border-b border-gray-100 pb-4">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-rose-500 rounded-full inline-block"></span>
+                    7. Formulas & Metrics
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <!-- Core Metrics Table -->
+                <div class="lg:col-span-3">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Evaluation Metrics</h3>
+                    <div class="overflow-hidden rounded-xl border border-slate-100">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 text-slate-600 font-bold uppercase">
+                                <tr><th class="px-4 py-3">Metric</th><th class="px-4 py-3">Mathematical Formula</th><th class="px-4 py-3">Clinical Meaning</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr><td class="px-4 py-3 font-bold text-slate-800">Accuracy</td><td class="px-4 py-3 font-mono">(TP + TN) / Total</td><td class="px-4 py-3 text-slate-500">Overall correct predictions</td></tr>
+                                <tr class="bg-slate-50/30"><td class="px-4 py-3 font-bold text-slate-800">Precision</td><td class="px-4 py-3 font-mono text-blue-600">TP / (TP + FP)</td><td class="px-4 py-3 text-slate-500">Correctness among predicted positives</td></tr>
+                                <tr><td class="px-4 py-3 font-bold text-slate-800">Recall</td><td class="px-4 py-3 font-mono text-emerald-600">TP / (TP + FN)</td><td class="px-4 py-3 text-slate-500">Ability to detect actual positives</td></tr>
+                                <tr class="bg-slate-50/30"><td class="px-4 py-3 font-bold text-slate-800">F1-score</td><td class="px-4 py-3 font-mono text-purple-600">2 × (P × R) / (P + R)</td><td class="px-4 py-3 text-slate-500">Balance between Precision and Recall</td></tr>
+                                <tr><td class="px-4 py-3 font-bold text-slate-800">Specificity</td><td class="px-4 py-3 font-mono">TN / (TN + FP)</td><td class="px-4 py-3 text-slate-500">Ability to detect actual negatives</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Confusion Matrix Terms -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Confusion Matrix Terms</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100 flex justify-between items-center">
+                            <div><span class="font-black text-emerald-700 mr-2">TP</span><span class="text-xs text-emerald-600">True Positive</span></div>
+                            <span class="text-[10px] text-emerald-800 font-medium italic">Correctly predicted heart disease</span>
+                        </div>
+                        <div class="p-3 bg-slate-100 rounded-xl border border-slate-200 flex justify-between items-center">
+                            <div><span class="font-black text-slate-700 mr-2">TN</span><span class="text-xs text-slate-600">True Negative</span></div>
+                            <span class="text-[10px] text-slate-500 font-medium italic">Correctly predicted no disease</span>
+                        </div>
+                        <div class="p-3 bg-orange-50 rounded-xl border border-orange-100 flex justify-between items-center">
+                            <div><span class="font-black text-orange-700 mr-2">FP</span><span class="text-xs text-orange-600">False Positive</span></div>
+                            <span class="text-[10px] text-orange-800 font-medium italic">Type I Error: Healthy but predicted ill</span>
+                        </div>
+                        <div class="p-3 bg-rose-50 rounded-xl border border-rose-100 flex justify-between items-center">
+                            <div><span class="font-black text-rose-700 mr-2">FN</span><span class="text-xs text-rose-600">False Negative</span></div>
+                            <span class="text-[10px] text-rose-800 font-medium italic">Type II Error: Missing actual illness</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- 5. Individual Model Results -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
             <div class="mb-8 border-b border-gray-100 pb-4 flex justify-between items-center">
                 <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
                     <span class="w-2 h-8 bg-indigo-500 rounded-full inline-block"></span>
-                    5. Individual Model Results
+                    8. Individual Model Results
                 </h2>
                 <!-- Model Selector -->
                 <select id="modelSelector" class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 font-bold shadow-sm">
@@ -486,6 +693,7 @@
                     <div id="individual-cm" class="bg-slate-50 p-4 rounded-xl border border-slate-100">
                         <!-- JS sẽ vẽ bảng CM ở đây -->
                     </div>
+                    <div id="individual-insight" class="mt-4"></div>
                 </div>
 
                 <!-- Cột phải: Charts (ROC & PR Curves) -->
@@ -506,6 +714,214 @@
                 </div>
             </div>
         </section>
+
+        <!-- 8. Summary Table / Model Comparison -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="mb-8 border-b border-gray-100 pb-4">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-blue-600 rounded-full inline-block"></span>
+                    8. Summary Table / Model Comparison
+                </h2>
+                <p class="text-slate-500 text-sm mt-2 ml-4 italic">Comparison of validation performance across all tested models at a default threshold of 0.5.</p>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm mb-10">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-800 text-white uppercase tracking-wider font-bold">
+                            <th class="px-4 py-3 border-r border-slate-700 text-center">#</th>
+                            <th class="px-4 py-3 border-r border-slate-700">Model</th>
+                            <th class="px-4 py-3 text-center">Accuracy</th>
+                            <th class="px-4 py-3 text-center">Balanced Acc</th>
+                            <th class="px-4 py-3 text-center">Precision</th>
+                            <th class="px-4 py-3 text-center">Recall</th>
+                            <th class="px-4 py-3 text-center">F1</th>
+                            <th class="px-4 py-3 text-center">ROC-AUC</th>
+                            <th class="px-4 py-3 text-center bg-blue-700">PR-AUC</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 bg-white">
+                        <!-- XGBoost (Winner) -->
+                        <tr class="bg-blue-50/50 font-semibold border-l-4 border-l-blue-500">
+                            <td class="px-4 py-4 text-center text-slate-400 font-mono">0</td>
+                            <td class="px-4 py-4 font-bold text-blue-700">XGBoost_Balanced</td>
+                            <td class="px-4 py-4 text-center">0.7411</td>
+                            <td class="px-4 py-4 text-center">0.7740</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.2411</td>
+                            <td class="px-4 py-4 text-center font-bold text-slate-800">0.8145</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.3721</td>
+                            <td class="px-4 py-4 text-center">0.8485</td>
+                            <td class="px-4 py-4 text-center bg-blue-100/50 font-black text-blue-700">0.3753</td>
+                        </tr>
+                        <!-- HistGB -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 text-center text-slate-400 font-mono">1</td>
+                            <td class="px-4 py-4 font-bold text-slate-700">HistGradientBoosting_Balanced</td>
+                            <td class="px-4 py-4 text-center">0.7352</td>
+                            <td class="px-4 py-4 text-center text-slate-800">0.7732</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.2376</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-600">0.8200</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.3684</td>
+                            <td class="px-4 py-4 text-center">0.8482</td>
+                            <td class="px-4 py-4 text-center">0.3729</td>
+                        </tr>
+                        <!-- Logistic -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 text-center text-slate-400 font-mono">2</td>
+                            <td class="px-4 py-4 font-bold text-slate-700">LogisticRegression_Balanced</td>
+                            <td class="px-4 py-4 text-center">0.7516</td>
+                            <td class="px-4 py-4 text-center">0.7721</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.2467</td>
+                            <td class="px-4 py-4 text-center">0.7974</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.3768</td>
+                            <td class="px-4 py-4 text-center">0.8454</td>
+                            <td class="px-4 py-4 text-center">0.3655</td>
+                        </tr>
+                        <!-- Random Forest -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 text-center text-slate-400 font-mono">3</td>
+                            <td class="px-4 py-4 font-bold text-slate-700">RandomForest_Balanced</td>
+                            <td class="px-4 py-4 text-center">0.7632</td>
+                            <td class="px-4 py-4 text-center">0.7674</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.2525</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.7726</td>
+                            <td class="px-4 py-4 text-center">0.3806</td>
+                            <td class="px-4 py-4 text-center">0.8457</td>
+                            <td class="px-4 py-4 text-center">0.3640</td>
+                        </tr>
+                        <!-- Extra Trees -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 text-center text-slate-400 font-mono">4</td>
+                            <td class="px-4 py-4 font-bold text-slate-700">ExtraTrees_Balanced</td>
+                            <td class="px-4 py-4 text-center">0.7428</td>
+                            <td class="px-4 py-4 text-center">0.7694</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.2405</td>
+                            <td class="px-4 py-4 text-center">0.8022</td>
+                            <td class="px-4 py-4 text-center text-slate-500 font-normal">0.3701</td>
+                            <td class="px-4 py-4 text-center">0.8441</td>
+                            <td class="px-4 py-4 text-center">0.3634</td>
+                        </tr>
+                        <!-- Dummy -->
+                        <tr class="bg-slate-50/50 italic opacity-60">
+                            <td class="px-4 py-4 text-center text-slate-400 font-mono">5</td>
+                            <td class="px-4 py-4 font-bold text-slate-500">Dummy Classifier</td>
+                            <td class="px-4 py-4 text-center">0.9058</td>
+                            <td class="px-4 py-4 text-center">0.5000</td>
+                            <td class="px-4 py-4 text-center">0.0000</td>
+                            <td class="px-4 py-4 text-center">0.0000</td>
+                            <td class="px-4 py-4 text-center">0.0000</td>
+                            <td class="px-4 py-4 text-center">0.5000</td>
+                            <td class="px-4 py-4 text-center">0.0942</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Comparison Insights -->
+            <div class="grid grid-cols-1 gap-4">
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2 uppercase text-xs tracking-widest">
+                        <span class="text-blue-500">📌</span> Performance Findings
+                    </h4>
+                    <ul class="space-y-4 text-sm text-slate-600 font-medium">
+                        <li class="flex gap-3">
+                            <span class="text-blue-500">●</span>
+                            <p><strong class="text-slate-800">XGBoost_Balanced</strong> achieved the best overall validation ranking with <strong>PR-AUC = 0.3753</strong> and <strong>ROC-AUC = 0.8485</strong>.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-blue-500">●</span>
+                            <p><strong class="text-slate-800">HistGradientBoosting_Balanced</strong> was a close second and showed the highest <strong>Recall = 0.8200</strong>.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-blue-500">●</span>
+                            <p><strong class="text-slate-800">LogisticRegression_Balanced</strong> remained a strong linear baseline with competitive ranking performance.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-blue-500">●</span>
+                            <p><strong>Random Forest</strong> and <strong>Extra Trees</strong> performed well, but ranked slightly lower overall in the prioritized metrics.</p>
+                        </li>
+                        <li class="flex gap-3 text-orange-700 bg-orange-50 p-2 rounded-lg border border-orange-100">
+                            <span class="text-orange-500 font-bold">!</span>
+                            <p><strong>Dummy</strong> had the highest Accuracy but failed completely on the minority class, missing all heart disease cases.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Final Conclusion Card -->
+            <div class="mt-8 bg-blue-600 p-8 rounded-2xl text-white shadow-xl shadow-blue-200 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-xl font-black mb-4 flex items-center gap-2 italic underline decoration-blue-400">
+                        Final Conclusion
+                    </h3>
+                    <p class="text-lg font-medium leading-relaxed">
+                        Based on the superior <span class="bg-white/20 px-2 rounded">PR-AUC</span> and balanced metrics, 
+                        <strong class="text-white underline underline-offset-4 font-black">XGBoost_Balanced</strong> 
+                        was selected as the best overall model for the final threshold tuning and evaluation phase.
+                    </p>
+                </div>
+                <!-- Trang trí nhẹ cho card conclusion -->
+                <div class="absolute -right-4 -bottom-8 opacity-10">
+                    <svg width="200" height="200" fill="white" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Threshold Tuning -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="mb-8 border-b border-gray-100 pb-4">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-orange-500 rounded-full inline-block"></span>
+                    10. Threshold Tuning
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                <!-- Cột trái: Context & Interpretation -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Why threshold tuning?</h3>
+                        <ul class="space-y-3 text-sm text-slate-600">
+                            <li class="flex gap-2"><span>•</span> The default threshold (0.50) is not always optimal for imbalanced data.</li>
+                            <li class="flex gap-2"><span>•</span> Different thresholds create different trade-offs between Precision, Recall, and F1-score.</li>
+                            <li class="flex gap-2"><span>•</span> We tuned the threshold to improve minority-class detection and find a better balance.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-5 bg-orange-50 rounded-2xl border border-orange-100">
+                        <h3 class="text-sm font-bold text-orange-800 uppercase tracking-widest mb-4">Interpretation</h3>
+                        <ul class="space-y-3 text-xs text-orange-700 font-medium">
+                            <li class="flex gap-2"><span>✅</span> Setting the threshold to <strong>0.69</strong> gave the best Precision–Recall trade-off based on the highest F1-score.</li>
+                            <li class="flex gap-2"><span>✅</span> This tuned threshold was then used for the final evaluation on the test set.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Chart & Result -->
+                <div class="lg:col-span-2 space-y-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">Result</h3>
+                    
+                    <!-- BIỂU ĐỒ THRESHOLD TUNING -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-inner">
+                        <div style="height: 350px;"><canvas id="thresholdTuningChart"></canvas></div>
+                    </div>
+
+                    <!-- Bullet points kết quả -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <ul class="list-disc ml-5 text-xs text-slate-600 space-y-2">
+                            <li>The default threshold <strong>0.50 was not optimal</strong> for this imbalanced problem.</li>
+                            <li>The best threshold was <strong>0.69</strong>, where the model achieved the highest <strong>F1-score = 0.3852</strong>.</li>
+                        </ul>
+                        <ul class="list-disc ml-5 text-xs text-slate-600 space-y-2">
+                            <li>At this point, the model maintained <strong>Recall = 0.6911</strong>.</li>
+                            <li>Threshold tuning helped the model make more balanced decisions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 11. Conclusion -->
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 border-t-8 border-t-blue-600">
             <div class="mb-10">
@@ -602,5 +1018,6 @@
     </footer>
 
     <script src="./dataloader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
     <script src="./script.js"></script>
 </body>
