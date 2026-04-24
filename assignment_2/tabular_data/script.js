@@ -66,20 +66,23 @@ window.renderMLResults = function() {
                 </p>
             </div>
         `;
-        
-        // 1. Cập nhật Metrics
+
         const metricsContainer = document.getElementById('individual-metrics');
         const m = modelInfo.metrics;
+        
         const metricsToShow = [
-            { label: 'ROC-AUC', val: m.roc_auc, color: 'text-indigo-600' },
-            { label: 'PR-AUC', val: m.pr_auc, color: 'text-rose-600' },
+            { label: 'Accuracy', val: m.accuracy, color: 'text-blue-600' },
+            { label: 'Balanced Acc', val: m.balanced_accuracy, color: 'text-cyan-600' },
+            { label: 'Precision', val: m.precision, color: 'text-emerald-600' },
+            { label: 'Recall', val: m.recall, color: 'text-teal-600' },
             { label: 'F1-Score', val: m.f1, color: 'text-purple-600' },
-            { label: 'Recall', val: m.recall, color: 'text-emerald-600' }
+            { label: 'ROC-AUC', val: m.roc_auc, color: 'text-indigo-600' },
+            { label: 'PR-AUC', val: m.pr_auc, color: 'text-rose-600' }
         ];
         metricsContainer.innerHTML = metricsToShow.map(item => `
-            <div class="bg-white border border-slate-100 p-3 rounded-lg shadow-sm">
-                <div class="text-[10px] text-slate-400 uppercase font-bold">${item.label}</div>
-                <div class="text-xl font-black ${item.color}">${item.val.toFixed(4)}</div>
+            <div class="bg-white border border-slate-100 p-3 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">${item.label}</div>
+                <div class="text-lg font-black ${item.color}">${item.val.toFixed(4)}</div>
             </div>
         `).join('');
 
@@ -88,14 +91,14 @@ window.renderMLResults = function() {
         document.getElementById('individual-cm').innerHTML = `
             <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
                 <div class="p-2"></div>
-                <div class="p-2 bg-slate-200 rounded text-slate-600">Pred: NO</div>
-                <div class="p-2 bg-slate-200 rounded text-slate-600">Pred: YES</div>
-                <div class="p-2 bg-slate-200 rounded flex items-center justify-center text-slate-600">Actual: NO</div>
-                <div class="p-4 bg-emerald-500 text-white rounded shadow-inner">${cm.matrix[0][0]}</div>
-                <div class="p-4 bg-orange-100 text-orange-800 rounded">${cm.matrix[0][1]}</div>
-                <div class="p-2 bg-slate-200 rounded flex items-center justify-center text-slate-600">Actual: YES</div>
-                <div class="p-4 bg-orange-100 text-orange-800 rounded">${cm.matrix[1][0]}</div>
-                <div class="p-4 bg-emerald-500 text-white rounded shadow-inner">${cm.matrix[1][1]}</div>
+                <div class="p-2 bg-slate-200 rounded text-slate-600 uppercase">Pred: NO</div>
+                <div class="p-2 bg-slate-200 rounded text-slate-600 uppercase">Pred: YES</div>
+                <div class="p-2 bg-slate-200 rounded flex items-center justify-center text-slate-600 uppercase">Actual: NO</div>
+                <div class="p-4 bg-emerald-500 text-white rounded shadow-inner text-sm">${cm.matrix[0][0].toLocaleString()}</div>
+                <div class="p-4 bg-orange-100 text-orange-800 rounded text-sm">${cm.matrix[0][1].toLocaleString()}</div>
+                <div class="p-2 bg-slate-200 rounded flex items-center justify-center text-slate-600 uppercase">Actual: YES</div>
+                <div class="p-4 bg-orange-100 text-orange-800 rounded text-sm">${cm.matrix[1][0].toLocaleString()}</div>
+                <div class="p-4 bg-emerald-500 text-white rounded shadow-inner text-sm">${cm.matrix[1][1].toLocaleString()}</div>
             </div>
         `;
 
@@ -268,4 +271,80 @@ if (threshData && ctxThresh) {
 
     // Khởi tạo lần đầu với XGBoost
     updateDashboard('XGBoost_Balanced');
+    // ==========================================
+    // 11. VẼ PHẦN FINAL TEST EVALUATION
+    // ==========================================
+    const testData = window.TABULAR_ML.bestModelTest;
+    
+    if (testData) {
+        // 1. Render Metrics
+// 1. Render Metrics (Đã cập nhật đủ 7 thẻ theo hình mẫu)
+        const m = testData.metrics;
+        const testMetricsToShow = [
+            { label: 'Accuracy', val: m.accuracy, color: 'text-blue-600' },
+            { label: 'Balanced Acc', val: m.balanced_accuracy, color: 'text-cyan-600' },
+            { label: 'Precision', val: m.precision, color: 'text-emerald-600' },
+            { label: 'Recall', val: m.recall, color: 'text-teal-600' },
+            { label: 'F1-Score', val: m.f1, color: 'text-purple-600' },
+            { label: 'ROC-AUC', val: m.roc_auc, color: 'text-indigo-600' },
+            { label: 'PR-AUC', val: m.pr_auc, color: 'text-rose-600' }
+        ];
+
+        document.getElementById('test-metrics-grid').innerHTML = testMetricsToShow.map(item => `
+            <div class="bg-white border border-slate-100 p-3 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">${item.label}</div>
+                <div class="text-xl font-black ${item.color}">${item.val.toFixed(4)}</div>
+            </div>
+        `).join('');
+
+        // 3. Vẽ ROC Curve (Test Set)
+        new Chart(document.getElementById('finalRocChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: testData.roc_curve.fpr,
+                datasets: [{
+                    label: 'Test ROC',
+                    data: testData.roc_curve.tpr,
+                    borderColor: '#2563eb',
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    fill: true,
+                    backgroundColor: 'rgba(37, 99, 235, 0.05)'
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { 
+                    x: { type: 'linear', title: { display: true, text: 'False Positive Rate' }, min: 0, max: 1 },
+                    y: { title: { display: true, text: 'True Positive Rate' }, min: 0, max: 1 }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 4. Vẽ PR Curve (Test Set)
+        new Chart(document.getElementById('finalPrChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: testData.pr_curve.recall,
+                datasets: [{
+                    label: 'Test PR',
+                    data: testData.pr_curve.precision,
+                    borderColor: '#e11d48',
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    fill: true,
+                    backgroundColor: 'rgba(225, 29, 72, 0.05)'
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { 
+                    x: { type: 'linear', title: { display: true, text: 'Recall' }, min: 0, max: 1 },
+                    y: { title: { display: true, text: 'Precision' }, min: 0, max: 1 }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
 };
