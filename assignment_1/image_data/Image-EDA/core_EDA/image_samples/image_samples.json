@@ -1,6 +1,6 @@
 [
     {
-        "class": "buildings",
+        "class": "sea",
         "images": [
             {
                 "path": "/static/0_0.png"
@@ -17,7 +17,7 @@
         ]
     },
     {
-        "class": "forest",
+        "class": "glacier",
         "images": [
             {
                 "path": "/static/1_0.png"
@@ -34,7 +34,7 @@
         ]
     },
     {
-        "class": "glacier",
+        "class": "mountain",
         "images": [
             {
                 "path": "/static/2_0.png"
@@ -51,7 +51,7 @@
         ]
     },
     {
-        "class": "mountain",
+        "class": "street",
         "images": [
             {
                 "path": "/static/3_0.png"
@@ -68,7 +68,7 @@
         ]
     },
     {
-        "class": "sea",
+        "class": "buildings",
         "images": [
             {
                 "path": "/static/4_0.png"
@@ -85,7 +85,7 @@
         ]
     },
     {
-        "class": "street",
+        "class": "forest",
         "images": [
             {
                 "path": "/static/5_0.png"
