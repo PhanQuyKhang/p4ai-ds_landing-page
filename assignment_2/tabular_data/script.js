@@ -297,6 +297,22 @@ if (threshData && ctxThresh) {
             </div>
         `).join('');
 
+        // 2. Render Test Confusion Matrix
+        const testCM = testData.confusion_matrix;
+        document.getElementById('test-confusion-matrix').innerHTML = `
+            <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+                <div class="p-2"></div>
+                <div class="p-2 bg-slate-200 rounded text-slate-600 uppercase">Pred: NO</div>
+                <div class="p-2 bg-slate-200 rounded text-slate-600 uppercase">Pred: YES</div>
+                <div class="p-2 bg-slate-200 rounded flex items-center justify-center text-slate-600 uppercase">Actual: NO</div>
+                <div class="p-4 bg-emerald-500 text-white rounded shadow-inner text-sm">${testCM.matrix[0][0].toLocaleString()}</div>
+                <div class="p-4 bg-orange-100 text-orange-800 rounded text-sm">${testCM.matrix[0][1].toLocaleString()}</div>
+                <div class="p-2 bg-slate-200 rounded flex items-center justify-center text-slate-600 uppercase">Actual: YES</div>
+                <div class="p-4 bg-orange-100 text-orange-800 rounded text-sm">${testCM.matrix[1][0].toLocaleString()}</div>
+                <div class="p-4 bg-emerald-500 text-white rounded shadow-inner text-sm">${testCM.matrix[1][1].toLocaleString()}</div>
+            </div>
+        `;
+
         // 3. Vẽ ROC Curve (Test Set)
         new Chart(document.getElementById('finalRocChart').getContext('2d'), {
             type: 'line',
