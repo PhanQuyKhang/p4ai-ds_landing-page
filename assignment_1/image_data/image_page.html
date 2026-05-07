@@ -198,11 +198,23 @@
             <ul class="space-y-4 text-slate-600 font-medium" id="key-insights-list">
                 <li class="flex gap-3">
                     <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Dataset Transition:</strong> The dataset has been updated to focus solely on Image Classification tasks. Object detection and segmentation properties have been omitted from this analysis pipeline.</p>
+                    <p><strong>Inconsistent resolution:</strong> Although all images have the same Width, which is 150 pixels, and their height is mostly also 150 pixels but there are some a some number of images with smaller height.</p>
                 </li>
                 <li class="flex gap-3">
                     <span class="text-emerald-500 mt-1">✓</span>
-                    <p><strong>Feature Clustering:</strong> The T-SNE and UMAP visualizations provide insights into how well traditional features separate the different classes in lower-dimensional space.</p>
+                    <p><strong>Class mostly balance:</strong> Even though the classes in this dataset are not perfectly balanced across all train, eval and testing dataset, with the largest class is mountain (or glacier) and smallest being building. But the differences are small and can be ignored. So the classes in this dataset are mostly ballance</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Sharpness and Contrast relationship:</strong> Most of the image have near zero or low sharpness, even with high contrast, indicate that most image going to have blurry, noisy background, which is most likely the blurry background when the image focus solely on the image</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Class correlation:</strong> Some classes are highly correlated to each other (for example Glacier and mountain and building and street), which is evident by the fact that their clustering is heavily overlapped with each other. This can be explain be the fact that the main object in this class can be present in other classes (like building can appear in street image, glacier can have mountain its image and vice versa)</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="text-emerald-500 mt-1">✓</span>
+                    <p><strong>Task:</strong> Intel image classification is tailored to classification task, so there are no bounding box, segmentation mask or any annotation provided for any other specific task like segmentation and detection (unless manually added or automatically using pretrained model)</p>
                 </li>
             </ul>
         </section>
